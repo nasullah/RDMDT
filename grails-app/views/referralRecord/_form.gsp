@@ -148,7 +148,7 @@
 
 			<div class="col-lg-6">
 				<div>
-					<label for="ageOfSymptomsUnit" class="control-label">Unit</label>
+					<label class="control-label">Unit</label>
 					<div>
 						<g:select class="form-control" id="symptomEgeUnit" name="symptomEgeUnit.id" from="${rdmdt.EgeUnit.list()}" optionKey="id"  value="" noSelection="['':'- Choose -']"/>
 					</div>
@@ -341,11 +341,10 @@
 
 			<g:if test="${referralRecordInstance?.pedigree == null}">
 				<div class="col-lg-6">
-					<div class="${hasErrors(bean: referralRecordInstance, field: 'pedigree', 'error')} ">
-						<label for="pedigree" class="control-label"><g:message code="referralRecord.pedigree.label" default="Pedigree" /></label>
+					<div class="">
+						<label  class="control-label">Pedigree</label>
 						<div>
 							<input type="file" id="pedigreeFile" name="pedigreeFile" />
-							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'pedigree', 'error')}</span>
 						</div>
 					</div>
 				</div>

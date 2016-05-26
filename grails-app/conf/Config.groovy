@@ -133,6 +133,6 @@ environments {
         uploadFolder = "C:/Users/nasullah.alham/Desktop/upload_folder/"
     }
     production {
-        uploadFolder = "/media/1TBdisk/Gelimages/"
+        uploadFolder = "C:/Users/BRC15Admin/Documents/upload_folder/"
     }
 }

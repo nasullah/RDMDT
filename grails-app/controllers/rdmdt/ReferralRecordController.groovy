@@ -33,6 +33,31 @@ class ReferralRecordController {
         respond new ReferralRecord(params)
     }
 
+    def download(long id) {
+        ReferralRecord referralRecordInstance = ReferralRecord.get(id)
+        if ( referralRecordInstance == null) {
+            flash.message = "Pedigree file not found"
+            redirect (action:'index')
+        } else {
+            response.setContentType("APPLICATION/OCTET-STREAM")
+            response.setHeader("Content-Disposition", "Attachment;Filename=\"${referralRecordInstance.pedigree}\"")
+
+            def file = new File(referralRecordInstance.pedigree)
+            def fileInputStream = new FileInputStream(file)
+            def outputStream = response.getOutputStream()
+
+            byte[] buffer = new byte[4096];
+            int len;
+            while ((len = fileInputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, len);
+            }
+
+            outputStream.flush()
+            outputStream.close()
+            fileInputStream.close()
+        }
+    }
+
     @Transactional
     def save(ReferralRecord referralRecordInstance) {
         if (referralRecordInstance == null) {
@@ -136,12 +161,34 @@ class ReferralRecordController {
                 referralRecordInstance.addToExtraTests(extraTest).save flush: true
             }
 
-            request.withFormat {
-                form {
-                    flash.message = message(code: 'default.created.message', args: [message(code: 'referralRecordInstance.label', default: 'ReferralRecord'), referralRecordInstance.id])
+            def file = request.getFile('pedigreeFile')
+            if (file?.originalFilename){
+                if (file?.empty) {
+                    flash.message = "File cannot be empty"
+                    respond referralRecordInstance.errors, view: 'create'
+                    return
+                }
+                referralRecordInstance.pedigree = grailsApplication.config.uploadFolder +'Pedigree/'+
+                        referralRecordInstance.id.toString() + '.' + file.originalFilename
+                def destinationFile = new File(referralRecordInstance.pedigree)
+
+                try {
+                    file.transferTo(destinationFile)
+                    referralRecordInstance.save flush: true
+                    flash.message = "Referral Record ${referralRecordInstance.id} is created"
                     redirect referralRecordInstance
                 }
-                '*' { respond referralRecordInstance, [status: CREATED] }
+                catch (Exception ex) {
+                    log.error(ex)
+                    referralRecordInstance.pedigree = null
+                    referralRecordInstance.save flush: true
+                    flash.message = "Referral Record ${referralRecordInstance.id} is created. Pedigree file could not be uploaded."
+                    redirect referralRecordInstance
+                }
+
+            } else {
+                flash.message = "Referral Record ${referralRecordInstance.id} is created"
+                redirect referralRecordInstance
             }
         }
     }
@@ -181,14 +228,24 @@ class ReferralRecordController {
             return
         }
 
-        referralRecordInstance.delete flush: true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'ReferralRecord.label', default: 'ReferralRecord'), referralRecordInstance.id])
-                redirect action: "index", method: "GET"
+        if (referralRecordInstance.pedigree){
+            def pedigreeFile = new File(referralRecordInstance.pedigree)
+            if (pedigreeFile.exists()){
+                boolean fileDeletedSuccessfully = new File(referralRecordInstance.pedigree).delete()
+                if (fileDeletedSuccessfully){
+                    referralRecordInstance.delete flush: true
+                    flash.message = "Referral record instance has been deleted"
+                    redirect action: "index", method: "GET"
+                } else{
+                    flash.message = "Could not delete the pedigree file"
+                    redirect action: "index", method: "GET"
+                }
             }
-            '*' { render status: NO_CONTENT }
+
+        }else {
+            referralRecordInstance.delete flush: true
+            flash.message = "Referral record instance has been deleted"
+            redirect action: "index", method: "GET"
         }
     }
 

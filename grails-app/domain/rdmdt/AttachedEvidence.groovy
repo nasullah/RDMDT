@@ -14,7 +14,7 @@ class AttachedEvidence {
         referralRecord()
         addedOn(nullable: true)
         type()
-        content()
+        content(nullable: true)
     }
 
     Date addedOn

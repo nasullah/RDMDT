@@ -33,6 +33,31 @@ class AttachedEvidenceController {
         respond new AttachedEvidence(params)
     }
 
+    def download(long id) {
+        AttachedEvidence attachedEvidenceInstance = AttachedEvidence.get(id)
+        if ( attachedEvidenceInstance == null) {
+            flash.message = "Attached evidence file not found"
+            redirect (action:'index')
+        } else {
+            response.setContentType("APPLICATION/OCTET-STREAM")
+            response.setHeader("Content-Disposition", "Attachment;Filename=\"${attachedEvidenceInstance.content}\"")
+
+            def file = new File(attachedEvidenceInstance.content)
+            def fileInputStream = new FileInputStream(file)
+            def outputStream = response.getOutputStream()
+
+            byte[] buffer = new byte[4096];
+            int len;
+            while ((len = fileInputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, len);
+            }
+
+            outputStream.flush()
+            outputStream.close()
+            fileInputStream.close()
+        }
+    }
+
     @Transactional
     def save(AttachedEvidence attachedEvidenceInstance) {
         if (attachedEvidenceInstance == null) {
@@ -45,14 +70,26 @@ class AttachedEvidenceController {
             return
         }
 
-        attachedEvidenceInstance.save flush: true
+        def file = request.getFile('attachedEvidenceFile')
+        if (!file.originalFilename) {
+            flash.message = "Please choose a file"
+            respond attachedEvidenceInstance, view: 'create'
+        }else{
+            attachedEvidenceInstance.save flush: true
+            attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + file.originalFilename
+            def destinationFile = new File(attachedEvidenceInstance.content)
 
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'attachedEvidenceInstance.label', default: 'AttachedEvidence'), attachedEvidenceInstance.id])
-                redirect attachedEvidenceInstance
+            try {
+                file.transferTo(destinationFile)
+                attachedEvidenceInstance.save flush: true
+                flash.message = "Attached evidence ${attachedEvidenceInstance.id} is created"
+                redirect(controller:'referralRecord',action: 'show', params: [id: attachedEvidenceInstance.referralRecord.id])
             }
-            '*' { respond attachedEvidenceInstance, [status: CREATED] }
+            catch (Exception ex) {
+                log.error(ex)
+                flash.message = "Attached evidence ${referralRecordInstance.id} is not created."
+                respond attachedEvidenceInstance, view: 'create'
+            }
         }
     }
 
@@ -91,14 +128,24 @@ class AttachedEvidenceController {
             return
         }
 
-        attachedEvidenceInstance.delete flush: true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'AttachedEvidence.label', default: 'AttachedEvidence'), attachedEvidenceInstance.id])
-                redirect action: "index", method: "GET"
+        if (attachedEvidenceInstance.content){
+            def attachedEvidenceFile = new File(attachedEvidenceInstance.content)
+            if (attachedEvidenceFile.exists()){
+                boolean fileDeletedSuccessfully = new File(attachedEvidenceInstance.content).delete()
+                if (fileDeletedSuccessfully){
+                    attachedEvidenceInstance.delete flush: true
+                    flash.message = "Attached evidence instance has been deleted"
+                    redirect(controller:'referralRecord',action: 'show', params: [id: attachedEvidenceInstance.referralRecord.id])
+                } else{
+                    flash.message = "Could not delete the file"
+                    redirect(controller:'referralRecord',action: 'show', params: [id: attachedEvidenceInstance.referralRecord.id])
+                }
             }
-            '*' { render status: NO_CONTENT }
+        }else {
+            attachedEvidenceInstance.delete flush: true
+            flash.message = "Attached evidence instance has been deleted"
+            redirect(controller:'referralRecord',action: 'show', params: [id: attachedEvidenceInstance.referralRecord.id])
+
         }
     }
 

@@ -210,24 +210,28 @@ invokeTag('link','g',319,['controller':("attachedEvidence"),'action':("show"),'i
 printHtmlPart(37)
 }
 printHtmlPart(38)
-invokeTag('message','g',327,['code':("referralRecord.extraTests.label"),'default':("Extra Tests")],-1)
-printHtmlPart(5)
-expressionOut.print(fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "testName"))
+if(true && (!referralRecordInstance?.extraTests?.empty)) {
 printHtmlPart(39)
-invokeTag('message','g',333,['code':("referralRecord.extraTests.label"),'default':("Extra Tests")],-1)
-printHtmlPart(15)
-expressionOut.print(fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "requestedDate"))
+invokeTag('message','g',328,['code':("referralRecord.extraTests.label"),'default':("Extra Tests")],-1)
 printHtmlPart(40)
-})
-invokeTag('captureBody','sitemesh',342,[:],1)
+expressionOut.print(fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "testName"))
 printHtmlPart(41)
+invokeTag('message','g',334,['code':("referralRecord.extraTests.label"),'default':("Extra Tests")],-1)
+printHtmlPart(40)
+expressionOut.print(fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "requestedDate"))
+printHtmlPart(42)
+}
+printHtmlPart(43)
+})
+invokeTag('captureBody','sitemesh',344,[:],1)
+printHtmlPart(44)
 }
 public static final Map JSP_TAGS = new HashMap()
 protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1464182355828L
+public static final long LAST_MODIFIED = 1464254613023L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'

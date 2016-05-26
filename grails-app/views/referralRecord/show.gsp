@@ -146,7 +146,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.pedigree.label" default="Pedigree" /></td>
 				
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "pedigree")}</td>
+				<td valign="top" class="value"><g:link action="download" id="${referralRecordInstance.id}">${referralRecordInstance.pedigree}</g:link></td>
 				
 			</tr>
 
@@ -257,7 +257,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.referralStatus.label" default="Referral Status" /></td>
 				
-				<td valign="top" class="value"><g:link controller="referralStatus" action="show" id="${referralRecordInstance?.referralStatus?.id}">${referralRecordInstance?.referralStatus?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value">${referralRecordInstance?.referralStatus}</td>
 				
 			</tr>
 		
@@ -340,6 +340,12 @@
 		</tbody>
 	</table>
 </section>
+
+<hr/>
+
+<p class="text-primary">Available Actions</p>
+
+<a class='btn btn-primary btn-xs' <g:link controller="attachedEvidence" action="create" params="['referralRecord.id': referralRecordInstance?.id]"><i class="glyphicon glyphicon-plus"></i> Attach evidence</g:link>
 
 </body>
 
