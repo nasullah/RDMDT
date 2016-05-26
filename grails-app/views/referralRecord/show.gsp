@@ -322,18 +322,20 @@
 				</td>
 				
 			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.extraTests.label" default="Extra Tests" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "testName")}</td>
-			</tr>
 
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.extraTests.label" default="Extra Tests" /></td>
+			<g:if test="${!referralRecordInstance?.extraTests?.empty}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.extraTests.label" default="Extra Tests" /></td>
 
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "requestedDate")}</td>
-			</tr>
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "testName")}</td>
+				</tr>
+
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.extraTests.label" default="Extra Tests" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "requestedDate")}</td>
+				</tr>
+			</g:if>
 		
 		</tbody>
 	</table>

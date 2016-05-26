@@ -124,3 +124,15 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'rdmdt.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'rdmdt.UserRole'
 grails.plugins.springsecurity.authority.className = 'rdmdt.Role'
+
+environments {
+    development {
+        uploadFolder = "C:/Users/nasullah.alham/Desktop/upload_folder/"
+    }
+    test {
+        uploadFolder = "C:/Users/nasullah.alham/Desktop/upload_folder/"
+    }
+    production {
+        uploadFolder = "/media/1TBdisk/Gelimages/"
+    }
+}

@@ -43,7 +43,7 @@ createTagBody(2, {->
 printHtmlPart(8)
 invokeTag('render','g',22,['template':("form")],-1)
 printHtmlPart(9)
-invokeTag('submitButton','g',25,['name':("create"),'class':("btn btn-primary"),'value':(message(code: 'default.button.create.label', default: 'Create'))],-1)
+invokeTag('submitButton','g',25,['name':("create"),'class':("btn btn-primary"),'value':("Save")],-1)
 printHtmlPart(10)
 invokeTag('message','g',26,['code':("default.button.reset.label"),'default':("Reset")],-1)
 printHtmlPart(11)
@@ -51,7 +51,7 @@ printHtmlPart(11)
 invokeTag('form','g',28,['action':("save"),'class':("form-horizontal"),'role':("form")],2)
 printHtmlPart(12)
 })
-invokeTag('captureBody','sitemesh',32,[:],1)
+invokeTag('captureBody','sitemesh',34,[:],1)
 printHtmlPart(13)
 }
 public static final Map JSP_TAGS = new HashMap()
@@ -59,7 +59,7 @@ protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1463745492307L
+public static final long LAST_MODIFIED = 1464187717257L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'

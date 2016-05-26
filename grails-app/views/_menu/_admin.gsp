@@ -68,7 +68,7 @@
 			<li class="">
 				<a href="${createLink(uri: '/egeUnit')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
-					Ege Unit
+					Age Unit
 				</a>
 			</li>
 
@@ -97,6 +97,13 @@
 				<a href="${createLink(uri: '/penetrance')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 					Penetrance
+				</a>
+			</li>
+
+			<li class="">
+				<a href="${createLink(uri: '/program')}">
+					<i class="glyphicon glyphicon-plus-sign"></i>
+					Program
 				</a>
 			</li>
 

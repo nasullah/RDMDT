@@ -339,15 +339,17 @@
 				</div>
 			</div>
 
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'pedigree', 'error')} ">
-					<label for="pedigree" class="control-label"><g:message code="referralRecord.pedigree.label" default="Pedigree" /></label>
-					<div>
-						<input type="file" id="pedigree" name="pedigree" />
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'pedigree', 'error')}</span>
+			<g:if test="${referralRecordInstance?.pedigree == null}">
+				<div class="col-lg-6">
+					<div class="${hasErrors(bean: referralRecordInstance, field: 'pedigree', 'error')} ">
+						<label for="pedigree" class="control-label"><g:message code="referralRecord.pedigree.label" default="Pedigree" /></label>
+						<div>
+							<input type="file" id="pedigreeFile" name="pedigreeFile" />
+							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'pedigree', 'error')}</span>
+						</div>
 					</div>
 				</div>
-			</div>
+			</g:if>
 		</div>
 
 		<hr/>
