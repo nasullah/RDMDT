@@ -40,8 +40,8 @@ printHtmlPart(4)
 expressionOut.print(hasErrors(bean: programInstance, field: 'description', 'error'))
 printHtmlPart(8)
 invokeTag('message','g',38,['code':("program.description.label"),'default':("Description")],-1)
-printHtmlPart(6)
-invokeTag('textField','g',40,['class':("form-control"),'name':("description"),'value':(programInstance?.description)],-1)
+printHtmlPart(2)
+invokeTag('textField','g',40,['class':("form-control"),'name':("description"),'value':(programInstance?.description),'required':("")],-1)
 printHtmlPart(3)
 expressionOut.print(hasErrors(bean: programInstance, field: 'description', 'error'))
 printHtmlPart(9)
@@ -51,7 +51,7 @@ protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1464186093217L
+public static final long LAST_MODIFIED = 1464256605678L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'

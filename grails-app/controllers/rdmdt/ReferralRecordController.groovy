@@ -13,6 +13,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class ReferralRecordController {
 
+    def springSecurityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -23,6 +24,15 @@ class ReferralRecordController {
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond ReferralRecord.list(params), model: [referralRecordInstanceCount: ReferralRecord.count()]
+    }
+
+    def filteredReferralList() {
+        def currentUser = springSecurityService.currentUser.username
+        currentUser = currentUser.toString().replace('.', ' ')
+        def clinician = Clinician.createCriteria().get{
+            eq("name", currentUser, [ignoreCase: true])
+        }
+        [referralRecordInstanceList: ReferralRecord.findAllByClinician(clinician).sort {it?.referralStatus?.id}]
     }
 
     def show(ReferralRecord referralRecordInstance) {

@@ -121,9 +121,29 @@ log4j = {
 }
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'rdmdt.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'rdmdt.UserRole'
-grails.plugins.springsecurity.authority.className = 'rdmdt.Role'
+//grails.plugins.springsecurity.userLookup.userDomainClassName = 'rdmdt.User'
+//grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'rdmdt.UserRole'
+//grails.plugins.springsecurity.authority.className = 'rdmdt.Role'
+//grails.plugins.springsecurity.successHandler.alwaysUseDefault = true
+//grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/referralRecord/filteredReferralList'
+
+grails {
+    plugins {
+        springsecurity {
+// Added by the Spring Security Core plugin:
+            userLookup.userDomainClassName = 'rdmdt.User'
+            userLookup.authorityJoinClassName = 'rdmdt.UserRole'
+            authority.className = 'rdmdt.Role'
+            successHandler.alwaysUseDefault = true
+            successHandler.defaultTargetUrl = '/referralRecord/filteredReferralList'
+            //ui.register.defaultRoleNames = []
+
+            ui.encodePassword = false
+            ui.password.minLength = 8
+            ui.password.maxLength = 64
+        }
+    }
+}
 
 environments {
     development {

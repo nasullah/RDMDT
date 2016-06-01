@@ -42,29 +42,29 @@ invokeTag('link','g',22,['controller':("referralRecord"),'action':("show"),'id':
 printHtmlPart(6)
 invokeTag('message','g',27,['code':("attachedEvidence.addedOn.label"),'default':("Added On")],-1)
 printHtmlPart(5)
-invokeTag('formatDate','g',29,['date':(attachedEvidenceInstance?.addedOn)],-1)
+invokeTag('formatDate','g',29,['format':("yyyy-MM-dd"),'date':(attachedEvidenceInstance?.addedOn)],-1)
 printHtmlPart(6)
 invokeTag('message','g',34,['code':("attachedEvidence.type.label"),'default':("Type")],-1)
 printHtmlPart(5)
-createTagBody(2, {->
-expressionOut.print(attachedEvidenceInstance?.type?.encodeAsHTML())
-})
-invokeTag('link','g',36,['controller':("attachedEvidenceType"),'action':("show"),'id':(attachedEvidenceInstance?.type?.id)],2)
+expressionOut.print(attachedEvidenceInstance?.type)
 printHtmlPart(6)
 invokeTag('message','g',41,['code':("attachedEvidence.content.label"),'default':("Content")],-1)
-printHtmlPart(5)
-expressionOut.print(fieldValue(bean: attachedEvidenceInstance, field: "content"))
 printHtmlPart(7)
+createTagBody(2, {->
+expressionOut.print(attachedEvidenceInstance.content)
+})
+invokeTag('link','g',43,['action':("download"),'id':(attachedEvidenceInstance.id)],2)
+printHtmlPart(8)
 })
 invokeTag('captureBody','sitemesh',51,[:],1)
-printHtmlPart(8)
+printHtmlPart(9)
 }
 public static final Map JSP_TAGS = new HashMap()
 protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1464175493400L
+public static final long LAST_MODIFIED = 1464267765886L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'

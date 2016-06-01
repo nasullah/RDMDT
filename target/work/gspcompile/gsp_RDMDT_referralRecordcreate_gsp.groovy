@@ -50,7 +50,7 @@ printHtmlPart(10)
 invokeTag('message','g',27,['code':("default.button.reset.label"),'default':("Reset")],-1)
 printHtmlPart(11)
 })
-invokeTag('form','g',29,['action':("save"),'class':("form-horizontal"),'role':("form")],2)
+invokeTag('uploadForm','g',29,['action':("save"),'class':("form-horizontal"),'role':("form")],2)
 printHtmlPart(12)
 })
 invokeTag('captureBody','sitemesh',35,[:],1)
@@ -61,7 +61,7 @@ protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1464254359117L
+public static final long LAST_MODIFIED = 1464260274631L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'

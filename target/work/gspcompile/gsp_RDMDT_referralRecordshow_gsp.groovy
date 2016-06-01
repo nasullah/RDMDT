@@ -103,7 +103,10 @@ expressionOut.print(fieldValue(bean: referralRecordInstance, field: "otherTestin
 printHtmlPart(6)
 invokeTag('message','g',147,['code':("referralRecord.pedigree.label"),'default':("Pedigree")],-1)
 printHtmlPart(5)
-expressionOut.print(fieldValue(bean: referralRecordInstance, field: "pedigree"))
+createTagBody(2, {->
+expressionOut.print(referralRecordInstance.pedigree)
+})
+invokeTag('link','g',149,['action':("download"),'id':(referralRecordInstance.id)],2)
 printHtmlPart(20)
 invokeTag('formatBoolean','g',156,['false':("No"),'true':("Yes"),'boolean':(referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer)],-1)
 printHtmlPart(21)
@@ -157,10 +160,7 @@ invokeTag('link','g',253,['controller':("penetrance"),'action':("show"),'id':(re
 printHtmlPart(6)
 invokeTag('message','g',258,['code':("referralRecord.referralStatus.label"),'default':("Referral Status")],-1)
 printHtmlPart(5)
-createTagBody(2, {->
-expressionOut.print(referralRecordInstance?.referralStatus?.encodeAsHTML())
-})
-invokeTag('link','g',260,['controller':("referralStatus"),'action':("show"),'id':(referralRecordInstance?.referralStatus?.id)],2)
+expressionOut.print(referralRecordInstance?.referralStatus)
 printHtmlPart(6)
 invokeTag('message','g',265,['code':("referralRecord.note.label"),'default':("Note")],-1)
 printHtmlPart(5)
@@ -222,16 +222,19 @@ expressionOut.print(fieldValue(bean: referralRecordInstance?.extraTests?.first()
 printHtmlPart(42)
 }
 printHtmlPart(43)
+createClosureForHtmlPart(44, 2)
+invokeTag('link','g',348,['controller':("attachedEvidence"),'action':("create"),'params':(['referralRecord.id': referralRecordInstance?.id])],2)
+printHtmlPart(3)
 })
-invokeTag('captureBody','sitemesh',344,[:],1)
-printHtmlPart(44)
+invokeTag('captureBody','sitemesh',350,[:],1)
+printHtmlPart(45)
 }
 public static final Map JSP_TAGS = new HashMap()
 protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1464254613023L
+public static final long LAST_MODIFIED = 1464267765896L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'
