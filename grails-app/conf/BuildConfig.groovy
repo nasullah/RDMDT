@@ -74,6 +74,7 @@ grails.project.dependency.resolution = {
         compile ":famfamfam:1.0.1"
         compile ":mail:1.0.7"
         compile ":richui:0.8"
+        compile ":filterpane:2.4.2"
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0.1"
         //runtime ":cached-resources:1.1"

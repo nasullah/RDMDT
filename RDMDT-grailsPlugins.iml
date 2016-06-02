@@ -15,6 +15,9 @@
           <root url="file://$MODULE_DIR$/target/work/plugins/mail-1.0.7/grails-app/views" relative="/" />
           <root url="file://$MODULE_DIR$/target/work/plugins/famfamfam-1.0.1/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/target/work/plugins/richui-0.8/web-app" relative="/" />
+          <root url="file://$MODULE_DIR$/target/work/plugins/joda-time-1.4/grails-app/views" relative="/" />
+          <root url="file://$MODULE_DIR$/target/work/plugins/filterpane-2.4.2/web-app" relative="/" />
+          <root url="file://$MODULE_DIR$/target/work/plugins/filterpane-2.4.2/grails-app/views" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -41,9 +44,19 @@
     <content url="file://$MODULE_DIR$/target/work/plugins/famfamfam-1.0.1">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/famfamfam-1.0.1/grails-app/taglib" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/target/work/plugins/filterpane-2.4.2">
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/filterpane-2.4.2/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/filterpane-2.4.2/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/filterpane-2.4.2/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/filterpane-2.4.2/grails-app/taglib" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/hibernate-3.6.10.13">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/hibernate-3.6.10.13/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/hibernate-3.6.10.13/grails-app/i18n" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/target/work/plugins/joda-time-1.4">
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/joda-time-1.4/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/joda-time-1.4/grails-app/taglib" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/jquery-1.11.0.2">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/jquery-1.11.0.2/src/groovy" isTestSource="false" />
@@ -138,9 +151,11 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.52/tomcat-embed-jasper-7.0.52.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/tomcat-catalina-ant/7.0.52/tomcat-catalina-ant-7.0.52.jar!/" />
           <root url="file://$MODULE_DIR$/target/work/plugins/richui-0.8/lib" />
+          <root url="file://$MODULE_DIR$/target/work/plugins/joda-time-1.4/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/target/work/plugins/joda-time-1.4/lib" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/target/work/plugins/richui-0.8/lib" recursive="false" />
       </library>
     </orderEntry>

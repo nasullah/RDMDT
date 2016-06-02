@@ -39,8 +39,9 @@
 		</g:each>
 		</tbody>
 	</table>
-	<div>
-		<bs:paginate total="${referralRecordInstanceCount}" />
+	<div class="pagination">
+		<g:paginate total="${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}" params="${filterParams}" />
+		<a>Number of records: ${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}</a>
 	</div>
 </section>
 

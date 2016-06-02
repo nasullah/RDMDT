@@ -7,10 +7,34 @@
 	<meta name="layout" content="kickstart" />
 	<g:set var="entityName" value="${message(code: 'referralRecord.label', default: 'Referral Record')}" />
 	<title><g:message code="default.list.label" args="[entityName]" /></title>
+	<r:require module="filterpane" />
 </head>
 
 <body>
 
+<p>
+<p>
+<div style="background: rgba(80, 110, 56, 0.04);">
+	<div class="container">
+		<p>
+		<h5 class="text-center">Search Options</h5>
+		<p>
+			<filterpane:filterButton text="Filter This List" />
+			<filterpane:filterPane domain="rdmdt.ReferralRecord"
+								   excludeProperties="assignedOn, meetingDate"
+								   associatedProperties="clinician.name, clinician.telephone, clinician.departmentName, clinician.speciality,
+								   						 patients.nhsNumber, patients.gender.genderName, patients.ethnicity.ethnicityName,
+								   						 patients.ege, patients.egeUnit.egeUnitName, clinicalDetails.clinicalDetailsName,
+								   						 unrelatedClinicalFeatures.unrelatedClinicalFeatures, paternal.breastAndOrOvarianCancer,
+								   						 paternal.colorectalCancer, paternal.ischaemicHeartDiseaseOrStroke, paternal.endocrineTumours,
+								   						 maternal.breastAndOrOvarianCancer, maternal.colorectalCancer, maternal.ischaemicHeartDiseaseOrStroke,
+								   						 maternal.endocrineTumours, extraTests.testName"/>
+		<p>
+		<p>
+	</div>
+</div>
+
+<hr/>
 <section id="list-referralRecord" class="first">
 
 	<table class="table table-bordered margin-top-medium">
@@ -39,8 +63,9 @@
 		</g:each>
 		</tbody>
 	</table>
-	<div>
-		<bs:paginate total="${referralRecordInstanceCount}" />
+	<div class="pagination">
+		<g:paginate total="${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}" params="${filterParams}" />
+		<a>Number of records: ${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}</a>
 	</div>
 </section>
 

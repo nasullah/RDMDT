@@ -1,7 +1,7 @@
 package rdmdt
 
 import grails.plugins.springsecurity.Secured
-
+import org.grails.plugin.filterpane.FilterPaneUtils
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -13,6 +13,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class ReferralRecordController {
 
+    def filterPaneService
     def springSecurityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -21,9 +22,21 @@ class ReferralRecordController {
         respond ReferralRecord.list(params), model: [referralRecordInstanceCount: ReferralRecord.count()]
     }
 
-    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond ReferralRecord.list(params), model: [referralRecordInstanceCount: ReferralRecord.count()]
+//    def list(Integer max) {
+//        params.max = Math.min(max ?: 10, 100)
+//        respond ReferralRecord.list(params), model: [referralRecordInstanceCount: ReferralRecord.count()]
+//    }
+
+    def list() {
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        [referralRecordInstanceList: ReferralRecord.list(params), referralRecordInstanceTotal: ReferralRecord.count()]
+    }
+
+    def filter = {
+        if(!params.max) params.max = 10
+        render( view:'list', model:[ referralRecordInstanceList: filterPaneService.filter( params, ReferralRecord ),
+                                     referralRecordInstanceTotal: filterPaneService.count( params, ReferralRecord ),
+                                     filterParams: FilterPaneUtils.extractFilterParams(params), params:params ] )
     }
 
     def filteredReferralList() {
