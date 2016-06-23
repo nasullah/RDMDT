@@ -1,0 +1,19 @@
+<template bindable="prefix,label">
+    <require from="bootstrap/css/bootstrap.css"></require>
+
+    <div class="row">
+        <div class="col-lg-6" repeat.for="i of items">
+            <div id="${prefix + $index}">
+                <label class="control-label">${label}</label>
+                <div>
+                    <input class="form-control" id="${prefix + $index}" name="${prefix + $index}" type="text" value=""/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1" style="margin-top: 10px;">
+            <button class="btn btn-primary" click.trigger="addItem()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+        </div>
+    </div>
+</template>

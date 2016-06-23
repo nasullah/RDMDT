@@ -160,161 +160,13 @@
 
 		<h2>Clinical Information</h2>
 
-		<div class="row">
-			<div class="col-lg-6">
-				<div id="clinicalDetails0">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails0" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="addClinicalDetailsButton">
-					<label class="control-label">Add More Clinical Details</label>
-					<div>
-						<button type="button" id="addClinicalButton" class="btn btn-primary btn" value="add" onClick= 'addClinicalDetails()'><span class="glyphicon glyphicon-plus"></span> Add</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-6">
-				<div id="clinicalDetails1">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails1" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails2">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails2" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails3">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails3" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails4">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails4" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails5">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails5" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails6">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails6" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-		</div>
+		<repeating-input prefix="cDetails" label="Clinical details"></repeating-input>
 
 		<hr/>
 
 		<h2>Unrelated Clinical Feature</h2>
 
-		<div class="row">
-			<div class="col-lg-6">
-				<div id="unrelatedClinicalFeature0">
-					<label class="control-label">Unrelated Clinical Feature</label>
-					<div>
-						<g:field class="form-control" name="unrelatedFeature0" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="addUnrelatedClinicalFeatureButton">
-					<label class="control-label">Add More Unrelated Clinical Feature</label>
-					<div>
-						<button type="button" id="unrelatedFeatureButton" class="btn btn-primary btn" value="add" onClick= 'addUnrelatedClinicalFeatures()'><span class="glyphicon glyphicon-plus"></span> Add</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-6">
-				<div id="unrelatedClinicalFeature1">
-					<label class="control-label">Unrelated Clinical Feature</label>
-					<div>
-						<g:field class="form-control" name="unrelatedFeature1" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="unrelatedClinicalFeature2">
-					<label class="control-label">Unrelated Clinical Feature</label>
-					<div>
-						<g:field class="form-control" name="unrelatedFeature2" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="unrelatedClinicalFeature3">
-					<label class="control-label">Unrelated Clinical Feature</label>
-					<div>
-						<g:field class="form-control" name="unrelatedFeature3" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="unrelatedClinicalFeature4">
-					<label class="control-label">Unrelated Clinical Feature</label>
-					<div>
-						<g:field class="form-control" name="unrelatedFeature4" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="unrelatedClinicalFeature5">
-					<label class="control-label">Unrelated Clinical Feature</label>
-					<div>
-						<g:field class="form-control" name="unrelatedFeature5" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="unrelatedClinicalFeature6">
-					<label class="control-label">Unrelated Clinical Feature</label>
-					<div>
-						<g:field class="form-control" name="unrelatedFeature6" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-		</div>
+		<repeating-input prefix="unrelatedFeature" label="Unrelated Clinical Feature"></repeating-input>
 
 		<hr/>
 
@@ -680,70 +532,24 @@
 	function callClinician(clinician){
 		document.getElementById('clinician').value = clinician;
 	}
-
-	hideClinicalDetails();
-	var count = 1;
-	function hideClinicalDetails(){
-		if ($("#cDetails1").val() == ""){
-			$("#clinicalDetails1").hide();
-		}
-		if ($("#cDetails2").val() == ""){
-			$("#clinicalDetails2").hide();
-		}
-		if ($("#cDetails3").val() == ""){
-			$("#clinicalDetails3").hide();
-		}
-		if ($("#cDetails4").val() == ""){
-			$("#clinicalDetails4").hide();
-		}
-		if ($("#cDetails5").val() == ""){
-			$("#clinicalDetails5").hide();
-		}
-		if ($("#cDetails6").val() == ""){
-			$("#clinicalDetails6").hide();
-		}
-	}
-
-	function addClinicalDetails(){
-		$("#clinicalDetails"+count).show();
-		count++;
-		if (count > 6){
-			$("#addClinicalDetailsButton").hide();
-		}
-	}
-
-	hideUnrelatedClinicalFeatures();
-	var countUnrelated = 1;
-	function hideUnrelatedClinicalFeatures(){
-		if ($("#unrelatedFeature1").val() == ""){
-			$("#unrelatedClinicalFeature1").hide();
-		}
-		if ($("#unrelatedFeature2").val() == ""){
-			$("#unrelatedClinicalFeature2").hide();
-		}
-		if ($("#unrelatedFeature3").val() == ""){
-			$("#unrelatedClinicalFeature3").hide();
-		}
-		if ($("#unrelatedFeature4").val() == ""){
-			$("#unrelatedClinicalFeature4").hide();
-		}
-		if ($("#unrelatedFeature5").val() == ""){
-			$("#unrelatedClinicalFeature5").hide();
-		}
-		if ($("#unrelatedFeature6").val() == ""){
-			$("#unrelatedClinicalFeature6").hide();
-		}
-	}
-
-	function addUnrelatedClinicalFeatures(){
-		$("#unrelatedClinicalFeature"+countUnrelated).show();
-		countUnrelated++;
-		if (countUnrelated > 6){
-			$("#addUnrelatedClinicalFeatureButton").hide();
-		}
-	}
-
 </script>
+
+<!-- Activate Aurelia -->
+<script src="../jspm_packages/system.js"></script>
+<script src="../config.js"></script>
+<script>
+	System.import('aurelia-bootstrapper').then(function(bootstrapper) {
+		bootstrapper.bootstrap(function(aurelia) {
+			aurelia.use.standardConfiguration()
+				.globalResources('repeating-input'); //Register component
+
+			aurelia.start().then(function() {
+				aurelia.enhance();
+			});
+		});
+	});
+</script>
+<!-- End Activate Aurelia -->
 
 			%{--<div class="${hasErrors(bean: referralRecordInstance, field: 'attachedEvidence', 'error')} ">--}%
 				%{--<label for="attachedEvidence" class="control-label"><g:message code="referralRecord.attachedEvidence.label" default="Attached Evidence" /></label>--}%
