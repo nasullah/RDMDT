@@ -59,6 +59,13 @@
 			</li>
 
 			<li class="">
+				<a href="${createLink(uri: '/centre')}">
+					<i class="glyphicon glyphicon-plus-sign"></i>
+					Centre
+				</a>
+			</li>
+
+			<li class="">
 				<a href="${createLink(uri: '/consanguinity')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 					Consanguinity

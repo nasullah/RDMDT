@@ -11,6 +11,7 @@ class ActingClinician extends Person{
         telephone()
         departmentName()
         speciality()
+        centre()
     }
 
     /*

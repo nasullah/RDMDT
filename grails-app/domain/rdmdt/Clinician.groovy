@@ -14,6 +14,7 @@ class Clinician extends Person{
         departmentName(nullable: true)
         speciality()
         actingClinician(nullable: true)
+        centre()
     }
 
     ActingClinician actingClinician

@@ -1,4 +1,4 @@
-<%@ page import="rdmdt.Clinician" %>
+<%@ page import="rdmdt.Centre; rdmdt.Clinician" %>
 
 
 
@@ -29,6 +29,16 @@
 						<div>
 							<g:textField class="form-control" name="telephone" value="${clinicianInstance?.telephone}"/>
 							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'telephone', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="${hasErrors(bean: clinicianInstance, field: 'centre', 'error')} required">
+						<label for="centre" class="control-label"><g:message code="clinician.centre.label" default="Centre" /><span class="required-indicator">*</span></label>
+						<div>
+							<g:select class="form-control" id="centre" name="centre.id" from="${Centre.list()}" optionKey="id" required="" value="${clinicianInstance?.centre?.id}" />
+							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'centre', 'error')}</span>
 						</div>
 					</div>
 				</div>
