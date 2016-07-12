@@ -11,16 +11,14 @@ class ReferralRecord {
     }
 	// tells GORM to cascade commands: e.g., delete this object if the "parent" is deleted.
     static belongsTo = [clinician:Clinician]
+    static hasOne = [correspondingClinician:Clinician]
     static hasMany = [attachedEvidence:AttachedEvidence, patients:Patient, clinicalDetails:ClinicalDetails, unrelatedClinicalFeatures:UnrelatedClinicalFeatures,
                       paternal:Paternal, maternal:Maternal, extraTests:ExtraTests]
     static constraints = {
         clinician()
         uniqueRef()
-        disorderName()
         causativeVariantAffect(nullable: true)
         knownGeneVariant(nullable: true)
-        ageOfSymptoms(nullable: true)
-        symptomEgeUnit(nullable: true)
         geneticTestingOnProband(nullable: true)
         otherTestingOnProband(nullable: true)
         pedigree(nullable: true)
@@ -38,15 +36,14 @@ class ReferralRecord {
         meetingDate(nullable: true)
         numberOfSampleOtherRel(nullable: true)
         isAnySampleFromDeceasedIndividuals()
+        correspondingClinician(nullable: true)
     }
 
     String uniqueRef
     Program program
     OMIM proposedDiagnosis
-    String disorderName
     String causativeVariantAffect
     String knownGeneVariant
-    Integer ageOfSymptoms
     String geneticTestingOnProband
     String otherTestingOnProband
     String pedigree
@@ -61,7 +58,6 @@ class ReferralRecord {
     Date meetingDate
     Integer numberOfSampleOtherRel
     String note
-    EgeUnit symptomEgeUnit
     boolean isAnySampleFromDeceasedIndividuals = Boolean.FALSE
 
     /*
