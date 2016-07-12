@@ -3,7 +3,7 @@
 
 
 			<div class="${hasErrors(bean: patientInstance, field: 'givenName', 'error')} ">
-				<label for="givenName" class="control-label"><g:message code="patient.givenName.label" default="Given Name" /></label>
+				<label for="givenName" class="control-label"><g:message code="patient.givenName.label" default="Proband's given name" /></label>
 				<div>
 					<g:textField class="form-control" name="givenName" value="${patientInstance?.givenName}"/>
 					<span class="help-inline">${hasErrors(bean: patientInstance, field: 'givenName', 'error')}</span>
@@ -11,7 +11,7 @@
 			</div>
 
 			<div class="${hasErrors(bean: patientInstance, field: 'familyName', 'error')} ">
-				<label for="familyName" class="control-label"><g:message code="patient.familyName.label" default="Family Name" /></label>
+				<label for="familyName" class="control-label"><g:message code="patient.familyName.label" default="Proband's family name" /></label>
 				<div>
 					<g:textField class="form-control" name="familyName" value="${patientInstance?.familyName}"/>
 					<span class="help-inline">${hasErrors(bean: patientInstance, field: 'familyName', 'error')}</span>
