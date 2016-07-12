@@ -12,12 +12,12 @@ class Person extends Party{
 		telephone(nullable: true)
 		departmentName()
 		speciality()
-		centre()
+		centreName()
 	}
 
-	String departmentName
+	Department departmentName
 	String speciality
-	Centre centre
+	Centre centreName
 
 	/*
 	 * Methods of the Domain Class
