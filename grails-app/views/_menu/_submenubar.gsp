@@ -6,30 +6,45 @@ This menu is used to show function that can be triggered on the content (an obje
 <g:if test="${	params.controller != null
 			&&	params.controller != ''
 			&&	params.controller != 'home'
+			&&	params.controller != 'index'
 }">
 	<ul id="Menu" class="nav nav-pills margin-top-small">
 
 		<g:set var="entityName" value="${message(code: params.controller+'.label', default: params.controller.substring(0,1).toUpperCase() + params.controller.substring(1).toLowerCase())}" />
 
-		<g:if test="${ params.controller == 'referralRecord'}">
-			<sec:ifAnyGranted roles="ROLE_ADMIN">
-				<li class="${ params.action == "list" ? 'active' : '' }">
-					<g:link action="list"><i class="glyphicon glyphicon-th-list"></i> <g:message code="default.list.label" args="[entityName]"/></g:link>
-				</li>
-			</sec:ifAnyGranted>
+		<g:if test="${ params.controller == 'ReferralRecord' && params.action == "filteredReferralList"}">
 			<li class="${ params.action == "filteredReferralList" ? 'active' : '' }">
-				<g:link action="filteredReferralList"><i class="glyphicon glyphicon-th-list"></i> Your Referral List</g:link>
+				<g:link action="filteredReferralList"><i class="glyphicon glyphicon-th-list"></i> Your Application List</g:link>
 			</li>
 		</g:if>
 
-		<li class="${ params.action == "create" ? 'active' : '' }">
-			<g:link action="create"><i class="glyphicon glyphicon-plus"></i> <g:message code="default.new.label"  args="[entityName]"/></g:link>
-		</li>
-		
+		<g:if test="${ params.controller != 'referralRecord' && params.action != "filteredReferralList"}">
+			<li class="${ params.action == "list" ? 'active' : '' }">
+				<g:link action="list"><i class="glyphicon glyphicon-th-list"></i> <g:message code="default.list.label" args="[entityName]"/></g:link>
+			</li>
+		</g:if>
+
+		<g:if test="${ params.controller == 'referralRecord' && params.action == "create"}">
+			<li class="${ params.action == "create" ? 'active' : '' }">
+				<g:link action="create"><i class="glyphicon glyphicon-plus"></i> Create Application</g:link>
+			</li>
+		</g:if>
+
+		<g:if test="${ params.controller != 'referralRecord' && params.action != "filteredReferralList"}">
+			<li class="${ params.action == "create" ? 'active' : '' }">
+				<g:link action="create"><i class="glyphicon glyphicon-plus"></i> <g:message code="default.new.label"  args="[entityName]"/></g:link>
+			</li>
+		</g:if>
+
 		<g:if test="${ params.action == 'show' || params.action == 'edit' }">
 			<!-- the item is an object (not a list) -->
 			<li class="${ params.action == "edit" ? 'active' : '' }">
-				<g:link action="edit" id="${params.id}"><i class="glyphicon glyphicon-pencil"></i> <g:message code="default.edit.label"  args="[entityName]"/></g:link>
+				<g:if test="${ params.controller == 'referralRecord'}">
+					<g:link action="edit" id="${params.id}"><i class="glyphicon glyphicon-pencil"></i> Edit Application</g:link>
+				</g:if>
+				<g:else>
+					<g:link action="edit" id="${params.id}"><i class="glyphicon glyphicon-pencil"></i> <g:message code="default.edit.label"  args="[entityName]"/></g:link>
+				</g:else>
 			</li>
 			<li class="">
 				<g:render template="/_common/modals/deleteTextLink"/>

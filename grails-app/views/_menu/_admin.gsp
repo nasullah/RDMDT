@@ -52,6 +52,13 @@
 			<p>
 
 			<li class="">
+				<a href="${createLink(uri: '/referralStatus')}">
+					<i class="glyphicon glyphicon-plus-sign"></i>
+					Application Status Type
+				</a>
+			</li>
+
+			<li class="">
 				<a href="${createLink(uri: '/attachedEvidenceType')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 					Attached Evidence Type
@@ -69,6 +76,13 @@
 				<a href="${createLink(uri: '/consanguinity')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 					Consanguinity
+				</a>
+			</li>
+
+			<li class="">
+				<a href="${createLink(uri: '/department')}">
+					<i class="glyphicon glyphicon-plus-sign"></i>
+					Department
 				</a>
 			</li>
 
@@ -111,13 +125,6 @@
 				<a href="${createLink(uri: '/program')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 					Program
-				</a>
-			</li>
-
-			<li class="">
-				<a href="${createLink(uri: '/referralStatus')}">
-					<i class="glyphicon glyphicon-plus-sign"></i>
-					Referral Status
 				</a>
 			</li>
 
