@@ -12,18 +12,17 @@ class Clinician extends Person{
         email(nullable: true)
         telephone(nullable: true)
         departmentName(nullable: true)
-        speciality()
-        actingClinician(nullable: true)
-        centre()
+        speciality(nullable: true)
+        centreName(nullable: true)
+        referralRecord(nullable: true, unique: true)
     }
 
-    ActingClinician actingClinician
-
+    ReferralRecord referralRecord
     /*
      * Methods of the Domain Class
      */
     @Override	// Override toString for a nicer / more descriptive UI
     public String toString() {
-        return "${name}, ${departmentName}";
+        return "${name}, ${departmentName}, ${centreName}";
     }
 }
