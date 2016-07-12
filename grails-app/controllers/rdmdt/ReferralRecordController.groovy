@@ -94,7 +94,7 @@ class ReferralRecordController {
         }
 
         def proband = new Patient(isProband: true, nhsNumber: params.nhsNumberProband, gender: params.genderProband, ethnicity: params.ethnicityProband,
-                                  otherEthnicity: params.otherEthnicityProband, ege: params.ageProband, egeUnit: params.egeUnitProband)
+                                  otherEthnicity: params.otherEthnicityProband, ege: params.ageProband, egeUnit: params.egeUnitProband, givenName: params.givenName, familyName: params.familyName)
         if (proband){
             referralRecordInstance.addToPatients(proband)
             referralRecordInstance.save flush: true
@@ -182,6 +182,12 @@ class ReferralRecordController {
             if (params.extraTestsRequested){
                 def extraTest = new ExtraTests(testName: params.extraTestsRequested, requestedDate: params.requestedDate)
                 referralRecordInstance.addToExtraTests(extraTest).save flush: true
+            }
+
+            if (params.correspondingClinicianName){
+                def correspondingClinician = new Clinician(name: params.correspondingClinicianName, email: params.correspondingClinicianEmail).save flush: true
+                referralRecordInstance.correspondingClinician = correspondingClinician
+                referralRecordInstance.save flush: true
             }
 
             def file = request.getFile('pedigreeFile')
