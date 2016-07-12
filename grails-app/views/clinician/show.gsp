@@ -36,9 +36,16 @@
 				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "telephone")}</td>
 				
 			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="clinician.centre.label" default="Centre" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "centreName")}</td>
+
+			</tr>
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="clinician.departmentName.label" default="Department Name" /></td>
+				<td valign="top" class="name"><g:message code="clinician.departmentName.label" default="Department" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "departmentName")}</td>
 				
@@ -48,13 +55,6 @@
 				<td valign="top" class="name"><g:message code="clinician.speciality.label" default="Speciality" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "speciality")}</td>
-				
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="clinician.actingClinician.label" default="Acting Clinician" /></td>
-				
-				<td valign="top" class="value"><g:link controller="actingClinician" action="show" id="${clinicianInstance?.actingClinician?.id}">${clinicianInstance?.actingClinician?.encodeAsHTML()}</g:link></td>
 				
 			</tr>
 		
@@ -73,7 +73,7 @@
 
 			<g:if test="${clinicianInstance.referralRecords}">
 				<tr class="prop">
-					<td valign="top" class="name"><g:message code="clinician.referralRecords.label" default="Referral Records" /></td>
+					<td valign="top" class="name"><g:message code="clinician.referralRecords.label" default="Applications" /></td>
 
 					<td valign="top" style="text-align: left;" class="value">
 						<ul>
@@ -94,7 +94,7 @@
 
 <p class="text-primary">Available Actions</p>
 
-<a class='btn btn-primary btn-xs' <g:link controller="referralRecord" action="create" params="['clinician.id': clinicianInstance?.id]"><i class="glyphicon glyphicon-plus"></i> Add Referral</g:link>
+<a class='btn btn-primary btn-xs' <g:link controller="referralRecord" action="create" params="['clinician.id': clinicianInstance?.id]"><i class="glyphicon glyphicon-plus"></i> Add Application</g:link>
 
 </body>
 

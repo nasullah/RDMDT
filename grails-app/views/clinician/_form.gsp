@@ -1,4 +1,4 @@
-<%@ page import="rdmdt.Centre; rdmdt.Clinician" %>
+<%@ page import="rdmdt.Department; rdmdt.Centre; rdmdt.Clinician" %>
 
 
 
@@ -34,11 +34,11 @@
 				</div>
 
 				<div class="col-lg-6">
-					<div class="${hasErrors(bean: clinicianInstance, field: 'centre', 'error')} required">
-						<label for="centre" class="control-label"><g:message code="clinician.centre.label" default="Centre" /><span class="required-indicator">*</span></label>
+					<div class="${hasErrors(bean: clinicianInstance, field: 'centreName', 'error')} required">
+						<label for="centreName" class="control-label"><g:message code="clinician.centreName.label" default="Centre" /><span class="required-indicator">*</span></label>
 						<div>
-							<g:select class="form-control" id="centre" name="centre.id" from="${Centre.list()}" optionKey="id" required="" value="${clinicianInstance?.centre?.id}" />
-							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'centre', 'error')}</span>
+							<g:select class="form-control" id="centreName" name="centreName.id" from="${Centre.list()}" optionKey="id" required="" value="${clinicianInstance?.centreName?.id}" noSelection="['':'- Choose -']"/>
+							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'centreName', 'error')}</span>
 						</div>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 					<div class="${hasErrors(bean: clinicianInstance, field: 'departmentName', 'error')} ">
 						<label for="departmentName" class="control-label"><g:message code="clinician.departmentName.label" default="Department Name" /><span class="required-indicator">*</span></label>
 						<div>
-							<g:textField class="form-control" name="departmentName" value="${clinicianInstance?.departmentName}" required=""/>
+							<g:select class="form-control" id="departmentName" name="departmentName.id" from="${Department.list()}" optionKey="id" required="" value="${clinicianInstance?.departmentName?.id}" noSelection="['':'- Choose -']"/>
 							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'departmentName', 'error')}</span>
 						</div>
 					</div>

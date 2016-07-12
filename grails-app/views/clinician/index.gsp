@@ -19,9 +19,9 @@
 			
 				<g:sortableColumn property="name" title="${message(code: 'clinician.name.label', default: 'Name')}" />
 			
-				<g:sortableColumn property="email" title="${message(code: 'clinician.email.label', default: 'Email')}" />
+				<g:sortableColumn property="centre" title="${message(code: 'clinician.centreName.label', default: 'Centre')}" />
 
-				<g:sortableColumn property="departmentName" title="${message(code: 'clinician.departmentName.label', default: 'Department Name')}" />
+				<g:sortableColumn property="departmentName" title="${message(code: 'clinician.departmentName.label', default: 'Department')}" />
 			
 				<g:sortableColumn property="speciality" title="${message(code: 'clinician.speciality.label', default: 'Speciality')}" />
 
@@ -35,7 +35,7 @@
 			
 				<td><g:link action="show" id="${clinicianInstance.id}">${fieldValue(bean: clinicianInstance, field: "name")}</g:link></td>
 			
-				<td>${fieldValue(bean: clinicianInstance, field: "email")}</td>
+				<td>${fieldValue(bean: clinicianInstance, field: "centreName")}</td>
 
 				<td>${fieldValue(bean: clinicianInstance, field: "departmentName")}</td>
 			
