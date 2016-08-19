@@ -135,7 +135,7 @@ grails {
             userLookup.authorityJoinClassName = 'rdmdt.UserRole'
             authority.className = 'rdmdt.Role'
             successHandler.alwaysUseDefault = true
-            successHandler.defaultTargetUrl = '/referralRecord/filteredReferralList'
+            successHandler.defaultTargetUrl = '/index/index'
             //ui.register.defaultRoleNames = []
 
             ui.encodePassword = false

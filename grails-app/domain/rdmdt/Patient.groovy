@@ -17,7 +17,7 @@ class Patient{
         gender(nullable: true)
         ethnicity(nullable: true)
         otherEthnicity(nullable: true)
-        availableForOAR()
+        availableForOAR(nullable: true)
         isProband()
         ege(nullable: true)
         egeUnit(nullable: true)

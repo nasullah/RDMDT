@@ -4,8 +4,7 @@
 
 <head>
 	<meta name="layout" content="kickstart" />
-	<g:set var="entityName" value="${message(code: 'referralRecord.label', default: 'Referral Record')}" />
-	<title><g:message code="default.edit.label" args="[entityName]" /></title>
+	<title>Edit Application</title>
 </head>
 
 <body>

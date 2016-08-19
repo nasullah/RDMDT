@@ -5,8 +5,7 @@
 
 <head>
 	<meta name="layout" content="kickstart" />
-	<g:set var="entityName" value="${message(code: 'referralRecord.label', default: 'Referral Record')}" />
-	<title><g:message code="default.show.label" args="[entityName]" /></title>
+	<title>Application (${referralRecordInstance?.uniqueRef})</title>
 </head>
 
 <body>
@@ -22,12 +21,54 @@
 				<td valign="top" class="value"><g:link controller="clinician" action="show" id="${referralRecordInstance?.clinician?.id}">${referralRecordInstance?.clinician?.encodeAsHTML()}</g:link></td>
 				
 			</tr>
-		
+
+			<tr class="prop">
+				<td valign="top" class="name">Responsible Consultant Name</td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.correspondingClinician, field: "forename")} ${fieldValue(bean: referralRecordInstance?.correspondingClinician, field: "surname")}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name">Responsible Consultant Email</td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.correspondingClinician, field: "email")}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name">Co-applicant Name</td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.coapplicant, field: "forename")} ${fieldValue(bean: referralRecordInstance?.coapplicant, field: "surname")}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name">Co-applicant Email</td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.coapplicant, field: "email")}</td>
+
+			</tr>
+
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.yourRef.label" default="Unique Ref" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "uniqueRef")}</td>
 				
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name">Proband's given name</td>
+
+				<td valign="top" class="value">${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.givenName}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name">Proband's family name</td>
+
+				<td valign="top" class="value">${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.familyName}</td>
+
 			</tr>
 
 			<tr class="prop">
@@ -73,31 +114,31 @@
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.disorderName.label" default="Disorder name" /></td>
-				
+				<td valign="top" class="name"><g:message code="referralRecord.disorderName.label" default="Name or brief description of disorder"/></td>
+
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "disorderName")}</td>
-				
+
 			</tr>
-		
+		%{----}%
+			%{--<tr class="prop">--}%
+				%{--<td valign="top" class="name"><g:message code="referralRecord.causativeVariantAffect.label" default="Causative variant affect" /></td>--}%
+				%{----}%
+				%{--<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "causativeVariantAffect")}</td>--}%
+				%{----}%
+			%{--</tr>--}%
+		%{----}%
+			%{--<tr class="prop">--}%
+				%{--<td valign="top" class="name"><g:message code="referralRecord.knownGeneVariant.label" default="Known gene variant" /></td>--}%
+				%{----}%
+				%{--<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "knownGeneVariant")}</td>--}%
+				%{----}%
+			%{--</tr>--}%
+		%{----}%
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.causativeVariantAffect.label" default="Causative variant affect" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "causativeVariantAffect")}</td>
-				
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.knownGeneVariant.label" default="Known gene variant" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "knownGeneVariant")}</td>
-				
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.ageOfSymptoms.label" default="Age of onset of symptoms in the proband" /></td>
-				
+				<td valign="top" class="name"><g:message code="referralRecord.ageOfSymptoms.label" default="Age of onset of main symptoms" /></td>
+
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "ageOfSymptoms")}</td>
-				
+
 			</tr>
 
 			<tr class="prop">
@@ -119,17 +160,6 @@
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.unrelatedClinicalFeatures.label" default="Unrelated Clinical Features" /></td>
-
-				<td valign="top" style="text-align: left;" class="value">
-					<g:each in="${referralRecordInstance.unrelatedClinicalFeatures}" var="u">
-						<p>${u}</P>
-					</g:each>
-				</td>
-
-			</tr>
-
-			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.geneticTestingOnProband.label" default="Genetic Testing On Proband" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "geneticTestingOnProband")}</td>
@@ -142,13 +172,77 @@
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "otherTestingOnProband")}</td>
 				
 			</tr>
-		
+
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.pedigree.label" default="Pedigree" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.arrayCGH.label" default="Has arrayCGH been performed?" /></td>
+
+				<td valign="top" class="value"><g:formatBoolean boolean="${referralRecordInstance?.arrayCGH}" false="No" true="Yes" /></td>
+
+			</tr>
+
+			<g:if test="${referralRecordInstance.arrayCGHDetails}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.arrayCGHDetails.label" default="arrayCGH Results" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "arrayCGHDetails")}</td>
+
+				</tr>
+			</g:if>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.otherFamilyMembersAffected.label" default="Are any other family members affected with the same or a related condition?" /></td>
+
+				<td valign="top" class="value"><g:formatBoolean boolean="${referralRecordInstance?.otherFamilyMembersAffected}" false="No" true="Yes" /></td>
+
+			</tr>
+
+			<g:if test="${referralRecordInstance.otherFamilyMembersAffectedDetails}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.otherFamilyMembersAffectedDetails.label" default="Other Family Members Affected Details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "otherFamilyMembersAffectedDetails")}</td>
+
+				</tr>
+			</g:if>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.pedigree.label" default="3-generation pedigree diagram" /></td>
 				
 				<td valign="top" class="value"><g:link action="download" id="${referralRecordInstance.id}">${referralRecordInstance.pedigree}</g:link></td>
 				
 			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.consanguinityEvidence.label" default="Evidence of consanguinity" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "consanguinityEvidence")}</td>
+
+			</tr>
+
+			<g:if test="${referralRecordInstance.consanguinityEvidenceDetails}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.consanguinityEvidenceDetails.label" default="Evidence of consanguinity details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "consanguinityEvidenceDetails")}</td>
+
+				</tr>
+			</g:if>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.penetrance.label" default=" Is there evidence of reduced penetrance" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "penetrance")}</td>
+
+			</tr>
+
+			<g:if test="${referralRecordInstance.penetranceDetails}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.penetranceDetails.label" default="Reduced penetrance details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "penetranceDetails")}</td>
+
+				</tr>
+			</g:if>
 
 			<tr class="prop">
 				<td valign="top" class="name">Paternal Breast And Or Ovarian Cancer</td>
@@ -207,22 +301,43 @@
 			</tr>
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.furtherDetailsOfHistory.label" default="Further Details Of History" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.furtherDetailsOfHistory.label" default="Details and/or note any other significant family history" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "furtherDetailsOfHistory")}</td>
 				
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name">Family members available for OAR</td>
+				<td valign="top" class="name">Ethnicity of immediate family</td>
 
 				<td valign="top" style="text-align: left;" class="value">
 					<g:each in="${referralRecordInstance.patients}" var="p">
-						<g:if test="${!p.isProband && p.availableForOAR}">
-							<p>${p.relatedFrom.relationshipType}</p>
+						<g:if test="${!p.isProband}">
+							<p>${p.relatedFrom.relationshipType}: ${p.ethnicity}</p>
 						</g:if>
 					</g:each>
 				</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.identityOfFamilyMembersSamplesForSeq.label" default="Identity of family members" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "identityOfFamilyMembersSamplesForSeq")}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.numberOfSamplesForSeq.label" default="Number of samples for seq." /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "numberOfSamplesForSeq")}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.samplesForSeqDetails.label" default="Details of samples proposed for sequencing" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "samplesForSeqDetails")}</td>
 
 			</tr>
 
@@ -232,48 +347,107 @@
 				<td valign="top" class="value"><g:formatBoolean false="No" true="Yes" boolean="${referralRecordInstance?.isAnySampleFromDeceasedIndividuals}" /></td>
 
 			</tr>
-		
+
+			<g:if test="${referralRecordInstance.isAnySampleFromDeceasedIndividualsDetails}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.isAnySampleFromDeceasedIndividualsDetails.label" default="Sample from deceased individuals details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "isAnySampleFromDeceasedIndividualsDetails")}</td>
+
+				</tr>
+			</g:if>
+
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.numberOfSamplesForSeq.label" default="Number Of Samples For Seq" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "numberOfSamplesForSeq")}</td>
-				
+				<td valign="top" class="name">Are any individuals proposed for sequencing out of area</td>
+
+				<td valign="top" class="value"><g:formatBoolean false="No" true="Yes" boolean="${referralRecordInstance?.anyIndividualsForSeqOutOfArea}" /></td>
+
 			</tr>
-		
+
+			<g:if test="${referralRecordInstance.anyIndividualsForSeqOutOfAreaDetails}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.anyIndividualsForSeqOutOfAreaDetails.label" default="Any individuals for seq out of area details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "anyIndividualsForSeqOutOfAreaDetails")}</td>
+
+				</tr>
+			</g:if>
+
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.consanguinityEvidence.label" default="Consanguinity Evidence" /></td>
-				
-				<td valign="top" class="value"><g:link controller="consanguinity" action="show" id="${referralRecordInstance?.consanguinityEvidence?.id}">${referralRecordInstance?.consanguinityEvidence?.encodeAsHTML()}</g:link></td>
-				
+				<td valign="top" class="name"><g:message code="referralRecord.program.label" default="Program" /></td>
+
+				<td valign="top" class="value"><g:link controller="program" action="show" id="${referralRecordInstance?.program?.id}">${referralRecordInstance?.program?.encodeAsHTML()}</g:link></td>
+
 			</tr>
-		
+
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.penetrance.label" default="Penetrance" /></td>
-				
-				<td valign="top" class="value"><g:link controller="penetrance" action="show" id="${referralRecordInstance?.penetrance?.id}">${referralRecordInstance?.penetrance?.encodeAsHTML()}</g:link></td>
-				
+				<td valign="top" class="name"><g:message code="referralRecord.note.label" default="Note" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "note")}</td>
+
 			</tr>
-		
+
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.referralStatus.label" default="Referral Status" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.targetCategory.label" default=" Target 100,000 Genomes Project Disorder Name" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "targetCategory")}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.eligibility.label" default=" Is this patient/family eligible?" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "eligibility")}</td>
+
+			</tr>
+
+			<g:if test="${referralRecordInstance.eligibilityDetails}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.eligibilityDetails.label" default="Patient/family eligibility details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "eligibilityDetails")}</td>
+
+				</tr>
+			</g:if>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.consentPatientOrFamily.label" default="Consent patientor family" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "consentPatientOrFamily")}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.referralStatus.label" default="Application Status" /></td>
 				
 				<td valign="top" class="value">${referralRecordInstance?.referralStatus}</td>
 				
 			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.note.label" default="Note" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "note")}</td>
-				
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.program.label" default="Program" /></td>
-				
-				<td valign="top" class="value"><g:link controller="program" action="show" id="${referralRecordInstance?.program?.id}">${referralRecordInstance?.program?.encodeAsHTML()}</g:link></td>
-				
-			</tr>
+
+			<g:if test="${referralRecordInstance.referralStatus == rdmdt.ReferralStatus.findByReferralStatusName('Conditional Approval')}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.conditionalApprovalDetails.label" default="Conditional approval details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "conditionalApprovalDetails")}</td>
+
+				</tr>
+			</g:if>
+			<g:elseif test="${referralRecordInstance.referralStatus == rdmdt.ReferralStatus.findByReferralStatusName('Approval')}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.approvalDetails.label" default="Approval details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvalDetails")}</td>
+
+				</tr>
+			</g:elseif>
+			<g:elseif test="${referralRecordInstance.referralStatus == rdmdt.ReferralStatus.findByReferralStatusName('Not Approved')}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.notApprovedDetails.label" default="Not Approved details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "notApprovedDetails")}</td>
+
+				</tr>
+			</g:elseif>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.proposedDiagnosis.label" default="Proposed Diagnosis" /></td>
@@ -290,9 +464,9 @@
 			</tr>
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.assignedOn.label" default="Assigned On" /></td>
-				
-				<td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${referralRecordInstance?.assignedOn}" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.reviewDetails.label" default="Review Details" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "reviewDetails")}</td>
 				
 			</tr>
 		
@@ -302,14 +476,7 @@
 				<td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${referralRecordInstance?.meetingDate}" /></td>
 				
 			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.numberOfSampleOtherRel.label" default="Number Of Sample Other Rel" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "numberOfSampleOtherRel")}</td>
-				
-			</tr>
-		
+
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.attachedEvidence.label" default="Attached Evidence" /></td>
 				

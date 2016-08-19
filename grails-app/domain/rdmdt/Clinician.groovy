@@ -6,23 +6,26 @@ package rdmdt
  */
 class Clinician extends Person{
 
-    static hasMany = [referralRecords:ReferralRecord, membership:Membership]
+    static hasMany = [referralRecords:ReferralRecord]
     static constraints = {
-        name()
+        forename()
+        surname()
         email(nullable: true)
         telephone(nullable: true)
         departmentName(nullable: true)
-        speciality(nullable: true)
+        departmentOther(nullable: true)
         centreName(nullable: true)
-        referralRecord(nullable: true, unique: true)
+        roleType(nullable: true)
+        roleTypeOther(nullable: true)
     }
 
-    ReferralRecord referralRecord
+    RoleType roleType
+    String roleTypeOther
     /*
      * Methods of the Domain Class
      */
     @Override	// Override toString for a nicer / more descriptive UI
     public String toString() {
-        return "${name}, ${departmentName}, ${centreName}";
+        return "${surname}, ${departmentName}, ${centreName}";
     }
 }

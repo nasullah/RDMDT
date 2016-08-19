@@ -1,19 +1,20 @@
-<%@ page import="rdmdt.Clinician" %>
+<%@ page import="rdmdt.EligibilityType" %>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta name="layout" content="kickstart" />
-	<title>Create Your Profile</title>
+	<g:set var="entityName" value="${message(code: 'eligibilityType.label', default: 'Eligibility Type')}" />
+	<title><g:message code="default.create.label" args="[entityName]" /></title>
 </head>
 
 <body>
 
-	<section id="create-clinician" class="first">
+	<section id="create-eligibilityType" class="first">
 
-		<g:hasErrors bean="${clinicianInstance}">
+		<g:hasErrors bean="${eligibilityTypeInstance}">
 		<div class="alert alert-danger">
-			<g:renderErrors bean="${clinicianInstance}" as="list" />
+			<g:renderErrors bean="${eligibilityTypeInstance}" as="list" />
 		</div>
 		</g:hasErrors>
 
@@ -27,8 +28,6 @@
 		</g:form>
 
 	</section>
-
-<hr/>
 
 </body>
 

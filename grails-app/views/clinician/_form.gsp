@@ -1,14 +1,24 @@
-<%@ page import="rdmdt.Department; rdmdt.Centre; rdmdt.Clinician" %>
+<%@ page import="rdmdt.RoleType; rdmdt.Department; rdmdt.Centre; rdmdt.Clinician" %>
 
 
 
 			<div class="row">
 				<div class="col-lg-6">
-					<div class="${hasErrors(bean: clinicianInstance, field: 'name', 'error')} ">
-						<label for="name" class="control-label"><g:message code="clinician.name.label" default="Name" /><span class="required-indicator">*</span></label>
+					<div class="${hasErrors(bean: clinicianInstance, field: 'forename', 'error')} ">
+						<label for="forename" class="control-label"><g:message code="clinician.forename.label" default="Forename" /><span class="required-indicator">*</span></label>
 						<div>
-							<g:textField class="form-control" name="name" value="${clinicianInstance?.name}" required=""/>
-							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'name', 'error')}</span>
+							<g:textField class="form-control" name="forename" value="${clinicianInstance?.forename}" required=""/>
+							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'forename', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="${hasErrors(bean: clinicianInstance, field: 'surname', 'error')} ">
+						<label for="surname" class="control-label"><g:message code="clinician.surname.label" default="Surname" /><span class="required-indicator">*</span></label>
+						<div>
+							<g:textField class="form-control" name="surname" value="${clinicianInstance?.surname}" required=""/>
+							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'surname', 'error')}</span>
 						</div>
 					</div>
 				</div>
@@ -35,7 +45,7 @@
 
 				<div class="col-lg-6">
 					<div class="${hasErrors(bean: clinicianInstance, field: 'centreName', 'error')} required">
-						<label for="centreName" class="control-label"><g:message code="clinician.centreName.label" default="Centre" /><span class="required-indicator">*</span></label>
+						<label for="centreName" class="control-label"><g:message code="clinician.centreName.label" default="Main Centre" /><span class="required-indicator">*</span></label>
 						<div>
 							<g:select class="form-control" id="centreName" name="centreName.id" from="${Centre.list()}" optionKey="id" required="" value="${clinicianInstance?.centreName?.id}" noSelection="['':'- Choose -']"/>
 							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'centreName', 'error')}</span>
@@ -47,62 +57,70 @@
 					<div class="${hasErrors(bean: clinicianInstance, field: 'departmentName', 'error')} ">
 						<label for="departmentName" class="control-label"><g:message code="clinician.departmentName.label" default="Department Name" /><span class="required-indicator">*</span></label>
 						<div>
-							<g:select class="form-control" id="departmentName" name="departmentName.id" from="${Department.list()}" optionKey="id" required="" value="${clinicianInstance?.departmentName?.id}" noSelection="['':'- Choose -']"/>
+							<g:select class="form-control" id="departmentName" name="departmentName.id" from="${Department.list()}" optionKey="id" required="" onchange="departmentOtherOpt()" value="${clinicianInstance?.departmentName?.id}" noSelection="['':'- Choose -']"/>
 							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'departmentName', 'error')}</span>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-lg-6">
-					<div class="${hasErrors(bean: clinicianInstance, field: 'speciality', 'error')} ">
-						<label for="speciality" class="control-label"><g:message code="clinician.speciality.label" default="Speciality" /><span class="required-indicator">*</span></label>
+				<div class="col-lg-6" id="departmentOtherOption">
+					<div class="${hasErrors(bean: clinicianInstance, field: 'departmentOther', 'error')} ">
+						<label for="departmentOther" class="control-label"><g:message code="clinician.departmentOther.label" default="Department Other" /></label>
 						<div>
-							<g:textField class="form-control" name="speciality" value="${clinicianInstance?.speciality}" required=""/>
-							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'speciality', 'error')}</span>
+							<g:textField class="form-control" id="departmentOther" name="departmentOther" value="${clinicianInstance?.departmentOther}"/>
+							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'departmentOther', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="${hasErrors(bean: clinicianInstance, field: 'roleType', 'error')} ">
+						<label for="roleType" class="control-label"><g:message code="clinician.roleType.label" default="Role" /><span class="required-indicator">*</span></label>
+						<div>
+							<g:select class="form-control" id="roleType" name="roleType.id" from="${rdmdt.RoleType.list()}" optionKey="id" required="" onchange="roleTypeOtherOpt()" value="${clinicianInstance?.roleType?.id}" noSelection="['':'- Choose -']"/>
+							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'roleType', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6" id="roleTypeOtherOption">
+					<div class="${hasErrors(bean: clinicianInstance, field: 'roleTypeOther', 'error')} ">
+						<label for="roleTypeOther" class="control-label"><g:message code="clinician.roleTypeOther.label" default="Role Other" /></label>
+						<div>
+							<g:textField class="form-control" id="roleTypeOther" name="roleTypeOther" value="${clinicianInstance?.roleTypeOther}"/>
+							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'roleTypeOther', 'error')}</span>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			%{--<div class="${hasErrors(bean: clinicianInstance, field: 'actingClinician', 'error')} ">--}%
-				%{--<label for="actingClinician" class="control-label"><g:message code="clinician.actingClinician.label" default="Acting Clinician" /></label>--}%
-				%{--<div>--}%
-					%{--<g:select class="form-control" id="actingClinician" name="actingClinician.id" from="${rdmdt.ActingClinician.list()}" optionKey="id" value="${clinicianInstance?.actingClinician?.id}" class="many-to-one" noSelection="['null': '']"/>--}%
-					%{--<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'actingClinician', 'error')}</span>--}%
-				%{--</div>--}%
-			%{--</div>--}%
+<g:javascript plugin="jquery" library="jquery" />
+<script>
 
-			%{--<div class="${hasErrors(bean: clinicianInstance, field: 'membership', 'error')} ">--}%
-				%{--<label for="membership" class="control-label"><g:message code="clinician.membership.label" default="Membership" /></label>--}%
-				%{--<div>--}%
-					%{----}%
-%{--<ul class="one-to-many">--}%
-%{--<g:each in="${clinicianInstance?.membership?}" var="m">--}%
-    %{--<li><g:link controller="membership" action="show" id="${m.id}">${m?.encodeAsHTML()}</g:link></li>--}%
-%{--</g:each>--}%
-%{--<li class="add">--}%
-%{--<g:link controller="membership" action="create" params="['clinician.id': clinicianInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'membership.label', default: 'Membership')])}</g:link>--}%
-%{--</li>--}%
-%{--</ul>--}%
+	departmentOtherOpt();
+	function departmentOtherOpt(){
+		var departmentName = $("#departmentName").val();
+		var departmentOther = $("#departmentOther").val();
 
-					%{--<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'membership', 'error')}</span>--}%
-				%{--</div>--}%
-			%{--</div>--}%
+		if (departmentName == ${rdmdt.Department.findByDepartmentName('Other')?.id}){
+			$("#departmentOtherOption").show();
+		}else{
+			$("#departmentOtherOption").hide();
+			$("#departmentOther").val("");
+		}
+	}
 
-			%{--<div class="${hasErrors(bean: clinicianInstance, field: 'referralRecords', 'error')} ">--}%
-				%{--<label for="referralRecords" class="control-label"><g:message code="clinician.referralRecords.label" default="Referral Records" /></label>--}%
-				%{--<div>--}%
-					%{----}%
-%{--<ul class="one-to-many">--}%
-%{--<g:each in="${clinicianInstance?.referralRecords?}" var="r">--}%
-    %{--<li><g:link controller="referralRecord" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>--}%
-%{--</g:each>--}%
-%{--<li class="add">--}%
-%{--<g:link controller="referralRecord" action="create" params="['clinician.id': clinicianInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'referralRecord.label', default: 'ReferralRecord')])}</g:link>--}%
-%{--</li>--}%
-%{--</ul>--}%
+	roleTypeOtherOpt();
+	function roleTypeOtherOpt(){
+		var roleType = $("#roleType").val();
+		var roleTypeOther = $("#roleTypeOther").val();
+		if (roleType == ${rdmdt.RoleType.findByRoleTypeName('Other')?.id}){
+			$("#roleTypeOtherOption").show();
+		}else{
+			$("#roleTypeOtherOption").hide();
+			$("#roleTypeOther").val("");
+		}
+	}
 
-					%{--<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'referralRecords', 'error')}</span>--}%
-				%{--</div>--}%
-			%{--</div>--}%
+</script>
 

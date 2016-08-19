@@ -41,11 +41,36 @@ class ReferralRecordController {
 
     def filteredReferralList() {
         def currentUser = springSecurityService.currentUser.username
-        currentUser = currentUser.toString().replace('.', ' ')
-        def clinician = Clinician.createCriteria().get{
-            eq("name", currentUser, [ignoreCase: true])
+        def clinician
+        if (currentUser?.toString()?.contains('.')) {
+            def forename = currentUser?.toString()?.split("\\.")[0]
+            def surname = currentUser?.toString()?.split("\\.")[1]
+            clinician = Clinician.createCriteria().get {
+                and {
+                    eq("forename", forename, [ignoreCase: true])
+                    eq("surname", surname, [ignoreCase: true])
+                }
+            }
+            [referralRecordInstanceList: ReferralRecord.findAllByClinician(clinician).sort {it?.referralStatus?.id}]
         }
-        [referralRecordInstanceList: ReferralRecord.findAllByClinician(clinician).sort {it?.referralStatus?.id}]
+    }
+
+    def searchRareDiseaseCondition = {
+        def listRareDiseaseCondition = RareDiseaseConditions.createCriteria().listDistinct {
+            ilike("diseaseName", "%${params.query}%")
+        }
+        //Create XML response
+        render(contentType: "text/xml") {
+            results() {
+                listRareDiseaseCondition.each { rareDiseaseCondition ->
+                    result(){
+                        name(rareDiseaseCondition)
+                        //Optional id which will be available in onItemSelect
+                        id(rareDiseaseCondition.id)
+                    }
+                }
+            }
+        }
     }
 
     def show(ReferralRecord referralRecordInstance) {
@@ -127,56 +152,28 @@ class ReferralRecordController {
                 }
             }
 
-            List<UnrelatedClinicalFeatures> unrelatedClinicalFeaturesList = new ArrayList<UnrelatedClinicalFeatures>();
-            if (params.unrelatedFeature0){
-                unrelatedClinicalFeaturesList.add(new UnrelatedClinicalFeatures(unrelatedClinicalFeatures: params.unrelatedFeature0))
-            }
-            if (params.unrelatedFeature1){
-                unrelatedClinicalFeaturesList.add(new UnrelatedClinicalFeatures(unrelatedClinicalFeatures:params.unrelatedFeature1))
-            }
-            if (params.unrelatedFeature2){
-                unrelatedClinicalFeaturesList.add(new UnrelatedClinicalFeatures(unrelatedClinicalFeatures:params.unrelatedFeature2))
-            }
-            if (params.unrelatedFeature3){
-                unrelatedClinicalFeaturesList.add(new UnrelatedClinicalFeatures(unrelatedClinicalFeatures:params.unrelatedFeature3))
-            }
-            if (params.unrelatedFeature4){
-                unrelatedClinicalFeaturesList.add(new UnrelatedClinicalFeatures(unrelatedClinicalFeatures:params.unrelatedFeature4))
-            }
-            if (params.unrelatedFeature5){
-                unrelatedClinicalFeaturesList.add(new UnrelatedClinicalFeatures(unrelatedClinicalFeatures:params.unrelatedFeature5))
-            }
-            if (params.unrelatedFeature6){
-                unrelatedClinicalFeaturesList.add(new UnrelatedClinicalFeatures(unrelatedClinicalFeatures:params.unrelatedFeature6))
-            }
-            if (!unrelatedClinicalFeaturesList.empty){
-                for (int i = 0; i <unrelatedClinicalFeaturesList.size(); i++ ){
-                    referralRecordInstance.addToUnrelatedClinicalFeatures(unrelatedClinicalFeaturesList.get(i)).save flush: true
-                }
+//            new Paternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerPaternal.asBoolean(), colorectalCancer: params.colorectalCancerPaternal.asBoolean(),
+//                    ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokePaternal.asBoolean(), endocrineTumours: params.endocrineTumoursPaternal.asBoolean(), referralRecord: referralRecordInstance).save flush: true
+//
+//            new Maternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerMaternal.asBoolean(), colorectalCancer: params.colorectalCancerMaternal.asBoolean(),
+//                    ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokeMaternal.asBoolean(), endocrineTumours: params.endocrineTumoursMaternal.asBoolean(), referralRecord: referralRecordInstance).save flush: true
+
+            new Paternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerPaternal, colorectalCancer: params.colorectalCancerPaternal,
+                    ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokePaternal, endocrineTumours: params.endocrineTumoursPaternal, referralRecord: referralRecordInstance).save flush: true
+
+            new Maternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerMaternal, colorectalCancer: params.colorectalCancerMaternal,
+                    ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokeMaternal, endocrineTumours: params.endocrineTumoursMaternal, referralRecord: referralRecordInstance).save flush: true
+
+            if (params.ethnicityFather){
+                def ethnicity = params.ethnicityFather
+                def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: ethnicity).save flush: true
+                new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Father'), patient: proband, relatedPatient: patient).save flush: true
             }
 
-            new Paternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerPaternal.asBoolean(), colorectalCancer: params.colorectalCancerPaternal.asBoolean(),
-                    ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokePaternal.asBoolean(), endocrineTumours: params.endocrineTumoursPaternal.asBoolean(), referralRecord: referralRecordInstance).save flush: true
-
-            new Maternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerMaternal.asBoolean(), colorectalCancer: params.colorectalCancerMaternal.asBoolean(),
-                    ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokeMaternal.asBoolean(), endocrineTumours: params.endocrineTumoursMaternal.asBoolean(), referralRecord: referralRecordInstance).save flush: true
-
-            if (params.relationshipToProband1){
-                def ethnicity = params.ethnicity1
-                if(ethnicity == 'null'){
-                    ethnicity = proband.ethnicity
-                }
-                def patient = new Patient(isProband: false, availableForOAR: params.availableForOAR1.asBoolean(), referralRecord: referralRecordInstance, ethnicity: ethnicity).save flush: true
-                new Relationship(relationshipType: params.relationshipToProband1, patient: proband, relatedPatient: patient).save flush: true
-            }
-
-            if (params.relationshipToProband2){
-                def ethnicity = params.ethnicity2
-                if(ethnicity == 'null'){
-                    ethnicity = proband.ethnicity
-                }
-                def patient = new Patient(isProband: false, availableForOAR: params.availableForOAR2.asBoolean(), referralRecord: referralRecordInstance, ethnicity: ethnicity).save flush: true
-                new Relationship(relationshipType: params.relationshipToProband2, patient: proband, relatedPatient: patient).save flush: true
+            if (params.ethnicityMother){
+                def ethnicity = params.ethnicityMother
+                def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: ethnicity).save flush: true
+                new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Mother'), patient: proband, relatedPatient: patient).save flush: true
             }
 
             if (params.extraTestsRequested){
@@ -184,9 +181,15 @@ class ReferralRecordController {
                 referralRecordInstance.addToExtraTests(extraTest).save flush: true
             }
 
-            if (params.correspondingClinicianName){
-                def correspondingClinician = new Clinician(name: params.correspondingClinicianName, email: params.correspondingClinicianEmail).save flush: true
+            if (params.correspondingClinicianForename && params.correspondingClinicianSurname){
+                def correspondingClinician = new Clinician(forename: params.correspondingClinicianForename, surname: params.correspondingClinicianSurname, email: params.correspondingClinicianEmail).save flush: true
                 referralRecordInstance.correspondingClinician = correspondingClinician
+                referralRecordInstance.save flush: true
+            }
+
+            if (params.coapplicantForename && params.coapplicantSurname){
+                def coapplicant = new Clinician(forename: params.coapplicantForename, surname: params.coapplicantSurname, email: params.coapplicantEmail).save flush: true
+                referralRecordInstance.coapplicant = coapplicant
                 referralRecordInstance.save flush: true
             }
 

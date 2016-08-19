@@ -52,6 +52,13 @@
 			<p>
 
 			<li class="">
+				<a href="${createLink(uri: '/egeUnit')}">
+					<i class="glyphicon glyphicon-plus-sign"></i>
+					Age Unit
+				</a>
+			</li>
+
+			<li class="">
 				<a href="${createLink(uri: '/referralStatus')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 					Application Status Type
@@ -87,9 +94,9 @@
 			</li>
 
 			<li class="">
-				<a href="${createLink(uri: '/egeUnit')}">
+				<a href="${createLink(uri: '/eligibilityType')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
-					Age Unit
+					Eligibility Type
 				</a>
 			</li>
 

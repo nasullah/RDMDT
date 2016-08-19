@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	<title>Welcome to Rare Diseases MDT </title>
+	<title>Welcome to Genomic Medicine MDT Referral Portal</title>
 	<meta name="layout" content="kickstart" />
 </head>
 

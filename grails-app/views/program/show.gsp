@@ -24,20 +24,6 @@
 			</tr>
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="program.email.label" default="Email" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: programInstance, field: "email")}</td>
-				
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="program.telephone.label" default="Telephone" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: programInstance, field: "telephone")}</td>
-				
-			</tr>
-		
-			<tr class="prop">
 				<td valign="top" class="name"><g:message code="program.description.label" default="Description" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: programInstance, field: "description")}</td>

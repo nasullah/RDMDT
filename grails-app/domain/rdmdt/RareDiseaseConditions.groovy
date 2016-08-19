@@ -1,24 +1,27 @@
 package rdmdt
 
 /**
- * Program
+ * RareDiseaseConditions
  * A domain class describes the data object and it's mapping to the database
  */
-class Program{
+class RareDiseaseConditions {
 
     static constraints = {
-        name()
-        description()
+        originalId()
+        diseaseGroup()
+        diseaseSubgroup()
+        diseaseName()
     }
 
-    String name
-    String description
-
+    Integer originalId
+    String diseaseGroup
+    String diseaseSubgroup
+    String diseaseName
     /*
      * Methods of the Domain Class
      */
 	@Override	// Override toString for a nicer / more descriptive UI
 	public String toString() {
-		return "${name}";
+		return "${diseaseName}";
 	}
 }

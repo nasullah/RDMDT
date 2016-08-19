@@ -5,8 +5,7 @@
 
 <head>
 	<meta name="layout" content="kickstart" />
-	<g:set var="entityName" value="${message(code: 'clinician.label', default: 'Clinician')}" />
-	<title><g:message code="default.show.label" args="[entityName]" /></title>
+	<title>Your Profile</title>
 </head>
 
 <body>
@@ -17,10 +16,17 @@
 		<tbody>
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="clinician.name.label" default="Name" /></td>
+				<td valign="top" class="name"><g:message code="clinician.forename.label" default="Forename" /></td>
 				
-				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "name")}</td>
+				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "forename")}</td>
 				
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="clinician.surname.label" default="Surname" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "surname")}</td>
+
 			</tr>
 		
 			<tr class="prop">
@@ -38,7 +44,7 @@
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="clinician.centre.label" default="Centre" /></td>
+				<td valign="top" class="name"><g:message code="clinician.centre.label" default="Main Centre" /></td>
 
 				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "centreName")}</td>
 
@@ -50,38 +56,28 @@
 				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "departmentName")}</td>
 				
 			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="clinician.speciality.label" default="Speciality" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "speciality")}</td>
-				
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="clinician.membership.label" default="Role" /></td>
-				
-				<td valign="top" style="text-align: left;" class="value">
-					<ul>
-					<g:each in="${clinicianInstance.membership}" var="m">
-						<li><g:link controller="membership" action="show" id="${m.id}">${m?.encodeAsHTML()}</g:link></li>
-					</g:each>
-					</ul>
-				</td>
-				
-			</tr>
 
-			<g:if test="${clinicianInstance.referralRecords}">
+			<g:if test="${clinicianInstance.departmentOther}">
 				<tr class="prop">
-					<td valign="top" class="name"><g:message code="clinician.referralRecords.label" default="Applications" /></td>
+					<td valign="top" class="name"><g:message code="clinician.departmentOther.label" default="Department Other" /></td>
 
-					<td valign="top" style="text-align: left;" class="value">
-						<ul>
-						<g:each in="${clinicianInstance.referralRecords}" var="r">
-							<li><g:link controller="referralRecord" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>
-						</g:each>
-						</ul>
-					</td>
+					<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "departmentOther")}</td>
+
+				</tr>
+			</g:if>
+		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="clinician.roleType.label" default="Role" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "roleType")}</td>
+				
+			</tr>
+
+			<g:if test="${clinicianInstance.roleTypeOther}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="clinician.roleTypeOther.label" default="Role Other" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "roleTypeOther")}</td>
 
 				</tr>
 			</g:if>

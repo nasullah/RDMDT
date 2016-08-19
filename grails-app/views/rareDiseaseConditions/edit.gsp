@@ -1,25 +1,26 @@
-<%@ page import="rdmdt.Clinician" %>
+<%@ page import="rdmdt.RareDiseaseConditions" %>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta name="layout" content="kickstart" />
-	<title>Edit Your Profile</title>
+	<g:set var="entityName" value="${message(code: 'rareDiseaseConditions.label', default: 'RareDiseaseConditions')}" />
+	<title><g:message code="default.edit.label" args="[entityName]" /></title>
 </head>
 
 <body>
 
-	<section id="edit-clinician" class="first">
+	<section id="edit-rareDiseaseConditions" class="first">
 
-		<g:hasErrors bean="${clinicianInstance}">
+		<g:hasErrors bean="${rareDiseaseConditionsInstance}">
 		<div class="alert alert-danger">
-			<g:renderErrors bean="${clinicianInstance}" as="list" />
+			<g:renderErrors bean="${rareDiseaseConditionsInstance}" as="list" />
 		</div>
 		</g:hasErrors>
 
 		<g:form method="post" class="form-horizontal" role="form" >
-			<g:hiddenField name="id" value="${clinicianInstance?.id}" />
-			<g:hiddenField name="version" value="${clinicianInstance?.version}" />
+			<g:hiddenField name="id" value="${rareDiseaseConditionsInstance?.id}" />
+			<g:hiddenField name="version" value="${rareDiseaseConditionsInstance?.version}" />
 			<g:hiddenField name="_method" value="PUT" />
 			
 			<g:render template="form"/>

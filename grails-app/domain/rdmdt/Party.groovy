@@ -7,12 +7,10 @@ package rdmdt
 class Party {
 
     static constraints = {
-        name()
         email(nullable: true)
         telephone(nullable: true)
     }
 
-    String name
     String email
     String telephone
 

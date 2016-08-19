@@ -14,26 +14,6 @@
 				</div>
 
 				<div class="col-lg-6">
-					<div class="${hasErrors(bean: programInstance, field: 'email', 'error')} ">
-						<label for="email" class="control-label"><g:message code="program.email.label" default="Email" /></label>
-						<div>
-							<g:textField class="form-control" name="email" value="${programInstance?.email}"/>
-							<span class="help-inline">${hasErrors(bean: programInstance, field: 'email', 'error')}</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-6">
-					<div class="${hasErrors(bean: programInstance, field: 'telephone', 'error')} ">
-						<label for="telephone" class="control-label"><g:message code="program.telephone.label" default="Telephone" /></label>
-						<div>
-							<g:textField class="form-control" name="telephone" value="${programInstance?.telephone}"/>
-							<span class="help-inline">${hasErrors(bean: programInstance, field: 'telephone', 'error')}</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-6">
 					<div class="${hasErrors(bean: programInstance, field: 'description', 'error')} ">
 						<label for="description" class="control-label"><g:message code="program.description.label" default="Description" /><span class="required-indicator">*</span></label>
 						<div>

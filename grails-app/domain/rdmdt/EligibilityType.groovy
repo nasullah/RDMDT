@@ -1,24 +1,21 @@
 package rdmdt
 
 /**
- * Program
+ * EligibilityType
  * A domain class describes the data object and it's mapping to the database
  */
-class Program{
+class EligibilityType {
 
     static constraints = {
-        name()
-        description()
+        eligibilityTypeName()
     }
 
-    String name
-    String description
-
+    String eligibilityTypeName
     /*
      * Methods of the Domain Class
      */
 	@Override	// Override toString for a nicer / more descriptive UI
 	public String toString() {
-		return "${name}";
+		return "${eligibilityTypeName}";
 	}
 }

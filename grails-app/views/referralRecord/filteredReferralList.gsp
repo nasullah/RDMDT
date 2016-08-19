@@ -1,18 +1,18 @@
 
-<%@ page import="rdmdt.ReferralRecord" %>
+<%@ page import="rdmdt.Patient; rdmdt.ReferralRecord" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta name="layout" content="kickstart" />
-    <title>Your Referred Patients List</title>
+    <title>Your Application List</title>
 </head>
 
 <body>
 
-<g:if test="${referralRecordInstanceList.empty}">
+<g:if test="${referralRecordInstanceList?.empty}">
     <br/>
-    <div class="alert alert-danger" role="alert">You have not made any referral</div>
+    <div class="alert alert-danger" role="alert">You have not made any application.</div>
 </g:if>
 <g:else>
     <section id="index-referralRecord" class="first">
@@ -21,11 +21,14 @@
             <thead>
             <tr>
 
-                <th><g:message code="referralRecord.disorderName.label" default="Disorder Name" /></th>
-
-                <g:sortableColumn property="referralDate" title="${message(code: 'referralRecord.referralDate.label', default: 'Referral Status')}" />
-
                 <g:sortableColumn property="yourRef" title="${message(code: 'referralRecord.yourRef.label', default: 'Unique Ref')}" />
+
+                <th>Proband Name</th>
+
+                <th><g:message code="referralRecord.disorderName.label" default="Clinician Name" /></th>
+
+                <g:sortableColumn property="referralDate" title="${message(code: 'referralRecord.referralDate.label', default: 'Application Status')}" />
+
 
             </tr>
             </thead>
@@ -33,11 +36,13 @@
             <g:each in="${referralRecordInstanceList}" status="i" var="referralRecordInstance">
                 <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-                    <td><g:link action="show" id="${referralRecordInstance.id}">${fieldValue(bean: referralRecordInstance, field: "disorderName")}</g:link></td>
+                    <td><g:link action="show" id="${referralRecordInstance.id}">${fieldValue(bean: referralRecordInstance, field: "uniqueRef")}</g:link></td>
+
+                    <td>${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.givenName} ${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.familyName}</td>
+
+                    <td>${fieldValue(bean: referralRecordInstance?.clinician, field: "surname")}</td>
 
                     <td>${fieldValue(bean: referralRecordInstance, field: "referralStatus")}</td>
-
-                    <td>${fieldValue(bean: referralRecordInstance, field: "uniqueRef")}</td>
 
                 </tr>
             </g:each>

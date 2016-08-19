@@ -17,13 +17,11 @@
 		<thead>
 			<tr>
 			
-				<g:sortableColumn property="name" title="${message(code: 'clinician.name.label', default: 'Name')}" />
+				<g:sortableColumn property="surname" title="${message(code: 'clinician.surname.label', default: 'Surname')}" />
 			
-				<g:sortableColumn property="centre" title="${message(code: 'clinician.centreName.label', default: 'Centre')}" />
+				<g:sortableColumn property="centre" title="${message(code: 'clinician.centreName.label', default: 'Main Centre')}" />
 
 				<g:sortableColumn property="departmentName" title="${message(code: 'clinician.departmentName.label', default: 'Department')}" />
-			
-				<g:sortableColumn property="speciality" title="${message(code: 'clinician.speciality.label', default: 'Speciality')}" />
 
 				<th>Action</th>
 			
@@ -33,13 +31,11 @@
 		<g:each in="${clinicianInstanceList}" status="i" var="clinicianInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 			
-				<td><g:link action="show" id="${clinicianInstance.id}">${fieldValue(bean: clinicianInstance, field: "name")}</g:link></td>
+				<td><g:link action="show" id="${clinicianInstance.id}">${fieldValue(bean: clinicianInstance, field: "surname")}</g:link></td>
 			
 				<td>${fieldValue(bean: clinicianInstance, field: "centreName")}</td>
 
 				<td>${fieldValue(bean: clinicianInstance, field: "departmentName")}</td>
-			
-				<td>${fieldValue(bean: clinicianInstance, field: "speciality")}</td>
 
 				<td><a class='btn btn-primary btn-xs' <g:link controller="referralRecord" action="create" params="['clinician.id': clinicianInstance?.id]"><i class="glyphicon glyphicon-plus"></i>Add Referral</g:link></td>
 

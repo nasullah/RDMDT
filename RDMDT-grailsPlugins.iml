@@ -124,6 +124,8 @@
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (RDMDT-grailsPlugins)">
         <CLASSES>
+          <root url="file://$MODULE_DIR$/target/work/plugins/richui-0.8/lib" />
+          <root url="file://$MODULE_DIR$/target/work/plugins/joda-time-1.4/lib" />
           <root url="jar://$MAVEN_REPOSITORY$/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar!/" />
@@ -150,8 +152,11 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-el/7.0.52/tomcat-embed-el-7.0.52.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.52/tomcat-embed-jasper-7.0.52.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/tomcat-catalina-ant/7.0.52/tomcat-catalina-ant-7.0.52.jar!/" />
-          <root url="file://$MODULE_DIR$/target/work/plugins/richui-0.8/lib" />
-          <root url="file://$MODULE_DIR$/target/work/plugins/joda-time-1.4/lib" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/3.0.7.RELEASE/spring-security-web-3.0.7.RELEASE.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/3.0.7.RELEASE/spring-security-core-3.0.7.RELEASE.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/javax/mail/javax.mail-api/1.5.1/javax.mail-api-1.5.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/com/sun/mail/javax.mail/1.5.1/javax.mail-1.5.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

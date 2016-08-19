@@ -35,7 +35,10 @@ class ClinicianController {
 
     def findClinician(){
         def listClinician = Clinician.createCriteria().listDistinct{
-            ilike("name", "%${params.query}%")
+            or {
+                ilike("forename", "%${params.query}%")
+                ilike("surname", "%${params.query}%")
+            }
         }
         render(contentType: "text/xml") {
             results() {

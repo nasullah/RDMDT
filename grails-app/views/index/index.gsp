@@ -4,8 +4,7 @@
 <html>
 
 <head>
-	<p></p>
-	<title>Welcome to Rare Diseases MDT  </title>
+	<title>Welcome to Genomic Medicine MDT Referral Portal</title>
 	<meta name="layout" content="kickstart" />
 	<style>
 	#rcorner1 {
@@ -39,7 +38,7 @@
 
 <body>
 
-<hr/>
+<br/>
 
 <br/>
 
@@ -58,6 +57,10 @@
 				<br/>
 
 				<g:if test="${clinician}">
+					<ul>
+						<li><g:link controller="clinician" action="show" params="[id:clinician?.id]"> View your details</g:link></li>
+					</ul>
+
 					<ul>
 						<li><g:link controller="clinician" action="edit" params="[id:clinician?.id]"> Edit your details</g:link></li>
 					</ul>

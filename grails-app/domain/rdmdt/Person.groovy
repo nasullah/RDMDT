@@ -7,16 +7,19 @@ package rdmdt
 class Person extends Party{
 
 	static constraints = {
-		name()
+		forename()
+		surname()
 		email(nullable: true)
 		telephone(nullable: true)
 		departmentName()
-		speciality()
+		departmentOther(nullable: true)
 		centreName()
 	}
 
+	String forename
+	String surname
 	Department departmentName
-	String speciality
+	String departmentOther
 	Centre centreName
 
 	/*
