@@ -26,6 +26,6 @@ class Clinician extends Person{
      */
     @Override	// Override toString for a nicer / more descriptive UI
     public String toString() {
-        return "${surname}, ${departmentName}, ${centreName}";
+        return "${forename} ${surname}";
     }
 }

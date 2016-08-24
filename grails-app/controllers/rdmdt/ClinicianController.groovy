@@ -93,14 +93,8 @@ class ClinicianController {
         }
 
         clinicianInstance.save flush: true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Clinician.label', default: 'Clinician'), clinicianInstance.id])
-                redirect clinicianInstance
-            }
-            '*' { respond clinicianInstance, [status: OK] }
-        }
+        flash.message = "Your profile has been updated"
+        redirect clinicianInstance
     }
 
     @Transactional

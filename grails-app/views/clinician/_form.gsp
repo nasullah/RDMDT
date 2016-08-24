@@ -52,7 +52,9 @@
 						</div>
 					</div>
 				</div>
+			</div>
 
+			<div class="row">
 				<div class="col-lg-6">
 					<div class="${hasErrors(bean: clinicianInstance, field: 'departmentName', 'error')} ">
 						<label for="departmentName" class="control-label"><g:message code="clinician.departmentName.label" default="Department Name" /><span class="required-indicator">*</span></label>
@@ -65,14 +67,16 @@
 
 				<div class="col-lg-6" id="departmentOtherOption">
 					<div class="${hasErrors(bean: clinicianInstance, field: 'departmentOther', 'error')} ">
-						<label for="departmentOther" class="control-label"><g:message code="clinician.departmentOther.label" default="Department Other" /></label>
+						<label for="departmentOther" class="control-label"><g:message code="clinician.departmentOther.label" default="Specify Department" /></label>
 						<div>
 							<g:textField class="form-control" id="departmentOther" name="departmentOther" value="${clinicianInstance?.departmentOther}"/>
 							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'departmentOther', 'error')}</span>
 						</div>
 					</div>
 				</div>
+			</div>
 
+			<div class="row">
 				<div class="col-lg-6">
 					<div class="${hasErrors(bean: clinicianInstance, field: 'roleType', 'error')} ">
 						<label for="roleType" class="control-label"><g:message code="clinician.roleType.label" default="Role" /><span class="required-indicator">*</span></label>
@@ -85,7 +89,7 @@
 
 				<div class="col-lg-6" id="roleTypeOtherOption">
 					<div class="${hasErrors(bean: clinicianInstance, field: 'roleTypeOther', 'error')} ">
-						<label for="roleTypeOther" class="control-label"><g:message code="clinician.roleTypeOther.label" default="Role Other" /></label>
+						<label for="roleTypeOther" class="control-label"><g:message code="clinician.roleTypeOther.label" default="Specify Role" /></label>
 						<div>
 							<g:textField class="form-control" id="roleTypeOther" name="roleTypeOther" value="${clinicianInstance?.roleTypeOther}"/>
 							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'roleTypeOther', 'error')}</span>

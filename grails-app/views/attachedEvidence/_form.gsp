@@ -23,15 +23,15 @@
 					</div>
 				</div>
 
-				<div class="col-lg-6">
-					<div class="${hasErrors(bean: attachedEvidenceInstance, field: 'addedOn', 'error')} ">
-						<label for="addedOn" class="control-label"><g:message code="attachedEvidence.addedOn.label" default="Added On" /></label>
-						<div>
-							<bs:datePicker name="addedOn" precision="day"  value="${attachedEvidenceInstance?.addedOn}" default="none" noSelection="['': '']" />
-							<span class="help-inline">${hasErrors(bean: attachedEvidenceInstance, field: 'addedOn', 'error')}</span>
-						</div>
-					</div>
-				</div>
+				%{--<div class="col-lg-6">--}%
+					%{--<div class="${hasErrors(bean: attachedEvidenceInstance, field: 'addedOn', 'error')} ">--}%
+						%{--<label for="addedOn" class="control-label"><g:message code="attachedEvidence.addedOn.label" default="Added On" /></label>--}%
+						%{--<div>--}%
+							%{--<bs:datePicker name="addedOn" precision="day"  value="${attachedEvidenceInstance?.addedOn}" default="none" noSelection="['': '']" />--}%
+							%{--<span class="help-inline">${hasErrors(bean: attachedEvidenceInstance, field: 'addedOn', 'error')}</span>--}%
+						%{--</div>--}%
+					%{--</div>--}%
+				%{--</div>--}%
 
 				<g:if test="${attachedEvidenceInstance?.content == null}">
 					<div class="col-lg-6">

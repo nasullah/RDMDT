@@ -122,6 +122,11 @@ class ReferralRecordController {
                                   otherEthnicity: params.otherEthnicityProband, ege: params.ageProband, egeUnit: params.egeUnitProband, givenName: params.givenName, familyName: params.familyName)
         if (proband){
             referralRecordInstance.addToPatients(proband)
+            if (params.referralStatus){
+                referralRecordInstance.referralStatus = ReferralStatus.findById(params.long('referralStatus'))
+            }else {
+                referralRecordInstance.referralStatus = ReferralStatus.findByReferralStatusName('In progress')
+            }
             referralRecordInstance.save flush: true
 
             List<ClinicalDetails> clinicalDetailsList = new ArrayList<ClinicalDetails>();
@@ -152,11 +157,52 @@ class ReferralRecordController {
                 }
             }
 
-//            new Paternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerPaternal.asBoolean(), colorectalCancer: params.colorectalCancerPaternal.asBoolean(),
-//                    ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokePaternal.asBoolean(), endocrineTumours: params.endocrineTumoursPaternal.asBoolean(), referralRecord: referralRecordInstance).save flush: true
-//
-//            new Maternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerMaternal.asBoolean(), colorectalCancer: params.colorectalCancerMaternal.asBoolean(),
-//                    ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokeMaternal.asBoolean(), endocrineTumours: params.endocrineTumoursMaternal.asBoolean(), referralRecord: referralRecordInstance).save flush: true
+            List<CoApplicant> coApplicantList = new ArrayList<CoApplicant>();
+
+            print(params.coapplicantForename1)
+            print(params.coapplicantSurname1)
+            print(params.coapplicantEmail1)
+            if (params.coapplicantForename1 && params.coapplicantSurname1){
+                def clinician = Clinician.findByForenameAndSurname(params.coapplicantForename1, params.coapplicantSurname1)
+                if (!clinician){
+                    clinician = new Clinician(forename: params.coapplicantForename1, surname: params.coapplicantSurname1, email: params.coapplicantEmail1).save()
+                }
+                coApplicantList.add(new CoApplicant(coApplicant: clinician))
+            }
+            if (params.coapplicantForename2 && params.coapplicantSurname2){
+                def clinician = Clinician.findByForenameAndSurname(params.coapplicantForename2, params.coapplicantSurname2)
+                if (!clinician){
+                    clinician = new Clinician(forename: params.coapplicantForename2, surname: params.coapplicantSurname2, email: params.coapplicantEmail2).save()
+                }
+                coApplicantList.add(new CoApplicant(coApplicant: clinician))
+            }
+            if (params.coapplicantForename3 && params.coapplicantSurname3){
+                def clinician = Clinician.findByForenameAndSurname(params.coapplicantForename3, params.coapplicantSurname3)
+                if (!clinician){
+                    clinician = new Clinician(forename: params.coapplicantForename3, surname: params.coapplicantSurname3, email: params.coapplicantEmail3).save()
+                }
+                coApplicantList.add(new CoApplicant(coApplicant: clinician))
+            }
+            if (params.coapplicantForename4 && params.coapplicantSurname4){
+                def clinician = Clinician.findByForenameAndSurname(params.coapplicantForename4, params.coapplicantSurname4)
+                if (!clinician){
+                    clinician = new Clinician(forename: params.coapplicantForename4, surname: params.coapplicantSurname4, email: params.coapplicantEmail4).save()
+                }
+                coApplicantList.add(new CoApplicant(coApplicant: clinician))
+            }
+            if (params.coapplicantForename5 && params.coapplicantSurname5){
+                def clinician = Clinician.findByForenameAndSurname(params.coapplicantForename5, params.coapplicantSurname5)
+                if (!clinician){
+                    clinician = new Clinician(forename: params.coapplicantForename5, surname: params.coapplicantSurname5, email: params.coapplicantEmail5).save()
+                }
+                coApplicantList.add(new CoApplicant(coApplicant: clinician))
+            }
+
+            if (!coApplicantList.empty){
+                for (int i = 0; i <coApplicantList.size(); i++ ){
+                    referralRecordInstance.addToCoApplicants(coApplicantList.get(i)).save flush: true
+                }
+            }
 
             new Paternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerPaternal, colorectalCancer: params.colorectalCancerPaternal,
                     ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokePaternal, endocrineTumours: params.endocrineTumoursPaternal, referralRecord: referralRecordInstance).save flush: true
@@ -187,46 +233,67 @@ class ReferralRecordController {
                 referralRecordInstance.save flush: true
             }
 
-            if (params.coapplicantForename && params.coapplicantSurname){
-                def coapplicant = new Clinician(forename: params.coapplicantForename, surname: params.coapplicantSurname, email: params.coapplicantEmail).save flush: true
-                referralRecordInstance.coapplicant = coapplicant
-                referralRecordInstance.save flush: true
-            }
-
-            def file = request.getFile('pedigreeFile')
-            if (file?.originalFilename){
-                if (file?.empty) {
+            def pedigreeFile = request.getFile('pedigreeFile')
+            if (pedigreeFile?.originalFilename){
+                if (pedigreeFile?.empty) {
                     flash.message = "File cannot be empty"
                     respond referralRecordInstance.errors, view: 'create'
                     return
                 }
                 referralRecordInstance.pedigree = grailsApplication.config.uploadFolder +'Pedigree/'+
-                        referralRecordInstance.id.toString() + '.' + file.originalFilename
+                        referralRecordInstance.id.toString() + '.' + pedigreeFile.originalFilename
                 def destinationFile = new File(referralRecordInstance.pedigree)
 
                 try {
-                    file.transferTo(destinationFile)
+                    pedigreeFile.transferTo(destinationFile)
                     referralRecordInstance.save flush: true
-                    flash.message = "Referral Record ${referralRecordInstance.id} is created"
-                    redirect referralRecordInstance
                 }
                 catch (Exception ex) {
                     log.error(ex)
                     referralRecordInstance.pedigree = null
                     referralRecordInstance.save flush: true
-                    flash.message = "Referral Record ${referralRecordInstance.id} is created. Pedigree file could not be uploaded."
-                    redirect referralRecordInstance
                 }
-
-            } else {
-                flash.message = "Referral Record ${referralRecordInstance.id} is created"
-                redirect referralRecordInstance
             }
+
+            if (params.attachedEvidenceFile && params.attachedEvidenceType){
+                def attachedEvidenceFile = request.getFile('attachedEvidenceFile')
+                if (!attachedEvidenceFile.originalFilename) {
+                    flash.message = "Please choose a file"
+                    respond referralRecordInstance, view: 'create'
+                }else{
+                    def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType, addedOn: new Date(), referralRecord: referralRecordInstance)
+                    attachedEvidenceInstance.save flush: true
+                    attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                    def destinationFile = new File(attachedEvidenceInstance.content)
+
+                    try {
+                        attachedEvidenceFile.transferTo(destinationFile)
+                        attachedEvidenceInstance.save flush: true
+                    }
+                    catch (Exception ex) {
+                        log.error(ex)
+                    }
+                }
+            }
+            flash.message = "Referral Record ${referralRecordInstance.id} is created"
+            redirect referralRecordInstance
         }
     }
 
     def edit(ReferralRecord referralRecordInstance) {
         respond referralRecordInstance
+    }
+
+    @Transactional
+    def updateStatus(){
+        def referralRecordInstance = ReferralRecord.findById(params.long('referralRecord'))
+        referralRecordInstance.referralStatus = ReferralStatus.findById(params.long('referralStatus'))
+        if (referralRecordInstance.referralStatus.referralStatusName == 'Submitted'){
+            referralRecordInstance.submittedDate = new Date()
+        }
+        referralRecordInstance.save()
+        flash.message = "Referral Record status has been update"
+        redirect referralRecordInstance
     }
 
     @Transactional

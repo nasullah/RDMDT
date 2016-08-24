@@ -1,13 +1,13 @@
-<%@ page import="rdmdt.RelationshipType; rdmdt.Clinician; rdmdt.ReferralRecord" %>
+<%@ page import="rdmdt.AttachedEvidenceType; rdmdt.RelationshipType; rdmdt.Clinician; rdmdt.ReferralRecord" %>
 
 
-		<h2>Clinician Information</h2>
+		<h2>Applicant Information</h2>
 
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'clinician', 'error')} required">
 					<g:if test="${referralRecordInstance?.clinician?.id}">
-						<label for="clinician" class="control-label"><g:message code="referralRecord.clinician.label" default="Clinician" /><span class="required-indicator">*</span></label>
+						<label for="clinician" class="control-label"><g:message code="referralRecord.clinician.label" default="Applicant" /><span class="required-indicator">*</span></label>
 						<div>
 							<g:select class="form-control" id="clinician" name="clinician.id" from="${rdmdt.Clinician.list()}" optionKey="id" required="" value="${referralRecordInstance?.clinician?.id}"/>
 							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'clinician', 'error')}</span>
@@ -43,14 +43,14 @@
 				<div id="addCoapplicantDetailsButton">
 					<label class="control-label">Add Co-applicant</label>
 					<div>
-						<button type="button" id="addCoapplicantButton" class="btn btn-primary btn" value="add" onClick= 'addCoAppButton()'><span class="glyphicon glyphicon-plus"></span> Add</button>
+						<button type="button" id="addCoapplicantButton" class="btn btn-primary btn" value="add" onClick= 'addCoApplicants()'><span class="glyphicon glyphicon-plus"></span> Add</button>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-lg-6">
 				<div class="">
-					<label class="control-label">Responsible clinician email</label>
+					<label class="control-label">Responsible consultant email</label>
 					<div>
 						<g:textField class="form-control" name="correspondingClinicianEmail" value=""/>
 					</div>
@@ -58,12 +58,12 @@
 			</div>
 		</div>
 
-		<div class="row" id="coapplicantDetails">
+		<div class="row" id="coapplicantDetails1">
 			<div class="col-lg-3">
 				<div class="">
 					<label class="control-label">Co-applicant forename</label>
 					<div>
-						<g:textField class="form-control" name="coapplicantForename" value=""/>
+						<g:textField class="form-control" name="coapplicantForename1" value=""/>
 					</div>
 				</div>
 			</div>
@@ -72,7 +72,7 @@
 				<div class="">
 					<label class="control-label">Co-applicant surname</label>
 					<div>
-						<g:textField class="form-control" name="coapplicantSurname" value=""/>
+						<g:textField class="form-control" name="coapplicantSurname1" value=""/>
 					</div>
 				</div>
 			</div>
@@ -81,7 +81,123 @@
 				<div class="">
 					<label class="control-label">Co-applicant email</label>
 					<div>
-						<g:textField class="form-control" name="coapplicantEmail" value=""/>
+						<g:textField class="form-control" name="coapplicantEmail1" value=""/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" id="coapplicantDetails2">
+			<div class="col-lg-3">
+				<div class="">
+					<label class="control-label">Co-applicant forename</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantForename2" value=""/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-3">
+				<div class="">
+					<label class="control-label">Co-applicant surname</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantSurname2" value=""/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="">
+					<label class="control-label">Co-applicant email</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantEmail2" value=""/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" id="coapplicantDetails3">
+			<div class="col-lg-3">
+				<div class="">
+					<label class="control-label">Co-applicant forename</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantForename3" value=""/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-3">
+				<div class="">
+					<label class="control-label">Co-applicant surname</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantSurname3" value=""/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="">
+					<label class="control-label">Co-applicant email</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantEmail3" value=""/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" id="coapplicantDetails4">
+			<div class="col-lg-3">
+				<div class="">
+					<label class="control-label">Co-applicant forename</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantForename4" value=""/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-3">
+				<div class="">
+					<label class="control-label">Co-applicant surname</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantSurname4" value=""/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="">
+					<label class="control-label">Co-applicant email</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantEmail4" value=""/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" id="coapplicantDetails5">
+			<div class="col-lg-3">
+				<div class="">
+					<label class="control-label">Co-applicant forename</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantForename5" value=""/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-3">
+				<div class="">
+					<label class="control-label">Co-applicant surname</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantSurname5" value=""/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="">
+					<label class="control-label">Co-applicant email</label>
+					<div>
+						<g:textField class="form-control" name="coapplicantEmail5" value=""/>
 					</div>
 				</div>
 			</div>
@@ -95,7 +211,7 @@
 
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: patientInstance, field: 'givenName', 'error')} ">
-					<label for="givenName" class="control-label"><g:message code="patient.givenName.label" default="Given Name" /></label>
+					<label for="givenName" class="control-label"><g:message code="patient.givenName.label" default="Forename" /></label>
 					<div>
 						<g:textField class="form-control" name="givenName" value=""/>
 					</div>
@@ -104,7 +220,7 @@
 
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: patientInstance, field: 'familyName', 'error')} ">
-					<label for="familyName" class="control-label"><g:message code="patient.familyName.label" default="Family Name" /></label>
+					<label for="familyName" class="control-label"><g:message code="patient.familyName.label" default="Surname" /></label>
 					<div>
 						<g:textField class="form-control" name="familyName" value=""/>
 					</div>
@@ -113,9 +229,9 @@
 
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'uniqueRef', 'error')} ">
-					<label for="uniqueRef" class="control-label"><g:message code="referralRecord.uniqueRef.label" default="Unique Ref (case number or other local identifier)" /><span class="required-indicator">*</span></label>
+					<label for="uniqueRef" class="control-label"><g:message code="referralRecord.uniqueRef.label" default="Unique Ref (case number or other local identifier)" /></label>
 					<div>
-						<g:textField class="form-control" name="uniqueRef" value="${referralRecordInstance?.uniqueRef}" required=""/>
+						<g:textField class="form-control" name="uniqueRef" value="${referralRecordInstance?.uniqueRef}"/>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'uniqueRef', 'error')}</span>
 					</div>
 				</div>
@@ -142,9 +258,9 @@
 
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: patientInstance, field: 'ethnicity', 'error')} ">
-					<label for="ethnicityProband" class="control-label"><g:message code="patient.ethnicity.label" default="Ethnicity" /><span class="required-indicator">*</span></label>
+					<label for="ethnicityProband" class="control-label"><g:message code="patient.ethnicity.label" default="Ethnicity" /></label>
 					<div>
-						<g:select class="form-control" id="ethnicityProband" name="ethnicityProband" from="${rdmdt.Ethnicity.list()}" required="" onchange="otherEthnicityProbandOpt()" optionKey="id" value="${patientInstance?.ethnicity?.id}" noSelection="['':'- Choose -']" />
+						<g:select class="form-control" id="ethnicityProband" name="ethnicityProband" from="${rdmdt.Ethnicity.list()}" onchange="otherEthnicityProbandOpt()" optionKey="id" value="${patientInstance?.ethnicity?.id}" noSelection="['':'- Choose -']" />
 						<span class="help-inline">${hasErrors(bean: patientInstance, field: 'ethnicity', 'error')}</span>
 					</div>
 				</div>
@@ -584,27 +700,27 @@
 
 		<hr/>
 
-		<h2>Sample And Sequencing Information</h2>
+		<h2>Further information (family members out of area, availability of stored samples, etc.)</h2>
 
 		<h3>Number and identity of family members proposed for sequencing</h3>
 
 		<div class="row">
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'identityOfFamilyMembersSamplesForSeq', 'error')} ">
-					<label for="identityOfFamilyMembersSamplesForSeq" class="control-label"><g:message code="referralRecord.identityOfFamilyMembersSamplesForSeq.label" default="Identity of family members (e.g. proband and both parents)"/></label>
-					<div>
-						<g:field class="form-control" name="identityOfFamilyMembersSamplesForSeq" type="text" value="${referralRecordInstance.identityOfFamilyMembersSamplesForSeq}"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'identityOfFamilyMembersSamplesForSeq', 'error')}</span>
-					</div>
-				</div>
-			</div>
-
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'numberOfSamplesForSeq', 'error')} ">
 					<label for="numberOfSamplesForSeq" class="control-label"><g:message code="referralRecord.numberOfSamplesForSeq.label" default="Number of samples" /></label>
 					<div>
 						<g:field class="form-control" name="numberOfSamplesForSeq" type="number" min="1" value="${referralRecordInstance.numberOfSamplesForSeq}"/>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'numberOfSamplesForSeq', 'error')}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="${hasErrors(bean: referralRecordInstance, field: 'identityOfFamilyMembersSamplesForSeq', 'error')} ">
+					<label for="identityOfFamilyMembersSamplesForSeq" class="control-label"><g:message code="referralRecord.identityOfFamilyMembersSamplesForSeq.label" default="Identity of family members (e.g. proband and both parents)"/></label>
+					<div>
+						<g:field class="form-control" name="identityOfFamilyMembersSamplesForSeq" type="text" value="${referralRecordInstance.identityOfFamilyMembersSamplesForSeq}"/>
+						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'identityOfFamilyMembersSamplesForSeq', 'error')}</span>
 					</div>
 				</div>
 			</div>
@@ -743,49 +859,50 @@
 
 		<hr/>
 
-		<h2>Status Information</h2>
+		<sec:ifAnyGranted roles="ROLE_ADMIN">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="${hasErrors(bean: referralRecordInstance, field: 'referralStatus', 'error')} required">
+						<label for="referralStatus" class="control-label"><g:message code="referralRecord.referralStatus.label" default="Application Status" /><span class="required-indicator">*</span></label>
+						<div>
+							<g:select class="form-control" id="referralStatus" name="referralStatus.id" from="${rdmdt.ReferralStatus.list().sort{it.id}}" optionKey="id" onchange="statusDetailsOpt()" value="${referralRecordInstance?.referralStatus?.id}" noSelection="['':'- Choose -']"/>
+							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'referralStatus', 'error')}</span>
+						</div>
+					</div>
+				</div>
 
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'referralStatus', 'error')} required">
-					<label for="referralStatus" class="control-label"><g:message code="referralRecord.referralStatus.label" default="Application Status" /><span class="required-indicator">*</span></label>
-					<div>
-						<g:select class="form-control" id="referralStatus" name="referralStatus.id" from="${rdmdt.ReferralStatus.list().sort{it.id}}" optionKey="id" onchange="statusDetailsOpt()" required="" value="${referralRecordInstance?.referralStatus?.id}"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'referralStatus', 'error')}</span>
+				<div class="col-lg-6" id="conditionalApprovalDetailsOption">
+					<div class="${hasErrors(bean: referralRecordInstance, field: 'conditionalApprovalDetails', 'error')} ">
+						<label class="control-label">Please provide further details</label>
+						<div>
+							<g:textField class="form-control" id="conditionalApprovalDetails" name="conditionalApprovalDetails" value="${referralRecordInstance?.conditionalApprovalDetails}"/>
+							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'conditionalApprovalDetails', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6" id="approvalDetailsOption">
+					<div class="${hasErrors(bean: referralRecordInstance, field: 'approvalDetails', 'error')} ">
+						<label class="control-label">Please specify who gets sequenced</label>
+						<div>
+							<g:textField class="form-control" id="approvalDetails" name="approvalDetails" value="${referralRecordInstance?.approvalDetails}"/>
+							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'approvalDetails', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6" id="notApprovedDetailsOption">
+					<div class="${hasErrors(bean: referralRecordInstance, field: 'notApprovedDetails', 'error')} ">
+						<label class="control-label">Please provide further details</label>
+						<div>
+							<g:textField class="form-control" id="notApprovedDetails" name="notApprovedDetails" value="${referralRecordInstance?.notApprovedDetails}"/>
+							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'notApprovedDetails', 'error')}</span>
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-lg-6" id="conditionalApprovalDetailsOption">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'conditionalApprovalDetails', 'error')} ">
-					<label class="control-label">Please provide further details</label>
-					<div>
-						<g:textField class="form-control" id="conditionalApprovalDetails" name="conditionalApprovalDetails" value="${referralRecordInstance?.conditionalApprovalDetails}"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'conditionalApprovalDetails', 'error')}</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6" id="approvalDetailsOption">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'approvalDetails', 'error')} ">
-					<label class="control-label">Please specify who gets sequenced</label>
-					<div>
-						<g:textField class="form-control" id="approvalDetails" name="approvalDetails" value="${referralRecordInstance?.approvalDetails}"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'approvalDetails', 'error')}</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6" id="notApprovedDetailsOption">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'notApprovedDetails', 'error')} ">
-					<label class="control-label">Please provide further details</label>
-					<div>
-						<g:textField class="form-control" id="notApprovedDetails" name="notApprovedDetails" value="${referralRecordInstance?.notApprovedDetails}"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'notApprovedDetails', 'error')}</span>
-					</div>
-				</div>
-			</div>
-		</div>
+		</sec:ifAnyGranted>
 
 		<div class="row">
 			<div class="col-lg-6">
@@ -851,6 +968,32 @@
 			</div>
 		</div>
 
+		<hr/>
+
+		<h2>Attach evidence</h2>
+
+		<h4>Use this feature to add test reports, images, or other supporting evidence.  This information is retained within the NHS firewall</h4>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div>
+					<label class="control-label">Type</label>
+					<div>
+						<g:select class="form-control" id="attachedEvidenceType" name="attachedEvidenceType" from="${AttachedEvidenceType.list()}" optionKey="id"  noSelection="['':'- Choose -']"/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="">
+					<label  class="control-label">File</label>
+					<div>
+						<input type="file" id="attachedEvidenceFile" name="attachedEvidenceFile" />
+					</div>
+				</div>
+			</div>
+		</div>
+
 <g:javascript plugin="jquery" library="jquery" />
 <script>
 	function callClinician(clinician){
@@ -888,42 +1031,33 @@
 		}
 	}
 
-	$("#coapplicantDetails").hide();
-	function addCoAppButton(){
-		$("#addCoapplicantDetailsButton").hide();
-		$("#coapplicantDetails").show();
+	hideCoApplicants();
+	var countCoApplicants = 1;
+	function hideCoApplicants(){
+		if ($("#coapplicantForename1").val() == ""){
+			$("#coapplicantDetails1").hide();
+		}
+		if ($("#coapplicantForename2").val() == ""){
+			$("#coapplicantDetails2").hide();
+		}
+		if ($("#coapplicantForename3").val() == ""){
+			$("#coapplicantDetails3").hide();
+		}
+		if ($("#coapplicantForename4").val() == ""){
+			$("#coapplicantDetails4").hide();
+		}
+		if ($("#coapplicantForename5").val() == ""){
+			$("#coapplicantDetails5").hide();
+		}
 	}
 
-//	hideUnrelatedClinicalFeatures();
-//	var countUnrelated = 1;
-//	function hideUnrelatedClinicalFeatures(){
-//		if ($("#unrelatedFeature1").val() == ""){
-//			$("#unrelatedClinicalFeature1").hide();
-//		}
-//		if ($("#unrelatedFeature2").val() == ""){
-//			$("#unrelatedClinicalFeature2").hide();
-//		}
-//		if ($("#unrelatedFeature3").val() == ""){
-//			$("#unrelatedClinicalFeature3").hide();
-//		}
-//		if ($("#unrelatedFeature4").val() == ""){
-//			$("#unrelatedClinicalFeature4").hide();
-//		}
-//		if ($("#unrelatedFeature5").val() == ""){
-//			$("#unrelatedClinicalFeature5").hide();
-//		}
-//		if ($("#unrelatedFeature6").val() == ""){
-//			$("#unrelatedClinicalFeature6").hide();
-//		}
-//	}
-//
-//	function addUnrelatedClinicalFeatures(){
-//		$("#unrelatedClinicalFeature"+countUnrelated).show();
-//		countUnrelated++;
-//		if (countUnrelated > 6){
-//			$("#addUnrelatedClinicalFeatureButton").hide();
-//		}
-//	}
+	function addCoApplicants(){
+		$("#coapplicantDetails"+countCoApplicants).show();
+		countCoApplicants++;
+		if (countCoApplicants > 5){
+			$("#addCoapplicantDetailsButton").hide();
+		}
+	}
 
 	function callCategory(targetCategory){
 		document.getElementById('targetCategory').value = targetCategory;

@@ -46,6 +46,9 @@ This menu is used to show function that can be triggered on the content (an obje
 				<g:if test="${ params.controller == 'referralRecord'}">
 					<g:link action="edit" id="${params.id}"><i class="glyphicon glyphicon-pencil"></i> Edit Application</g:link>
 				</g:if>
+				<g:elseif test="${ params.controller == 'clinician'}">
+					<g:link action="edit" id="${params.id}"><i class="glyphicon glyphicon-pencil"></i> Edit Profile</g:link>
+				</g:elseif>
 				<g:else>
 					<g:link action="edit" id="${params.id}"><i class="glyphicon glyphicon-pencil"></i> <g:message code="default.edit.label"  args="[entityName]"/></g:link>
 				</g:else>

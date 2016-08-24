@@ -59,7 +59,7 @@
 
 			<g:if test="${clinicianInstance.departmentOther}">
 				<tr class="prop">
-					<td valign="top" class="name"><g:message code="clinician.departmentOther.label" default="Department Other" /></td>
+					<td valign="top" class="name"><g:message code="clinician.departmentOther.label" default="Specify Department" /></td>
 
 					<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "departmentOther")}</td>
 
@@ -75,7 +75,7 @@
 
 			<g:if test="${clinicianInstance.roleTypeOther}">
 				<tr class="prop">
-					<td valign="top" class="name"><g:message code="clinician.roleTypeOther.label" default="Role Other" /></td>
+					<td valign="top" class="name"><g:message code="clinician.roleTypeOther.label" default="Specify Role" /></td>
 
 					<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "roleTypeOther")}</td>
 

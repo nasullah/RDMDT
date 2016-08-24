@@ -75,6 +75,7 @@ class AttachedEvidenceController {
             flash.message = "Please choose a file"
             respond attachedEvidenceInstance, view: 'create'
         }else{
+            attachedEvidenceInstance.addedOn = new Date()
             attachedEvidenceInstance.save flush: true
             attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + file.originalFilename
             def destinationFile = new File(attachedEvidenceInstance.content)
@@ -108,7 +109,7 @@ class AttachedEvidenceController {
             respond attachedEvidenceInstance.errors, view: 'edit'
             return
         }
-
+        attachedEvidenceInstance.addedOn = new Date()
         attachedEvidenceInstance.save flush: true
 
         request.withFormat {

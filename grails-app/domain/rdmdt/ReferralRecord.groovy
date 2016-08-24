@@ -12,10 +12,10 @@ class ReferralRecord {
 	// tells GORM to cascade commands: e.g., delete this object if the "parent" is deleted.
     static belongsTo = [clinician:Clinician]
     static hasMany = [attachedEvidence:AttachedEvidence, patients:Patient, clinicalDetails:ClinicalDetails,
-                      paternal:Paternal, maternal:Maternal, extraTests:ExtraTests]
+                      paternal:Paternal, maternal:Maternal, extraTests:ExtraTests, coApplicants:CoApplicant]
     static constraints = {
         clinician()
-        uniqueRef()
+        uniqueRef(nullable: true)
         causativeVariantAffect(nullable: true)
         knownGeneVariant(nullable: true)
         geneticTestingOnProband(nullable: true)
@@ -29,7 +29,7 @@ class ReferralRecord {
         consanguinityEvidenceDetails(nullable: true)
         penetrance(nullable: true)
         penetranceDetails(nullable: true)
-        referralStatus()
+        referralStatus(nullable: true)
         note(nullable: true)
         program(nullable: true)
         proposedDiagnosis(nullable: true)
@@ -39,7 +39,6 @@ class ReferralRecord {
         isAnySampleFromDeceasedIndividuals()
         isAnySampleFromDeceasedIndividualsDetails(nullable: true)
         correspondingClinician(nullable: true)
-        coapplicant(nullable: true)
         disorderName(nullable: true)
         ageOfSymptoms(nullable: true)
         symptomEgeUnit(nullable: true)
@@ -56,6 +55,7 @@ class ReferralRecord {
         conditionalApprovalDetails(nullable: true)
         approvalDetails(nullable: true)
         notApprovedDetails(nullable: true)
+        submittedDate(nullable: true)
     }
 
     String uniqueRef
@@ -85,7 +85,6 @@ class ReferralRecord {
     boolean isAnySampleFromDeceasedIndividuals = Boolean.FALSE
     String isAnySampleFromDeceasedIndividualsDetails
     Clinician correspondingClinician
-    Clinician coapplicant
     String disorderName
     Integer ageOfSymptoms
     EgeUnit symptomEgeUnit
@@ -99,6 +98,7 @@ class ReferralRecord {
     EligibilityType eligibility
     String eligibilityDetails
     String consentPatientOrFamily
+    Date submittedDate
     /*
      * Methods of the Domain Class
      */

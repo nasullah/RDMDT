@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<title>Welcome to Genomic Medicine MDT Referral Portal</title>
+	<title>Welcome to The Genomic Medicine Online Referral System</title>
 	<meta name="layout" content="kickstart" />
 	<style>
 	#rcorner1 {
@@ -58,16 +58,16 @@
 
 				<g:if test="${clinician}">
 					<ul>
-						<li><g:link controller="clinician" action="show" params="[id:clinician?.id]"> View your details</g:link></li>
+						<li><g:link controller="clinician" action="show" params="[id:clinician?.id]"> View your profile</g:link></li>
 					</ul>
 
 					<ul>
-						<li><g:link controller="clinician" action="edit" params="[id:clinician?.id]"> Edit your details</g:link></li>
+						<li><g:link controller="clinician" action="edit" params="[id:clinician?.id]"> Edit your profile</g:link></li>
 					</ul>
 				</g:if>
 				<g:else>
 					<ul>
-						<li><g:link controller="clinician" action="create"> Add your details</g:link></li>
+						<li><g:link controller="clinician" action="create"> Add your profile</g:link></li>
 					</ul>
 				</g:else>
 
