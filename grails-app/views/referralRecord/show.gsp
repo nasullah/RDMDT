@@ -166,7 +166,7 @@
 			</tr>
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.otherTestingOnProband.label" default="Other Testing On Proband" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.otherTestingOnProband.label" default="Other Testing On Proband (metabolic, nerve conduction tests, muscle/skin biopsy, etc.)" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "otherTestingOnProband")}</td>
 				
@@ -334,14 +334,7 @@
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.samplesForSeqDetails.label" default="Details of samples proposed for sequencing" /></td>
-
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "samplesForSeqDetails")}</td>
-
-			</tr>
-
-			<tr class="prop">
-				<td valign="top" class="name">Is any of the samples are taken from deceased individuals</td>
+				<td valign="top" class="name">Are any of the samples are taken from deceased individuals</td>
 
 				<td valign="top" class="value"><g:formatBoolean false="No" true="Yes" boolean="${referralRecordInstance?.isAnySampleFromDeceasedIndividuals}" /></td>
 
@@ -355,6 +348,13 @@
 
 				</tr>
 			</g:if>
+
+			<tr class="prop">
+				<td valign="top" class="name">Further information about sample availability</td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "samplesForSeqDetails")}</td>
+
+			</tr>
 
 			<tr class="prop">
 				<td valign="top" class="name">Are any individuals proposed for sequencing out of area</td>
@@ -375,7 +375,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.program.label" default="Program" /></td>
 
-				<td valign="top" class="value"><g:link controller="program" action="show" id="${referralRecordInstance?.program?.id}">${referralRecordInstance?.program?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "program")}</td>
 
 			</tr>
 
@@ -387,14 +387,14 @@
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.targetCategory.label" default=" Target 100,000 Genomes Project Disorder Name" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.targetCategory.label" default="Target 100,000 Genomes Project Rare Disease category" /></td>
 
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "targetCategory")}</td>
 
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.eligibility.label" default=" Is this patient/family eligible?" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.eligibility.label" default="Is this patient/family eligible?" /></td>
 
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "eligibility")}</td>
 
@@ -410,24 +410,24 @@
 			</g:if>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.consentPatientOrFamily.label" default="Consent patientor family" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.consentPatientOrFamily.label" default="Consent patient or family" /></td>
 
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "consentPatientOrFamily")}</td>
 
 			</tr>
 		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.proposedDiagnosis.label" default="Proposed Diagnosis" /></td>
-				
-				<td valign="top" class="value"><g:link controller="OMIM" action="show" id="${referralRecordInstance?.proposedDiagnosis?.id}">${referralRecordInstance?.proposedDiagnosis?.encodeAsHTML()}</g:link></td>
-				
-			</tr>
+			%{--<tr class="prop">--}%
+				%{--<td valign="top" class="name"><g:message code="referralRecord.proposedDiagnosis.label" default="Proposed Diagnosis" /></td>--}%
+				%{----}%
+				%{--<td valign="top" class="value"><g:link controller="OMIM" action="show" id="${referralRecordInstance?.proposedDiagnosis?.id}">${referralRecordInstance?.proposedDiagnosis?.encodeAsHTML()}</g:link></td>--}%
+				%{----}%
+			%{--</tr>--}%
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.assignedTo.label" default="Assigned To" /></td>
-				
-				<td valign="top" class="value"><g:link controller="person" action="show" id="${referralRecordInstance?.assignedTo?.id}">${referralRecordInstance?.assignedTo?.encodeAsHTML()}</g:link></td>
-				
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "assignedTo")}</td>
+
 			</tr>
 		
 			<tr class="prop">

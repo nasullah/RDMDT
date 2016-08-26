@@ -1,4 +1,4 @@
-<%@ page import="rdmdt.AttachedEvidenceType; rdmdt.RelationshipType; rdmdt.Clinician; rdmdt.ReferralRecord" %>
+<%@ page import="rdmdt.Patient; rdmdt.AttachedEvidenceType; rdmdt.RelationshipType; rdmdt.Clinician; rdmdt.ReferralRecord" %>
 
 
 		<h2>Applicant Information</h2>
@@ -25,7 +25,7 @@
 				<div class="">
 					<label class="control-label">Responsible consultant forename</label>
 					<div>
-						<g:textField class="form-control" name="correspondingClinicianForename" value=""/>
+						<g:textField class="form-control" name="correspondingClinicianForename" value="${referralRecordInstance?.correspondingClinician?.forename}"/>
 					</div>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 				<div class="">
 					<label class="control-label">Responsible consultant surname</label>
 					<div>
-						<g:textField class="form-control" name="correspondingClinicianSurname" value=""/>
+						<g:textField class="form-control" name="correspondingClinicianSurname" value="${referralRecordInstance?.correspondingClinician?.surname}"/>
 					</div>
 				</div>
 			</div>
@@ -52,7 +52,7 @@
 				<div class="">
 					<label class="control-label">Responsible consultant email</label>
 					<div>
-						<g:textField class="form-control" name="correspondingClinicianEmail" value=""/>
+						<g:textField class="form-control" name="correspondingClinicianEmail" value="${referralRecordInstance?.correspondingClinician?.email}"/>
 					</div>
 				</div>
 			</div>
@@ -213,7 +213,7 @@
 				<div class="${hasErrors(bean: patientInstance, field: 'givenName', 'error')} ">
 					<label for="givenName" class="control-label"><g:message code="patient.givenName.label" default="Forename" /></label>
 					<div>
-						<g:textField class="form-control" name="givenName" value=""/>
+						<g:textField class="form-control" name="givenName" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.givenName}"/>
 					</div>
 				</div>
 			</div>
@@ -222,7 +222,7 @@
 				<div class="${hasErrors(bean: patientInstance, field: 'familyName', 'error')} ">
 					<label for="familyName" class="control-label"><g:message code="patient.familyName.label" default="Surname" /></label>
 					<div>
-						<g:textField class="form-control" name="familyName" value=""/>
+						<g:textField class="form-control" name="familyName" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.familyName}"/>
 					</div>
 				</div>
 			</div>
@@ -241,7 +241,7 @@
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'nhsNumber', 'error')} ">
 					<label for="nhsNumber" class="control-label">NHS number of the proband<span class="required-indicator">*</span></label>
 					<div>
-						<g:textField class="form-control" name="nhsNumberProband" value="" required=""/>
+						<g:textField class="form-control" name="nhsNumberProband" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.nhsNumber}" required=""/>
 					</div>
 				</div>
 			</div>
@@ -250,7 +250,7 @@
 				<div class="${hasErrors(bean: patientInstance, field: 'gender', 'error')} ">
 					<label for="genderProband" class="control-label"><g:message code="patient.gender.label" default="Gender" /></label>
 					<div>
-						<g:select class="form-control" id="genderProband" name="genderProband" from="${rdmdt.Gender.list()}" optionKey="id" value="${patientInstance?.gender?.id}" noSelection="['':'- Choose -']"/>
+						<g:select class="form-control" id="genderProband" name="genderProband" from="${rdmdt.Gender.list()}" optionKey="id" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.gender?.id}" noSelection="['':'- Choose -']"/>
 						<span class="help-inline">${hasErrors(bean: patientInstance, field: 'gender', 'error')}</span>
 					</div>
 				</div>
@@ -260,7 +260,7 @@
 				<div class="${hasErrors(bean: patientInstance, field: 'ethnicity', 'error')} ">
 					<label for="ethnicityProband" class="control-label"><g:message code="patient.ethnicity.label" default="Ethnicity" /></label>
 					<div>
-						<g:select class="form-control" id="ethnicityProband" name="ethnicityProband" from="${rdmdt.Ethnicity.list()}" onchange="otherEthnicityProbandOpt()" optionKey="id" value="${patientInstance?.ethnicity?.id}" noSelection="['':'- Choose -']" />
+						<g:select class="form-control" id="ethnicityProband" name="ethnicityProband" from="${rdmdt.Ethnicity.list()}" onchange="otherEthnicityProbandOpt()" optionKey="id" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.ethnicity?.id}" noSelection="['':'- Choose -']" />
 						<span class="help-inline">${hasErrors(bean: patientInstance, field: 'ethnicity', 'error')}</span>
 					</div>
 				</div>
@@ -270,7 +270,7 @@
 				<div class="${hasErrors(bean: patientInstance, field: 'otherEthnicity', 'error')} ">
 					<label for="otherEthnicityProband" class="control-label"><g:message code="patient.otherEthnicity.label" default="Please specify" /></label>
 					<div>
-						<g:textField class="form-control" id="otherEthnicityProband" name="otherEthnicityProband" value="${patientInstance?.otherEthnicity}"/>
+						<g:textField class="form-control" id="otherEthnicityProband" name="otherEthnicityProband" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.otherEthnicity}"/>
 						<span class="help-inline">${hasErrors(bean: patientInstance, field: 'otherEthnicity', 'error')}</span>
 					</div>
 				</div>
@@ -282,7 +282,7 @@
 				<div>
 					<label for="ageProband" class="control-label">Age (if deceased, age at death)</label>
 					<div>
-						<g:field class="form-control" name="ageProband" type="number" min="1" value=""/>
+						<g:field class="form-control" name="ageProband" type="number" min="1" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.ege}"/>
 					</div>
 				</div>
 			</div>
@@ -291,7 +291,7 @@
 				<div>
 					<label for="egeUnitProband" class="control-label">Age unit</label>
 					<div>
-						<g:select class="form-control" id="egeUnitProband" name="egeUnitProband" from="${rdmdt.EgeUnit.list()}" optionKey="id"  value="" noSelection="['':'- Choose -']"/>
+						<g:select class="form-control" id="egeUnitProband" name="egeUnitProband" from="${rdmdt.EgeUnit.findAllByEgeUnitNameNotEqualAndEgeUnitNameNotEqual('Congenital', 'Prenatal')}" optionKey="id"  value="${referralRecordInstance.patients?.find{p -> p.isProband}?.egeUnit?.id}" noSelection="['':'- Choose -']"/>
 					</div>
 				</div>
 			</div>
@@ -318,7 +318,7 @@
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'ageOfSymptoms', 'error')} ">
 					<label for="ageOfSymptoms" class="control-label"><g:message code="referralRecord.ageOfSymptoms.label" default="Age of onset of main symptoms" /></label>
 					<div>
-						<g:field class="form-control" name="ageOfSymptoms" type="number" min="1" value="${referralRecordInstance.ageOfSymptoms}"/>
+						<g:field class="form-control" name="ageOfSymptoms" type="number" min="0" value="${referralRecordInstance.ageOfSymptoms}"/>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'ageOfSymptoms', 'error')}</span>
 					</div>
 				</div>
@@ -423,7 +423,7 @@
 
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'otherTestingOnProband', 'error')} ">
-					<label for="otherTestingOnProband" class="control-label"><g:message code="referralRecord.otherTestingOnProband.label" default="Other Testing On Proband" /></label>
+					<label for="otherTestingOnProband" class="control-label">Other testing on proband (metabolic, nerve conduction, muscle/skin biopsy, etc.)</label>
 					<div>
 						<g:textField class="form-control" name="otherTestingOnProband" value="${referralRecordInstance?.otherTestingOnProband}"/>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'otherTestingOnProband', 'error')}</span>
@@ -700,8 +700,6 @@
 
 		<hr/>
 
-		<h2>Further information (family members out of area, availability of stored samples, etc.)</h2>
-
 		<h3>Number and identity of family members proposed for sequencing</h3>
 
 		<div class="row">
@@ -724,16 +722,6 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'samplesForSeqDetails', 'error')} ">
-					<label for="samplesForSeqDetails" class="control-label"><g:message code="referralRecord.samplesForSeqDetails.label" default="Details of samples" /></label>
-					<div>
-						<g:textArea class="form-control" name="samplesForSeqDetails" value="${referralRecordInstance?.samplesForSeqDetails}" rows="4" cols="40"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'samplesForSeqDetails', 'error')}</span>
-					</div>
-				</div>
-			</div>
 		</div>
 
 		<hr/>
@@ -741,7 +729,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'isAnySampleFromDeceasedIndividuals', 'error')} ">
-					<label for="isAnySampleFromDeceasedIndividuals" class="control-label"><g:message code="referralRecord.isAnySampleFromDeceasedIndividuals.label" default="Is any of the samples are taken from deceased individuals?" /></label>
+					<label for="isAnySampleFromDeceasedIndividuals" class="control-label"><g:message code="referralRecord.isAnySampleFromDeceasedIndividuals.label" default="Are any of the samples are taken from deceased individuals?" /></label>
 					<div>
 						<label class="radio-inline"><input type="radio" name="isAnySampleFromDeceasedIndividuals" id="isAnySampleFromDeceasedIndividualsYes" value="true" ${referralRecordInstance.isAnySampleFromDeceasedIndividuals == true ? 'checked="checked"' : ''} onclick="showIsAnySampleFromDeceasedIndividualsDetailsOpt()">Yes</label>
 						<label class="radio-inline"><input type="radio" name="isAnySampleFromDeceasedIndividuals" id="isAnySampleFromDeceasedIndividualsNo" value="false" ${referralRecordInstance.isAnySampleFromDeceasedIndividuals == false ? 'checked="checked"' : ''} onclick="hideIsAnySampleFromDeceasedIndividualsDetailsOpt()">No</label>
@@ -756,6 +744,18 @@
 					<div>
 						<g:textField class="form-control" id="isAnySampleFromDeceasedIndividualsDetails" name="isAnySampleFromDeceasedIndividualsDetails" value="${referralRecordInstance?.isAnySampleFromDeceasedIndividualsDetails}"/>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'isAnySampleFromDeceasedIndividualsDetails', 'error')}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="${hasErrors(bean: referralRecordInstance, field: 'samplesForSeqDetails', 'error')} ">
+					<label for="samplesForSeqDetails" class="control-label">Record any further information about sample availability in the box below</label>
+					<div>
+						<g:textArea class="form-control" name="samplesForSeqDetails" value="${referralRecordInstance?.samplesForSeqDetails}" rows="4" cols="40"/>
+						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'samplesForSeqDetails', 'error')}</span>
 					</div>
 				</div>
 			</div>
@@ -786,8 +786,7 @@
 
 		<hr/>
 
-		<h4>The default programme for whole genome sequencing is the national 100,000 Genomes Project, but other local providers may be available.  Please add any supporting information or comments regarding this, especially if this is not applicable or appropriate for any reason.
-		If this case has been discussed through the Clinical Genetics Consultants Meeting, please also indicate here.</h4>
+		<h4>The default programme for whole genome sequencing is the national 100,000 Genomes Project, but other local providers may be available. Please add any supporting information or comments regarding this, especially if you have a preference. If this case has been discussed through the Clinical Genetics Consultants Meeting, please also indicate here, including the date of the meeting and the selected recruitment category.</h4>
 
 		<div class="row">
 			<div class="col-lg-6">
@@ -811,7 +810,7 @@
 			</div>
 
 			<div class="col-lg-6">
-				<label class="control-label">Target 100,000 Genomes Project Disorder Name (enter key word)</label>
+				<label class="control-label">Target 100,000 Genomes Project Rare Disease category (enter key word)</label>
 				<richui:autoComplete class="form-control" name="targetCategoryName" action="${createLinkTo('dir': 'referralRecord/searchRareDiseaseCondition')}" value="${participantInstance?.targetCategory}" onItemSelect="callCategory(id)"  maxResultsDisplayed="20" minQueryLength="2"/>
 				<g:hiddenField id ="targetCategory" name ="targetCategory" value="${participantInstance?.targetCategory?.id}"/>
 			</div>
@@ -927,15 +926,15 @@
 		</div>
 
 		<div class="row">
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'proposedDiagnosis', 'error')} ">
-					<label for="proposedDiagnosis" class="control-label"><g:message code="referralRecord.proposedDiagnosis.label" default="Proposed Diagnosis" /></label>
-					<div>
-						<g:select class="form-control" id="proposedDiagnosis" name="proposedDiagnosis.id" from="${rdmdt.OMIM.list()}" optionKey="id" value="${referralRecordInstance?.proposedDiagnosis?.id}" noSelection="['':'- Choose -']"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'proposedDiagnosis', 'error')}</span>
-					</div>
-				</div>
-			</div>
+			%{--<div class="col-lg-6">--}%
+				%{--<div class="${hasErrors(bean: referralRecordInstance, field: 'proposedDiagnosis', 'error')} ">--}%
+					%{--<label for="proposedDiagnosis" class="control-label"><g:message code="referralRecord.proposedDiagnosis.label" default="Proposed Diagnosis" /></label>--}%
+					%{--<div>--}%
+						%{--<g:select class="form-control" id="proposedDiagnosis" name="proposedDiagnosis.id" from="${rdmdt.OMIM.list()}" optionKey="id" value="${referralRecordInstance?.proposedDiagnosis?.id}" noSelection="['':'- Choose -']"/>--}%
+						%{--<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'proposedDiagnosis', 'error')}</span>--}%
+					%{--</div>--}%
+				%{--</div>--}%
+			%{--</div>--}%
 
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'meetingDate', 'error')} ">

@@ -292,7 +292,7 @@ class ReferralRecordController {
             referralRecordInstance.submittedDate = new Date()
         }
         referralRecordInstance.save()
-        flash.message = "Referral Record status has been update"
+        flash.message = "Application status updated on ${referralRecordInstance?.submittedDate}"
         redirect referralRecordInstance
     }
 
