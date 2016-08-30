@@ -46,7 +46,7 @@
 
 <br/>
 
-<sec:ifAnyGranted roles="ROLE_USER, ROLE_ADMIN">
+<sec:ifAnyGranted roles="ROLE_USER">
 	<section id="info">
 		<div>
 

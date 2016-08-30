@@ -55,6 +55,11 @@ class ReferralRecordController {
         }
     }
 
+    def submittedApplication(){
+        def referralRecordInstanceList = ReferralRecord.findAllByReferralStatus(ReferralStatus.findByReferralStatusName('Submitted'))?.sort {it?.submittedDate}
+        [referralRecordInstanceList:referralRecordInstanceList]
+    }
+
     def searchRareDiseaseCondition = {
         def listRareDiseaseCondition = RareDiseaseConditions.createCriteria().listDistinct {
             ilike("diseaseName", "%${params.query}%")
@@ -122,7 +127,7 @@ class ReferralRecordController {
                                   otherEthnicity: params.otherEthnicityProband, ege: params.ageProband, egeUnit: params.egeUnitProband, givenName: params.givenName, familyName: params.familyName)
         if (proband){
             referralRecordInstance.addToPatients(proband)
-            if (params.referralStatus){
+            if (ReferralStatus.findById(params.long('referralStatus'))){
                 referralRecordInstance.referralStatus = ReferralStatus.findById(params.long('referralStatus'))
             }else {
                 referralRecordInstance.referralStatus = ReferralStatus.findByReferralStatusName('In progress')
@@ -333,7 +338,7 @@ class ReferralRecordController {
                 boolean fileDeletedSuccessfully = new File(referralRecordInstance.pedigree).delete()
                 if (fileDeletedSuccessfully){
                     referralRecordInstance.delete flush: true
-                    flash.message = "Referral record instance has been deleted"
+                    flash.message = "Application has been deleted"
                     redirect action: "index", method: "GET"
                 } else{
                     flash.message = "Could not delete the pedigree file"
@@ -343,7 +348,7 @@ class ReferralRecordController {
 
         }else {
             referralRecordInstance.delete flush: true
-            flash.message = "Referral record instance has been deleted"
+            flash.message = "Application has been deleted"
             redirect action: "index", method: "GET"
         }
     }

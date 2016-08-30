@@ -40,7 +40,7 @@
 		<thead>
 		<tr>
 
-			<th><g:message code="referralRecord.disorderName.label" default="Applicant Name" /></th>
+			<th>Applicant Name</th>
 
 			<g:sortableColumn property="yourRef" title="${message(code: 'referralRecord.yourRef.label', default: 'Unique Ref')}" />
 
