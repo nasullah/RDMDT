@@ -388,7 +388,7 @@ class ReferralRecordController {
         proband.gender = Gender.findById(params.long('genderProband'))
         proband.ethnicity = Ethnicity.findById(params.long('ethnicityProband'))
         proband.otherEthnicity = params.otherEthnicityProband
-        proband.age = params.ageProband
+        proband.age = params.int('ageProband')
         proband.ageUnit = AgeUnit.findById(params.long('egeUnitProband'))
         proband.givenName = params.givenName
         proband.familyName = params.familyName
