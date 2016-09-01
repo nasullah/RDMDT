@@ -6,6 +6,7 @@ package rdmdt
  */
 class RelationshipType {
 
+	static auditable = true
 	static	constraints = {
 		relationshipTypeName()
 		relationshipTypeInverse()

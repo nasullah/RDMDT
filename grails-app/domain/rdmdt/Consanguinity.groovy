@@ -6,6 +6,7 @@ package rdmdt
  */
 class Consanguinity {
 
+    static auditable = true
     static constraints = {
         consanguinityEvidence()
     }

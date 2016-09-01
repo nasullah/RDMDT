@@ -6,6 +6,7 @@ package rdmdt
  */
 class AttachedEvidenceType {
 
+    static auditable = true
     static constraints = {
         attachedEvidenceTypeName()
     }

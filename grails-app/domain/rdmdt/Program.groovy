@@ -6,6 +6,7 @@ package rdmdt
  */
 class Program{
 
+    static auditable = true
     static constraints = {
         name()
         description()

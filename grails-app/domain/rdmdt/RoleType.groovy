@@ -6,6 +6,7 @@ package rdmdt
  */
 class RoleType {
 
+    static auditable = true
     static constraints = {
         roleTypeName()
     }

@@ -6,6 +6,7 @@ package rdmdt
  */
 class Department {
 
+    static auditable = true
     static constraints = {
         departmentName()
     }

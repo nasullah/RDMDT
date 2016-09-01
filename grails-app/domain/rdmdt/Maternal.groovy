@@ -6,6 +6,7 @@ package rdmdt
  */
 class Maternal extends FamilyHistory{
 
+    static auditable = true
     static belongsTo = [referralRecord:ReferralRecord]
     static constraints = {
         breastAndOrOvarianCancer()

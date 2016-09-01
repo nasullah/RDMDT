@@ -6,6 +6,7 @@ package rdmdt
  */
 class Ethnicity {
 
+    static auditable = true
     static constraints = {
         ethnicityName()
     }

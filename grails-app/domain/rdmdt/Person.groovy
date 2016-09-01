@@ -6,6 +6,7 @@ package rdmdt
  */
 class Person extends Party{
 
+	static auditable = true
 	static constraints = {
 		forename()
 		surname()

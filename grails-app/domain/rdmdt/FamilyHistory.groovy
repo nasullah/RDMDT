@@ -6,6 +6,7 @@ package rdmdt
  */
 class FamilyHistory {
 
+    static auditable = true
     static constraints = {
         breastAndOrOvarianCancer()
         colorectalCancer()

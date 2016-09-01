@@ -6,6 +6,7 @@ package rdmdt
  */
 class AttachedEvidence {
 
+    static auditable = true
     static belongsTo = [referralRecord:ReferralRecord]
     static mapping = {
         content type: "text"

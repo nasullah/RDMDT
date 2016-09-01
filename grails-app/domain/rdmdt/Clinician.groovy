@@ -6,6 +6,7 @@ package rdmdt
  */
 class Clinician extends Person{
 
+    static auditable = true
     static hasMany = [referralRecords:ReferralRecord]
     static constraints = {
         forename()

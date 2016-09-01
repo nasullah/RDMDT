@@ -6,6 +6,7 @@ package rdmdt
  */
 class ClinicalDetails {
 
+    static auditable = true
     static belongsTo = [referralRecord:ReferralRecord]
     static constraints = {
         referralRecord()

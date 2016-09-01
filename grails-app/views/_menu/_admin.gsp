@@ -52,7 +52,7 @@
 			<p>
 
 			<li class="">
-				<a href="${createLink(uri: '/egeUnit')}">
+				<a href="${createLink(uri: '/ageUnit')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 					Age Unit
 				</a>

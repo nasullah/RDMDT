@@ -6,6 +6,7 @@ package rdmdt
  */
 class Relationship {
 
+    static auditable = true
     static belongsTo = [patient:Patient]
     static hasOne = [relatedPatient:Patient]
     static constraints = {

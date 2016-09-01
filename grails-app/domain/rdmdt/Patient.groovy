@@ -6,6 +6,7 @@ package rdmdt
  */
 class Patient{
 
+    static auditable = true
     static belongsTo = [ReferralRecord, Relationship]
     static hasMany = [relationshipTo:Relationship]
     static constraints = {
@@ -19,8 +20,8 @@ class Patient{
         otherEthnicity(nullable: true)
         availableForOAR(nullable: true)
         isProband()
-        ege(nullable: true)
-        egeUnit(nullable: true)
+        age(nullable: true)
+        ageUnit(nullable: true)
         referralRecord()
         relatedFrom(nullable: true)
 
@@ -35,8 +36,8 @@ class Patient{
     String otherEthnicity
     boolean availableForOAR = Boolean.TRUE
     boolean isProband = Boolean.FALSE
-    Integer ege
-    EgeUnit egeUnit
+    Integer age
+    AgeUnit ageUnit
     ReferralRecord referralRecord
     Relationship relatedFrom
 

@@ -6,6 +6,7 @@ package rdmdt
  */
 class OMIM {
 
+    static auditable = true
     static constraints = {
     }
 

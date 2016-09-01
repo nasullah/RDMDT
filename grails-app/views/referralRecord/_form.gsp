@@ -1,4 +1,4 @@
-<%@ page import="rdmdt.Patient; rdmdt.AttachedEvidenceType; rdmdt.RelationshipType; rdmdt.Clinician; rdmdt.ReferralRecord" %>
+<%@ page import="rdmdt.AgeUnit; rdmdt.ReferralStatus; rdmdt.Program; rdmdt.Patient; rdmdt.AttachedEvidenceType; rdmdt.RelationshipType; rdmdt.Clinician; rdmdt.ReferralRecord" %>
 
 
 		<h2>Applicant Information</h2>
@@ -21,21 +21,11 @@
 				</div>
 			</div>
 
-			<div class="col-lg-3">
+			<div class="col-lg-6">
 				<div class="">
-					<label class="control-label">Responsible consultant forename</label>
-					<div>
-						<g:textField class="form-control" name="correspondingClinicianForename" value="${referralRecordInstance?.correspondingClinician?.forename}"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Responsible consultant surname</label>
-					<div>
-						<g:textField class="form-control" name="correspondingClinicianSurname" value="${referralRecordInstance?.correspondingClinician?.surname}"/>
-					</div>
+					<label class="control-label">Responsible consultant if different (enter name)</label>
+					<richui:autoComplete class="form-control"  name="consultantName" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.correspondingClinician}" onItemSelect="callCorrespondingClinician(id)"  />
+					<g:hiddenField id ="correspondingClinician" name ="correspondingClinician" value="${referralRecordInstance?.clinician?.id}"/>
 				</div>
 			</div>
 
@@ -47,158 +37,54 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Responsible consultant email</label>
-					<div>
-						<g:textField class="form-control" name="correspondingClinicianEmail" value="${referralRecordInstance?.correspondingClinician?.email}"/>
-					</div>
-				</div>
-			</div>
 		</div>
 
 		<div class="row" id="coapplicantDetails1">
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant forename</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantForename1" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant surname</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantSurname1" value=""/>
-					</div>
-				</div>
-			</div>
-
 			<div class="col-lg-6">
 				<div class="">
-					<label class="control-label">Co-applicant email</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantEmail1" value=""/>
-					</div>
+					<label class="control-label">Co-applicant (enter name)</label>
+					<richui:autoComplete class="form-control"  name="coapplicantName1" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(0)}" onItemSelect="callCoApplicant1(id)"  />
+					<g:hiddenField id ="coapplicant1" name ="coapplicant1" value="${referralRecordInstance?.coApplicants?.getAt(0)?.id}"/>
 				</div>
 			</div>
 		</div>
 
 		<div class="row" id="coapplicantDetails2">
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant forename</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantForename2" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant surname</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantSurname2" value=""/>
-					</div>
-				</div>
-			</div>
-
 			<div class="col-lg-6">
 				<div class="">
-					<label class="control-label">Co-applicant email</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantEmail2" value=""/>
-					</div>
+					<label class="control-label">Co-applicant (enter name)</label>
+					<richui:autoComplete class="form-control"  name="coapplicantName2" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(1)}" onItemSelect="callCoApplicant2(id)"  />
+					<g:hiddenField id ="coapplicant2" name ="coapplicant2" value="${referralRecordInstance?.coApplicants?.getAt(1)?.id}"/>
 				</div>
 			</div>
 		</div>
 
 		<div class="row" id="coapplicantDetails3">
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant forename</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantForename3" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant surname</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantSurname3" value=""/>
-					</div>
-				</div>
-			</div>
-
 			<div class="col-lg-6">
 				<div class="">
-					<label class="control-label">Co-applicant email</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantEmail3" value=""/>
-					</div>
+					<label class="control-label">Co-applicant (enter name)</label>
+					<richui:autoComplete class="form-control"  name="coapplicantName3" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(3)}" onItemSelect="callCoApplicant3(id)"  />
+					<g:hiddenField id ="coapplicant3" name ="coapplicant3" value="${referralRecordInstance?.coApplicants?.getAt(2)?.id}"/>
 				</div>
 			</div>
 		</div>
 
 		<div class="row" id="coapplicantDetails4">
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant forename</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantForename4" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant surname</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantSurname4" value=""/>
-					</div>
-				</div>
-			</div>
-
 			<div class="col-lg-6">
 				<div class="">
-					<label class="control-label">Co-applicant email</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantEmail4" value=""/>
-					</div>
+					<label class="control-label">Co-applicant (enter name)</label>
+					<richui:autoComplete class="form-control"  name="coapplicantName4" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(3)}" onItemSelect="callCoApplicant4(id)"  />
+					<g:hiddenField id ="coapplicant4" name ="coapplicant4" value="${referralRecordInstance?.coApplicants?.getAt(3)?.id}"/>
 				</div>
 			</div>
 		</div>
 
 		<div class="row" id="coapplicantDetails5">
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant forename</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantForename5" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label class="control-label">Co-applicant surname</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantSurname5" value=""/>
-					</div>
-				</div>
-			</div>
-
 			<div class="col-lg-6">
 				<div class="">
-					<label class="control-label">Co-applicant email</label>
-					<div>
-						<g:textField class="form-control" name="coapplicantEmail5" value=""/>
-					</div>
+					<label class="control-label">Co-applicant (enter name)</label>
+					<richui:autoComplete class="form-control"  name="coapplicantName4" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(4)}" onItemSelect="callCoApplicant5(id)"  />
+					<g:hiddenField id ="coapplicant5" name ="coapplicant5" value="${referralRecordInstance?.coApplicants?.getAt(4)?.id}"/>
 				</div>
 			</div>
 		</div>
@@ -282,7 +168,7 @@
 				<div>
 					<label for="ageProband" class="control-label">Age (if deceased, age at death)</label>
 					<div>
-						<g:field class="form-control" name="ageProband" type="number" min="1" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.ege}"/>
+						<g:field class="form-control" name="ageProband" type="number" min="1" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.age}"/>
 					</div>
 				</div>
 			</div>
@@ -291,7 +177,7 @@
 				<div>
 					<label for="egeUnitProband" class="control-label">Age unit</label>
 					<div>
-						<g:select class="form-control" id="egeUnitProband" name="egeUnitProband" from="${rdmdt.EgeUnit.findAllByEgeUnitNameNotEqualAndEgeUnitNameNotEqual('Congenital', 'Prenatal')}" optionKey="id"  value="${referralRecordInstance.patients?.find{p -> p.isProband}?.egeUnit?.id}" noSelection="['':'- Choose -']"/>
+						<g:select class="form-control" id="egeUnitProband" name="egeUnitProband" from="${AgeUnit.findAllByAgeUnitNameNotEqualAndAgeUnitNameNotEqual('Congenital', 'Prenatal')}" optionKey="id"  value="${referralRecordInstance.patients?.find{p -> p.isProband}?.ageUnit?.id}" noSelection="['':'- Choose -']"/>
 					</div>
 				</div>
 			</div>
@@ -328,7 +214,7 @@
 				<div>
 					<label class="control-label">Unit</label>
 					<div>
-						<g:select class="form-control" id="symptomEgeUnit" name="symptomEgeUnit.id" from="${rdmdt.EgeUnit.list()}" optionKey="id"  value="" noSelection="['':'- Choose -']"/>
+						<g:select class="form-control" id="symptomEgeUnit" name="symptomEgeUnit.id" from="${rdmdt.AgeUnit.list()}" optionKey="id"  value="" noSelection="['':'- Choose -']"/>
 					</div>
 				</div>
 			</div>
@@ -339,7 +225,7 @@
 				<div id="clinicalDetails0">
 					<label class="control-label">Clinical details</label>
 					<div>
-						<g:field class="form-control" name="cDetails0" type="text" value=""/>
+						<g:field class="form-control" name="cDetails0" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(0)?.clinicalDetailsName}"/>
 					</div>
 				</div>
 			</div>
@@ -359,7 +245,7 @@
 				<div id="clinicalDetails1">
 					<label class="control-label">Clinical details</label>
 					<div>
-						<g:field class="form-control" name="cDetails1" type="text" value=""/>
+						<g:field class="form-control" name="cDetails1" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(1)?.clinicalDetailsName}"/>
 					</div>
 				</div>
 			</div>
@@ -368,7 +254,7 @@
 				<div id="clinicalDetails2">
 					<label class="control-label">Clinical details</label>
 					<div>
-						<g:field class="form-control" name="cDetails2" type="text" value=""/>
+						<g:field class="form-control" name="cDetails2" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(2)?.clinicalDetailsName}"/>
 					</div>
 				</div>
 			</div>
@@ -377,7 +263,7 @@
 				<div id="clinicalDetails3">
 					<label class="control-label">Clinical details</label>
 					<div>
-						<g:field class="form-control" name="cDetails3" type="text" value=""/>
+						<g:field class="form-control" name="cDetails3" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(3)?.clinicalDetailsName}"/>
 					</div>
 				</div>
 			</div>
@@ -386,7 +272,7 @@
 				<div id="clinicalDetails4">
 					<label class="control-label">Clinical details</label>
 					<div>
-						<g:field class="form-control" name="cDetails4" type="text" value=""/>
+						<g:field class="form-control" name="cDetails4" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(4)?.clinicalDetailsName}"/>
 					</div>
 				</div>
 			</div>
@@ -395,7 +281,7 @@
 				<div id="clinicalDetails5">
 					<label class="control-label">Clinical details</label>
 					<div>
-						<g:field class="form-control" name="cDetails5" type="text" value=""/>
+						<g:field class="form-control" name="cDetails5" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(5)?.clinicalDetailsName}"/>
 					</div>
 				</div>
 			</div>
@@ -404,7 +290,7 @@
 				<div id="clinicalDetails6">
 					<label class="control-label">Clinical details</label>
 					<div>
-						<g:field class="form-control" name="cDetails6" type="text" value=""/>
+						<g:field class="form-control" name="cDetails6" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(6)?.clinicalDetailsName}"/>
 					</div>
 				</div>
 			</div>
@@ -683,7 +569,7 @@
 				<div class="">
 					<label class="control-label">Mother</label>
 					<div>
-						<g:select class="form-control" id="ethnicityMother" name="ethnicityMother" from="${rdmdt.Ethnicity.list()}" optionKey="id" value="" noSelection="['':'- Choose -']"/>
+						<g:select class="form-control" id="ethnicityMother" name="ethnicityMother" from="${rdmdt.Ethnicity.list()}" optionKey="id" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.ethnicity?.id}" noSelection="['':'- Choose -']"/>
 					</div>
 				</div>
 			</div>
@@ -692,7 +578,7 @@
 				<div class="">
 					<label class="control-label">Father</label>
 					<div>
-						<g:select class="form-control" id="ethnicityFather" name="ethnicityFather" from="${rdmdt.Ethnicity.list()}" optionKey="id" value="" noSelection="['':'- Choose -']"/>
+						<g:select class="form-control" id="ethnicityFather" name="ethnicityFather" from="${rdmdt.Ethnicity.list()}" optionKey="id" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.ethnicity?.id}" noSelection="['':'- Choose -']"/>
 					</div>
 				</div>
 			</div>
@@ -811,8 +697,8 @@
 
 			<div class="col-lg-6">
 				<label class="control-label">Target 100,000 Genomes Project Rare Disease category (enter key word)</label>
-				<richui:autoComplete class="form-control" name="targetCategoryName" action="${createLinkTo('dir': 'referralRecord/searchRareDiseaseCondition')}" value="${participantInstance?.targetCategory}" onItemSelect="callCategory(id)"  maxResultsDisplayed="20" minQueryLength="2"/>
-				<g:hiddenField id ="targetCategory" name ="targetCategory" value="${participantInstance?.targetCategory?.id}"/>
+				<richui:autoComplete class="form-control" name="targetCategoryName" action="${createLinkTo('dir': 'referralRecord/searchRareDiseaseCondition')}" value="${referralRecordInstance?.targetCategory}" onItemSelect="callCategory(id)"  maxResultsDisplayed="20" minQueryLength="2"/>
+				<g:hiddenField id ="targetCategory" name ="targetCategory" value="${referralRecordInstance?.targetCategory?.id}"/>
 			</div>
 		</div>
 
@@ -858,7 +744,91 @@
 
 		<hr/>
 
+		<h2>Attach evidence</h2>
+
+		<h4>Use this feature to add test reports, images, or other supporting evidence.  This information is retained within the NHS firewall</h4>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div>
+					<label class="control-label">Type</label>
+					<div>
+						<g:select class="form-control" id="attachedEvidenceType" name="attachedEvidenceType" from="${AttachedEvidenceType.list()}" optionKey="id"  noSelection="['':'- Choose -']"/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="">
+					<label  class="control-label">File</label>
+					<div>
+						<input type="file" id="attachedEvidenceFile" name="attachedEvidenceFile" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr/>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="${hasErrors(bean: referralRecordInstance, field: 'assignedTo', 'error')} ">
+					<label for="assignedTo" class="control-label"><g:message code="referralRecord.assignedTo.label" default="Assigned To" /></label>
+					<div>
+						<g:select class="form-control" id="assignedTo" name="assignedTo.id" from="${rdmdt.Clinician.list()}" optionKey="id" value="${referralRecordInstance?.assignedTo?.id}"  noSelection="['':'- Choose -']"/>
+						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'assignedTo', 'error')}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="${hasErrors(bean: referralRecordInstance, field: 'reviewDetails', 'error')} ">
+					<label for="reviewDetails" class="control-label"><g:message code="referralRecord.reviewDetails.label" default="Add Review" /></label>
+					<div>
+						<g:textArea class="form-control" name="reviewDetails" value="${referralRecordInstance?.reviewDetails}" rows="4" cols="40"/>
+						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'reviewDetails', 'error')}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="${hasErrors(bean: referralRecordInstance, field: 'meetingDate', 'error')} ">
+					<label for="meetingDate" class="control-label"><g:message code="referralRecord.meetingDate.label" default="Meeting Date" /></label>
+					<div>
+						<bs:datePicker name="meetingDate" precision="day"  value="${referralRecordInstance?.meetingDate}" default="none" noSelection="['': '']" />
+						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'meetingDate', 'error')}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="">
+					<label class="control-label">Extra tests requested</label>
+					<div>
+						<g:field class="form-control" name="extraTestsRequested" type="text" value="${referralRecordInstance?.extraTests?.getAt(0)?.testName}"/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="">
+					<label class="control-label">Requested Date</label>
+					<div>
+						<bs:datePicker name="requestedDate" precision="day"  value="${referralRecordInstance?.extraTests?.getAt(0)?.requestedDate}" default="none" noSelection="['': '']" />
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<sec:ifAnyGranted roles="ROLE_ADMIN">
+			<hr/>
+
+			<h2><mark>Admin Section</mark></h2>
+
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="${hasErrors(bean: referralRecordInstance, field: 'referralStatus', 'error')} required">
@@ -901,102 +871,56 @@
 				</div>
 			</div>
 
+			<div class="row" id="approvedProgramDetails">
+				<div class="col-lg-6">
+					<div class="${hasErrors(bean: referralRecordInstance, field: 'approvedProgram', 'error')} ">
+						<label for="approvedProgram" class="control-label">Program</label>
+						<div>
+							<g:select class="form-control" id="approvedProgram" name="approvedProgram.id" from="${Program.list()}" optionKey="id" value="${referralRecordInstance?.approvedProgram?.id}" noSelection="['':'- Choose -']"/>
+							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'approvedProgram', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<label class="control-label">Target 100,000 Genomes Project Rare Disease category (enter key word)</label>
+					<richui:autoComplete class="form-control" name="approvedTargetCategoryName" action="${createLinkTo('dir': 'referralRecord/searchRareDiseaseCondition')}" value="${referralRecordInstance?.approvedTargetCategory}" onItemSelect="callApprovedTargetCategory(id)"  maxResultsDisplayed="20" minQueryLength="2"/>
+					<g:hiddenField id ="approvedTargetCategory" name ="approvedTargetCategory" value="${referralRecordInstance?.approvedTargetCategory?.id}"/>
+				</div>
+			</div>
+
+			<hr/>
+
 		</sec:ifAnyGranted>
-
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'assignedTo', 'error')} ">
-					<label for="assignedTo" class="control-label"><g:message code="referralRecord.assignedTo.label" default="Assigned To" /></label>
-					<div>
-						<g:select class="form-control" id="assignedTo" name="assignedTo.id" from="${rdmdt.Clinician.list()}" optionKey="id" value="${referralRecordInstance?.assignedTo?.id}"  noSelection="['':'- Choose -']"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'assignedTo', 'error')}</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'reviewDetails', 'error')} ">
-					<label for="reviewDetails" class="control-label"><g:message code="referralRecord.reviewDetails.label" default="Add Review" /></label>
-					<div>
-						<g:textArea class="form-control" name="reviewDetails" value="${referralRecordInstance?.reviewDetails}" rows="4" cols="40"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'reviewDetails', 'error')}</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			%{--<div class="col-lg-6">--}%
-				%{--<div class="${hasErrors(bean: referralRecordInstance, field: 'proposedDiagnosis', 'error')} ">--}%
-					%{--<label for="proposedDiagnosis" class="control-label"><g:message code="referralRecord.proposedDiagnosis.label" default="Proposed Diagnosis" /></label>--}%
-					%{--<div>--}%
-						%{--<g:select class="form-control" id="proposedDiagnosis" name="proposedDiagnosis.id" from="${rdmdt.OMIM.list()}" optionKey="id" value="${referralRecordInstance?.proposedDiagnosis?.id}" noSelection="['':'- Choose -']"/>--}%
-						%{--<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'proposedDiagnosis', 'error')}</span>--}%
-					%{--</div>--}%
-				%{--</div>--}%
-			%{--</div>--}%
-
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'meetingDate', 'error')} ">
-					<label for="meetingDate" class="control-label"><g:message code="referralRecord.meetingDate.label" default="Meeting Date" /></label>
-					<div>
-						<bs:datePicker name="meetingDate" precision="day"  value="${referralRecordInstance?.meetingDate}" default="none" noSelection="['': '']" />
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'meetingDate', 'error')}</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Extra tests requested</label>
-					<div>
-						<g:field class="form-control" name="extraTestsRequested" type="text" value=""/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Requested Date</label>
-					<div>
-						<bs:datePicker name="requestedDate" precision="day"  value="" default="none" noSelection="['': '']" />
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<hr/>
-
-		<h2>Attach evidence</h2>
-
-		<h4>Use this feature to add test reports, images, or other supporting evidence.  This information is retained within the NHS firewall</h4>
-
-		<div class="row">
-			<div class="col-lg-6">
-				<div>
-					<label class="control-label">Type</label>
-					<div>
-						<g:select class="form-control" id="attachedEvidenceType" name="attachedEvidenceType" from="${AttachedEvidenceType.list()}" optionKey="id"  noSelection="['':'- Choose -']"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="">
-					<label  class="control-label">File</label>
-					<div>
-						<input type="file" id="attachedEvidenceFile" name="attachedEvidenceFile" />
-					</div>
-				</div>
-			</div>
-		</div>
 
 <g:javascript plugin="jquery" library="jquery" />
 <script>
 	function callClinician(clinician){
 		document.getElementById('clinician').value = clinician;
+	}
+
+	function callCorrespondingClinician(correspondingClinician){
+		document.getElementById('correspondingClinician').value = correspondingClinician;
+	}
+
+	function callCoApplicant1(coapplican){
+		document.getElementById('coapplicant1').value = coapplican;
+	}
+
+	function callCoApplicant2(coapplican){
+		document.getElementById('coapplicant2').value = coapplican;
+	}
+
+	function callCoApplicant3(coapplican){
+		document.getElementById('coapplicant3').value = coapplican;
+	}
+
+	function callCoApplicant4(coapplican){
+		document.getElementById('coapplicant4').value = coapplican;
+	}
+
+	function callCoApplicant5(coapplican){
+		document.getElementById('coapplicant5').value = coapplican;
 	}
 
 	hideClinicalDetails();
@@ -1033,19 +957,19 @@
 	hideCoApplicants();
 	var countCoApplicants = 1;
 	function hideCoApplicants(){
-		if ($("#coapplicantForename1").val() == ""){
+		if ($("#coapplicant1").val() == ""){
 			$("#coapplicantDetails1").hide();
 		}
-		if ($("#coapplicantForename2").val() == ""){
+		if ($("#coapplicant2").val() == ""){
 			$("#coapplicantDetails2").hide();
 		}
-		if ($("#coapplicantForename3").val() == ""){
+		if ($("#coapplicant3").val() == ""){
 			$("#coapplicantDetails3").hide();
 		}
-		if ($("#coapplicantForename4").val() == ""){
+		if ($("#coapplicant4").val() == ""){
 			$("#coapplicantDetails4").hide();
 		}
-		if ($("#coapplicantForename5").val() == ""){
+		if ($("#coapplicant5").val() == ""){
 			$("#coapplicantDetails5").hide();
 		}
 	}
@@ -1060,6 +984,10 @@
 
 	function callCategory(targetCategory){
 		document.getElementById('targetCategory').value = targetCategory;
+	}
+
+	function callApprovedTargetCategory(approvedTargetCategory){
+		document.getElementById('approvedTargetCategory').value = approvedTargetCategory;
 	}
 
 	otherEthnicityProbandOpt();
@@ -1152,22 +1080,41 @@
 	statusDetailsOpt();
 	function statusDetailsOpt(){
 		var referralStatus = $("#referralStatus").val();
-		if (referralStatus == ${rdmdt.ReferralStatus.findByReferralStatusName('Conditional Approval')?.id}){
+		if (referralStatus == ${ReferralStatus.findByReferralStatusName('Conditional Approval')?.id}){
 			$("#conditionalApprovalDetailsOption").show();
+			$("#approvedProgramDetails").show();
 			$("#approvalDetailsOption").hide();
+			$("#approvalDetails").val("");
 			$("#notApprovedDetailsOption").hide();
-		}else if (referralStatus == ${rdmdt.ReferralStatus.findByReferralStatusName('Approval')?.id}){
+			$("#notApprovedDetails").val("");
+		}else if (referralStatus == ${ReferralStatus.findByReferralStatusName('Approval')?.id}){
 			$("#conditionalApprovalDetailsOption").hide();
+			$("#conditionalApprovalDetails").val("");
 			$("#approvalDetailsOption").show();
+			$("#approvedProgramDetails").show();
 			$("#notApprovedDetailsOption").hide();
-		}else if (referralStatus == ${rdmdt.ReferralStatus.findByReferralStatusName('Not Approved')?.id}){
+			$("#notApprovedDetails").val("");
+		}else if (referralStatus == ${ReferralStatus.findByReferralStatusName('Not Approved')?.id}){
 			$("#conditionalApprovalDetailsOption").hide();
+			$("#conditionalApprovalDetails").val("");
 			$("#approvalDetailsOption").hide();
+			$("#approvalDetails").val("");
+			$("#approvedProgramDetails").hide();
+			$("#approvedProgram").val("");
+			$("#approvedTargetCategory").val("");
+			$("#approvedTargetCategoryName").val("");
 			$("#notApprovedDetailsOption").show();
 		}else {
 			$("#conditionalApprovalDetailsOption").hide();
+			$("#conditionalApprovalDetails").val("");
 			$("#approvalDetailsOption").hide();
+			$("#approvalDetails").val("");
 			$("#notApprovedDetailsOption").hide();
+			$("#notApprovedDetails").val("");
+			$("#approvedProgram").val("");
+			$("#approvedTargetCategory").val("");
+			$("#approvedTargetCategoryName").val("");
+			$("#approvedProgramDetails").hide();
 		}
 	}
 

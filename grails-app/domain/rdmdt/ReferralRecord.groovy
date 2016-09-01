@@ -6,6 +6,7 @@ package rdmdt
  */
 class ReferralRecord {
 
+    static auditable = true
     static mapping = {
         note type: "text"
     }
@@ -32,6 +33,7 @@ class ReferralRecord {
         referralStatus(nullable: true)
         note(nullable: true)
         program(nullable: true)
+        approvedProgram(nullable: true)
         proposedDiagnosis(nullable: true)
         assignedTo(nullable: true)
         reviewDetails(nullable: true)
@@ -43,6 +45,7 @@ class ReferralRecord {
         ageOfSymptoms(nullable: true)
         symptomEgeUnit(nullable: true)
         targetCategory(nullable: true)
+        approvedTargetCategory(nullable: true)
         arrayCGH()
         arrayCGHDetails(nullable: true)
         otherFamilyMembersAffected()
@@ -60,6 +63,7 @@ class ReferralRecord {
 
     String uniqueRef
     Program program
+    Program approvedProgram
     OMIM proposedDiagnosis
     String causativeVariantAffect
     String knownGeneVariant
@@ -78,7 +82,7 @@ class ReferralRecord {
     String conditionalApprovalDetails
     String approvalDetails
     String notApprovedDetails
-    Person assignedTo
+    Clinician assignedTo
     String reviewDetails
     Date meetingDate
     String note
@@ -87,8 +91,9 @@ class ReferralRecord {
     Clinician correspondingClinician
     String disorderName
     Integer ageOfSymptoms
-    EgeUnit symptomEgeUnit
+    AgeUnit symptomEgeUnit
     RareDiseaseConditions targetCategory
+    RareDiseaseConditions approvedTargetCategory
     boolean arrayCGH = Boolean.FALSE
     String arrayCGHDetails
     boolean otherFamilyMembersAffected = Boolean.FALSE

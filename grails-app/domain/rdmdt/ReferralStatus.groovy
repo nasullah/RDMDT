@@ -6,6 +6,7 @@ package rdmdt
  */
 class ReferralStatus {
 
+    static auditable = true
     static constraints = {
         referralStatusName()
     }

@@ -1,26 +1,26 @@
-<%@ page import="rdmdt.EgeUnit" %>
+<%@ page import="rdmdt.AgeUnit" %>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta name="layout" content="kickstart" />
-	<g:set var="entityName" value="${message(code: 'egeUnit.label', default: 'Age Unit')}" />
+	<g:set var="entityName" value="${message(code: 'ageUnit.label', default: 'Age Unit')}" />
 	<title><g:message code="default.edit.label" args="[entityName]" /></title>
 </head>
 
 <body>
 
-	<section id="edit-egeUnit" class="first">
+	<section id="edit-ageUnit" class="first">
 
-		<g:hasErrors bean="${egeUnitInstance}">
+		<g:hasErrors bean="${ageUnitInstance}">
 		<div class="alert alert-danger">
-			<g:renderErrors bean="${egeUnitInstance}" as="list" />
+			<g:renderErrors bean="${ageUnitInstance}" as="list" />
 		</div>
 		</g:hasErrors>
 
 		<g:form method="post" class="form-horizontal" role="form" >
-			<g:hiddenField name="id" value="${egeUnitInstance?.id}" />
-			<g:hiddenField name="version" value="${egeUnitInstance?.version}" />
+			<g:hiddenField name="id" value="${ageUnitInstance?.id}" />
+			<g:hiddenField name="version" value="${ageUnitInstance?.version}" />
 			<g:hiddenField name="_method" value="PUT" />
 			
 			<g:render template="form"/>

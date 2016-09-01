@@ -6,6 +6,7 @@ package rdmdt
  */
 class Party {
 
+    static auditable = true
     static constraints = {
         email(nullable: true)
         telephone(nullable: true)

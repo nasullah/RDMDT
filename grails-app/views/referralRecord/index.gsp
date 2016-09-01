@@ -22,6 +22,8 @@
 
 			<th>Proband Name</th>
 
+			<th>Proband NHS Number</th>
+
 			<g:sortableColumn property="referralDate" title="${message(code: 'referralRecord.referralDate.label', default: 'Application Status')}" />
 
 
@@ -35,7 +37,9 @@
 
 				<td>${fieldValue(bean: referralRecordInstance, field: "uniqueRef")}</td>
 
-				<td>${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.givenName} ${rdmdt.Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.familyName}</g:link></td>
+				<td>${rdmdt.Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.givenName} ${rdmdt.Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.familyName}</g:link></td>
+
+				<td>${rdmdt.Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.nhsNumber}</td>
 
 				<td>${fieldValue(bean: referralRecordInstance, field: "referralStatus")}</td>
 

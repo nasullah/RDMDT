@@ -6,6 +6,7 @@ package rdmdt
  */
 class Penetrance {
 
+    static auditable = true
     static constraints = {
         penetranceName()
     }

@@ -6,6 +6,7 @@ package rdmdt
  */
 class EligibilityType {
 
+    static auditable = true
     static constraints = {
         eligibilityTypeName()
     }

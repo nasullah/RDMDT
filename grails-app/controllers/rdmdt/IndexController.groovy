@@ -1,5 +1,8 @@
 package rdmdt
 
+import org.codehaus.groovy.grails.plugins.orm.auditable.AuditLogEvent
+import org.springframework.security.access.annotation.Secured
+
 /**
  * IndexController
  * A controller class handles incoming web requests and performs actions such as redirects, rendering views and so on.
@@ -19,5 +22,14 @@ class IndexController {
             }
             [clinician:clinician]
         }
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    def listAuditLogData(){
+        def user = User?.get(params.long('user.id'))
+        def listAuditLogData = AuditLogEvent?.findAllByActor(user?.username)
+        listAuditLogData = listAuditLogData.sort {it.dateCreated}
+        listAuditLogData = listAuditLogData.reverse()
+        [listAuditLogData: listAuditLogData]
     }
 }

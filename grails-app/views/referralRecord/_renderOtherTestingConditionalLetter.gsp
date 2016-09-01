@@ -1,0 +1,126 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<html>
+<head>
+    <style>
+    div.header {
+        display: block; text-align: center;
+        position: running(header);
+    }
+    div.footer {
+        display: block; text-align: center;
+        position: running(footer);
+    }
+    div.content {page-break-after: always;}
+    @page {
+        @top-center { content: element(header) }
+    }
+    @page {
+        @bottom-left { content: element(footer) }
+    }
+    @page {
+        size: 8in 11.5in; /* width height */
+        margin-bottom: 100px;
+    }
+
+    </style>
+</head>
+
+<body>
+
+<table width="100%">
+    <tr>
+
+        <td>
+            <span style="font-size: 14pt; color: #1969ff">Genomic Medicine Multidisciplinary Team</span><br/>
+            <span style="font-size: 11pt; color: #1969ff">Wellcome Trust Centre for Human Genetics</span><br/>
+            <span style="font-size: 11pt; color: #1969ff">Roosevelt Drive</span><br/>
+            <span style="font-size: 11pt; color: #1969ff">Headington</span><br/>
+            <span style="font-size: 11pt; color: #1969ff">OX3 7BN</span><br/>
+        </td>
+        <td><rendering:inlineJpeg bytes="${ouh_nhs}" height="40px"/><br/>&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;<rendering:inlineJpeg bytes="${oxford_uni}" height="40px"/></td>
+    </tr>
+</table>
+
+<br/>
+
+<br/>
+
+<span style="font-size: 12pt">Dr ${form?.clinician?.forename} ${form?.clinician?.surname}</span><br/>
+
+<g:each in="${form.coApplicants}" var="coApplicant">
+    <span style="font-size: 12pt">Dr ${coApplicant?.forename} ${coApplicant?.surname}</span><br/>
+</g:each>
+
+<span style="font-size: 12pt">${form?.clinician?.departmentName}</span><br/>
+
+<g:each in="${form.coApplicants}" var="coApplicant">
+    <span style="font-size: 12pt">${coApplicant?.clinician?.departmentName}</span><br/>
+</g:each>
+
+<span style="font-size: 12pt">${form?.clinician?.centreName}</span><br/>
+
+<g:each in="${form.coApplicants}" var="coApplicant">
+    <span style="font-size: 12pt">${coApplicant?.clinician?.centreName}</span><br/>
+</g:each>
+
+<p style="font-size: 12pt"> ${new Date().format('dd/MM/yyy')}</p>
+
+<p style="font-size: 12pt"> Dear Dr ${form?.clinician?.surname},
+    <g:each in="${form.coApplicants}" var="coApplicant">
+        <span style="font-size: 12pt"> Dr ${coApplicant?.surname},</span>
+    </g:each>
+</p>
+
+<p style="font-size: 12pt; font-weight: bold">Genomic Medicine MDT application: ${form?.uniqueRef}</p>
+
+<p style="font-size: 12pt">Your request for genomic sequencing has been reviewed with recruitment to the 100,000 Genomes Project approved as summarised in the table below:</p>
+
+<table border="0.1" width="100%">
+
+    <tr>
+        <th width="25%"><span style="font-weight: normal;font-size: 12pt"> Number of samples</span></th>
+        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.numberOfSamplesForSeq}: ${form?.identityOfFamilyMembersSamplesForSeq}</span></th>
+    </tr>
+
+    <tr>
+        <th width="25%"><span style="font-weight: normal;font-size: 12pt"> Programme</span></th>
+        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.program}</span></th>
+    </tr>
+
+    <tr>
+        <th width="25%"><span style="font-weight: normal;font-size: 12pt"> Category</span></th>
+        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.approvedTargetCategory}</span></th>
+    </tr>
+
+    <tr>
+        <th width="25%"><span style="font-weight: normal;font-size: 12pt"> Further notes</span></th>
+        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.conditionalApprovalDetails}</span></th>
+    </tr>
+
+</table>
+
+<p style="font-size: 12pt">This application can stand as a referral to Oxford Clinical Genetics for recruitment of this family. The referral would be for recruitment only, responsibility for clinical care remains with you. Alternatively you can recruit the family yourself, and a recruitment pack (containing all consent materials and blood tubes) can be sent to you.  Please advise which would be preferable.</p>
+
+<p style="font-size: 12pt">If you would like to discuss this further, please contact the GM-MDT coordinator, Jude Craft (Judith.Craft@ouh.nhs.uk), who will arrange appropriate input and assistance.</p>
+
+<p style="font-size: 12pt">Yours sincerely,</p>
+
+<rendering:inlineJpeg bytes="${julian_knight_signature}" height="72px"/>
+
+<p>
+    <span style="font-size: 12pt">Professor Julian Knight</span><br/>
+    <span style="font-size: 12pt">Chair, GM-MDT</span><br/>
+    <span style="font-size: 12pt">Professor of Genomic Medicine and Honorary Consultant Physician</span><br/>
+</p>
+
+<p>
+    <span style="font-size: 12pt">cc. Professor Andrea Nemeth</span><br/>
+    <span style="font-size: 12pt">Department of Clinical Genetics</span><br/>
+</p>
+
+<div class='footer'>
+    <rendering:inlineJpeg bytes="${ox_brc_logos}" height="74px"/>
+</div>
+
+</body>
+</html>

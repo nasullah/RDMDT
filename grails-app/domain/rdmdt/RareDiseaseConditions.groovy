@@ -6,6 +6,7 @@ package rdmdt
  */
 class RareDiseaseConditions {
 
+    static auditable = true
     static constraints = {
         originalId()
         diseaseGroup()

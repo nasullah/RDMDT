@@ -6,6 +6,7 @@ package rdmdt
  */
 class ExtraTests {
 
+    static auditable = true
     static belongsTo = [referralRecord:ReferralRecord]
     static constraints = {
         requestedDate(nullable: true)

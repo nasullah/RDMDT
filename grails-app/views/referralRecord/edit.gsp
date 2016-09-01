@@ -5,6 +5,7 @@
 <head>
 	<meta name="layout" content="kickstart" />
 	<title>Edit Application</title>
+	<resource:autoComplete skin="default" />
 </head>
 
 <body>

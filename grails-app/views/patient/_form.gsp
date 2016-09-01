@@ -82,11 +82,11 @@
 				</div>
 			</div>
 
-			<div class="${hasErrors(bean: patientInstance, field: 'ege', 'error')} ">
-				<label for="ege" class="control-label"><g:message code="patient.ege.label" default="Ege" /></label>
+			<div class="${hasErrors(bean: patientInstance, field: 'age', 'error')} ">
+				<label for="age" class="control-label"><g:message code="patient.ege.label" default="Ege" /></label>
 				<div>
-					<g:field class="form-control" name="ege" type="number" value="${patientInstance.ege}"/>
-					<span class="help-inline">${hasErrors(bean: patientInstance, field: 'ege', 'error')}</span>
+					<g:field class="form-control" name="age" type="number" value="${patientInstance.age}"/>
+					<span class="help-inline">${hasErrors(bean: patientInstance, field: 'age', 'error')}</span>
 				</div>
 			</div>
 

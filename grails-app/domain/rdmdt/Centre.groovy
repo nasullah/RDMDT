@@ -6,6 +6,7 @@ package rdmdt
  */
 class Centre {
 
+    static auditable = true
     static constraints = {
         centreName()
     }
