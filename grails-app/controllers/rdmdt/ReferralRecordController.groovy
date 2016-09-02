@@ -394,13 +394,6 @@ class ReferralRecordController {
         proband.familyName = params.familyName
         proband.save flush: true
 
-        if (ReferralStatus.findById(params.long('referralStatus'))) {
-            referralRecordInstance.referralStatus = ReferralStatus.findById(params.long('referralStatus'))
-        } else {
-            referralRecordInstance.referralStatus = ReferralStatus.findByReferralStatusName('In progress')
-        }
-        referralRecordInstance.save flush: true
-
         def oldClinicalDetails = ClinicalDetails.findAllByReferralRecord(referralRecordInstance)
         if (!oldClinicalDetails.empty){
             oldClinicalDetails.each {it.delete flush: true}
@@ -474,28 +467,57 @@ class ReferralRecordController {
             }
         }
 
-//        new Paternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerPaternal, colorectalCancer: params.colorectalCancerPaternal,
-//                ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokePaternal, endocrineTumours: params.endocrineTumoursPaternal, referralRecord: referralRecordInstance).save flush: true
-//
-//        new Maternal(breastAndOrOvarianCancer: params.breastAndOrOvarianCancerMaternal, colorectalCancer: params.colorectalCancerMaternal,
-//                ischaemicHeartDiseaseOrStroke: params.ischaemicHeartDiseaseOrStrokeMaternal, endocrineTumours: params.endocrineTumoursMaternal, referralRecord: referralRecordInstance).save flush: true
+        def paternal = Paternal.findByReferralRecord(referralRecordInstance)
+        paternal.breastAndOrOvarianCancer = params.boolean('breastAndOrOvarianCancerPaternal')
+        paternal.colorectalCancer = params.boolean('colorectalCancerPaternal')
+        paternal.ischaemicHeartDiseaseOrStroke = params.boolean('ischaemicHeartDiseaseOrStrokePaternal')
+        paternal.endocrineTumours = params.boolean('endocrineTumoursPaternal')
+        paternal.save flush: true
 
-//        if (params.ethnicityFather) {
-//            def ethnicity = params.ethnicityFather
-//            def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: ethnicity).save flush: true
-//            new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Father'), patient: proband, relatedPatient: patient).save flush: true
-//        }
-//
-//        if (params.ethnicityMother) {
-//            def ethnicity = params.ethnicityMother
-//            def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: ethnicity).save flush: true
-//            new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Mother'), patient: proband, relatedPatient: patient).save flush: true
-//        }
-//
-//        if (params.extraTestsRequested) {
-//            def extraTest = new ExtraTests(testName: params.extraTestsRequested, requestedDate: params.requestedDate)
-//            referralRecordInstance.addToExtraTests(extraTest).save flush: true
-//        }
+        def maternal = Maternal.findByReferralRecord(referralRecordInstance)
+        maternal.breastAndOrOvarianCancer = params.boolean('breastAndOrOvarianCancerMaternal')
+        maternal.colorectalCancer = params.boolean('colorectalCancerMaternal')
+        maternal.ischaemicHeartDiseaseOrStroke = params.boolean('ischaemicHeartDiseaseOrStrokeMaternal')
+        maternal.endocrineTumours = params.boolean('endocrineTumoursMaternal')
+        maternal.save flush: true
+
+        if (params.ethnicityFather) {
+            def father = referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}
+            if (father){
+                father.ethnicity = Ethnicity.findById(params.long('ethnicityFather'))
+                father.save flush: true
+            }else {
+                def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: params.ethnicityFather).save flush: true
+                new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Father'), patient: proband, relatedPatient: patient).save flush: true
+            }
+        }
+
+        if (params.ethnicityMother) {
+            def mother = referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}
+            if (mother){
+                mother.ethnicity = Ethnicity.findById(params.long('ethnicityMother'))
+                mother.save flush: true
+            }else {
+                def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: params.ethnicityFather).save flush: true
+                new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Mother'), patient: proband, relatedPatient: patient).save flush: true
+            }
+        }
+
+        if (params.extraTestsRequested) {
+            def extraTest = ExtraTests.findByReferralRecord(referralRecordInstance)
+            if (extraTest){
+                extraTest.testName = params.extraTestsRequested
+                if (params.requestedDate){
+                    extraTest.requestedDate = new Date().parse("yyyy-MM-dd", params.requestedDate)
+                }else {
+                    extraTest.requestedDate = null
+                }
+                extraTest.save flush: true
+            }else {
+                extraTest = new ExtraTests(testName: params.extraTestsRequested, requestedDate: params.requestedDate)
+                referralRecordInstance.addToExtraTests(extraTest).save flush: true
+            }
+        }
 
         if (Clinician.findById(params.long('correspondingClinician'))) {
             def correspondingClinician = Clinician.findById(params.long('correspondingClinician'))

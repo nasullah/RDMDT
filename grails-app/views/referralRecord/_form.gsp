@@ -433,10 +433,16 @@
 				<div class="">
 					<label class="control-label">Breast And Or Ovarian Cancer</label>
 					<div>
+						<g:if test="${referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer}">
+							<g:set var="breastAndOrOvarianCancerPaternal" value="${referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer}" />
+						</g:if>
+						<g:else>
+							<g:set var="breastAndOrOvarianCancerPaternal" value="${false}" />
+						</g:else>
 						<g:radioGroup name="breastAndOrOvarianCancerPaternal"
 									  values="[true, false]"
 									  labels="['Yes', 'No']"
-									  value="false">
+									  value="${breastAndOrOvarianCancerPaternal}">
 							${it.label}  ${it.radio} &nbsp;
 						</g:radioGroup>
 					</div>
@@ -447,10 +453,16 @@
 				<div class="">
 					<label class="control-label">Colorectal Cancer</label>
 					<div>
+						<g:if test="${referralRecordInstance?.paternal?.first()?.colorectalCancer}">
+							<g:set var="colorectalCancerPaternal" value="${referralRecordInstance?.paternal?.first()?.colorectalCancer}" />
+						</g:if>
+						<g:else>
+							<g:set var="colorectalCancerPaternal" value="${false}" />
+						</g:else>
 						<g:radioGroup name="colorectalCancerPaternal"
 									  values="[true, false]"
 									  labels="['Yes', 'No']"
-									  value="false">
+									  value="${colorectalCancerPaternal}">
 							${it.label}  ${it.radio} &nbsp;
 						</g:radioGroup>
 					</div>
@@ -461,10 +473,16 @@
 				<div class="">
 					<label class="control-label">Ischaemic Heart Disease Or Stroke</label>
 					<div>
+						<g:if test="${referralRecordInstance?.paternal?.first()?.ischaemicHeartDiseaseOrStroke}">
+							<g:set var="ischaemicHeartDiseaseOrStrokePaternal" value="${referralRecordInstance?.paternal?.first()?.ischaemicHeartDiseaseOrStroke}" />
+						</g:if>
+						<g:else>
+							<g:set var="ischaemicHeartDiseaseOrStrokePaternal" value="${false}" />
+						</g:else>
 						<g:radioGroup name="ischaemicHeartDiseaseOrStrokePaternal"
 									  values="[true, false]"
 									  labels="['Yes', 'No']"
-									  value="false">
+									  value="${ischaemicHeartDiseaseOrStrokePaternal}">
 							${it.label}  ${it.radio} &nbsp;
 						</g:radioGroup>
 					</div>
@@ -475,10 +493,16 @@
 				<div class="">
 					<label class="control-label">Endocrine Tumours</label>
 					<div>
+						<g:if test="${referralRecordInstance?.paternal?.first()?.endocrineTumours}">
+							<g:set var="endocrineTumoursPaternal" value="${referralRecordInstance?.paternal?.first()?.endocrineTumours}" />
+						</g:if>
+						<g:else>
+							<g:set var="endocrineTumoursPaternal" value="${false}" />
+						</g:else>
 						<g:radioGroup name="endocrineTumoursPaternal"
 									  values="[true, false]"
 									  labels="['Yes', 'No']"
-									  value="false">
+									  value="${endocrineTumoursPaternal}">
 							${it.label}  ${it.radio} &nbsp;
 						</g:radioGroup>
 					</div>
@@ -495,10 +519,16 @@
 				<div class="">
 					<label class="control-label">Breast And Or Ovarian Cancer</label>
 					<div>
+						<g:if test="${referralRecordInstance?.maternal?.first()?.breastAndOrOvarianCancer}">
+							<g:set var="breastAndOrOvarianCancerMaternal" value="${referralRecordInstance?.maternal?.first()?.breastAndOrOvarianCancer}" />
+						</g:if>
+						<g:else>
+							<g:set var="breastAndOrOvarianCancerMaternal" value="${false}" />
+						</g:else>
 						<g:radioGroup name="breastAndOrOvarianCancerMaternal"
 									  values="[true, false]"
 									  labels="['Yes', 'No']"
-									  value="false">
+									  value="${breastAndOrOvarianCancerMaternal}">
 							${it.label}  ${it.radio} &nbsp;
 						</g:radioGroup>
 					</div>
@@ -509,10 +539,16 @@
 				<div class="">
 					<label class="control-label">Colorectal Cancer</label>
 					<div>
+						<g:if test="${referralRecordInstance?.maternal?.first()?.colorectalCancer}">
+							<g:set var="colorectalCancerMaternal" value="${referralRecordInstance?.maternal?.first()?.colorectalCancer}" />
+						</g:if>
+						<g:else>
+							<g:set var="colorectalCancerMaternal" value="${false}" />
+						</g:else>
 						<g:radioGroup name="colorectalCancerMaternal"
 									  values="[true, false]"
 									  labels="['Yes', 'No']"
-									  value="false">
+									  value="${colorectalCancerMaternal}">
 							${it.label}  ${it.radio} &nbsp;
 						</g:radioGroup>
 					</div>
@@ -523,10 +559,16 @@
 				<div class="">
 					<label class="control-label">Ischaemic Heart Disease Or Stroke</label>
 					<div>
+						<g:if test="${referralRecordInstance?.maternal?.first()?.ischaemicHeartDiseaseOrStroke}">
+							<g:set var="ischaemicHeartDiseaseOrStrokeMaternal" value="${referralRecordInstance?.maternal?.first()?.ischaemicHeartDiseaseOrStroke}" />
+						</g:if>
+						<g:else>
+							<g:set var="ischaemicHeartDiseaseOrStrokeMaternal" value="${false}" />
+						</g:else>
 						<g:radioGroup name="ischaemicHeartDiseaseOrStrokeMaternal"
 									  values="[true, false]"
 									  labels="['Yes', 'No']"
-									  value="false">
+									  value="${ischaemicHeartDiseaseOrStrokeMaternal}">
 							${it.label}  ${it.radio} &nbsp;
 						</g:radioGroup>
 					</div>
@@ -537,10 +579,16 @@
 				<div class="">
 					<label class="control-label">Endocrine Tumours</label>
 					<div>
+						<g:if test="${referralRecordInstance?.maternal?.first()?.endocrineTumours}">
+							<g:set var="endocrineTumoursMaternal" value="${referralRecordInstance?.maternal?.first()?.endocrineTumours}" />
+						</g:if>
+						<g:else>
+							<g:set var="endocrineTumoursMaternal" value="${false}" />
+						</g:else>
 						<g:radioGroup name="endocrineTumoursMaternal"
 									  values="[true, false]"
 									  labels="['Yes', 'No']"
-									  value="false">
+									  value="${endocrineTumoursMaternal}">
 							${it.label}  ${it.radio} &nbsp;
 						</g:radioGroup>
 					</div>

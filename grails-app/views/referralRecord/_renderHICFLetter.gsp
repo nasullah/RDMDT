@@ -1,16 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
     <style>
-    div.header {
-        display: block; text-align: center;
-        position: running(header);
-    }
     div.footer {
         display: block; text-align: center;
         position: running(footer);
     }
-    div.content {page-break-after: always;}
     @page {
         @top-center { content: element(header) }
     }

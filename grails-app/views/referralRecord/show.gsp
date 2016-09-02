@@ -511,15 +511,15 @@
 
 			<g:if test="${!referralRecordInstance?.extraTests?.empty}">
 				<tr class="prop">
-					<td valign="top" class="name"><g:message code="referralRecord.extraTests.label" default="Extra Tests" /></td>
+					<td valign="top" class="name">Extra Tests</td>
 
 					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "testName")}</td>
 				</tr>
 
 				<tr class="prop">
-					<td valign="top" class="name"><g:message code="referralRecord.extraTests.label" default="Extra Tests" /></td>
+					<td valign="top" class="name">Extra Tests Date</td>
 
-					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "requestedDate")}</td>
+					<td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${referralRecordInstance?.extraTests?.first()?.requestedDate}"/></td>
 				</tr>
 			</g:if>
 
