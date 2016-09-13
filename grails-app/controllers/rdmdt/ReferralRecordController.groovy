@@ -3,12 +3,9 @@ package rdmdt
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.grails.plugin.filterpane.FilterPaneUtils
-
-import java.awt.geom.AffineTransform
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage
 /**
  * ReferralRecordController
  * A controller class handles incoming web requests and performs actions such as redirects, rendering views and so on.
@@ -24,6 +21,186 @@ class ReferralRecordController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond ReferralRecord.list(params).sort {it?.referralStatus?.referralStatusName}, model: [referralRecordInstanceCount: ReferralRecord.count()]
+    }
+
+    def exportWord = {
+        def referralRecordInstance = ReferralRecord.findById(params.long('referralRecordId'))
+        WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.createPackage()
+        def mainPart = wordMLPackage.getMainDocumentPart()
+
+        // create some styled heading...
+        mainPart.addStyledParagraphOfText("Title", "Clinical Genomic Sequencing Application")
+        mainPart.addStyledParagraphOfText("Heading1", "Identification of the Genetic Basis of disease by Genomic Sequencing")
+        mainPart.addStyledParagraphOfText("Heading2", Calendar.getInstance().format('MMM YYYY'))
+
+        mainPart.addStyledParagraphOfText("Heading3", "Applicant Information")
+        mainPart.addParagraphOfText('Name: ' + referralRecordInstance.clinician.forename.toString() + ' ' + referralRecordInstance.clinician.surname.toString())
+
+        mainPart.addStyledParagraphOfText("Heading3", "Responsible consultant")
+        mainPart.addParagraphOfText('Name: ' + referralRecordInstance.correspondingClinician.forename.toString() + ' ' + referralRecordInstance.correspondingClinician.surname.toString())
+
+        mainPart.addStyledParagraphOfText("Heading3", "Co-applicants")
+        referralRecordInstance.coApplicants.each { coApp ->
+            mainPart.addParagraphOfText('Name: ' + coApp?.coApplicant?.forename?.toString() + ' ' + coApp?.coApplicant?.surname?.toString())
+        }
+
+        mainPart.addStyledParagraphOfText("Heading3", "About The Proband")
+        mainPart.addParagraphOfText('Name: ' + referralRecordInstance.patients?.find{p -> p.isProband}?.givenName?.toString() + ' ' + referralRecordInstance.patients?.find{p -> p.isProband}?.familyName?.toString())
+        mainPart.addParagraphOfText('NHS Number: ' + referralRecordInstance.patients?.find{p -> p.isProband}?.nhsNumber)
+        mainPart.addParagraphOfText('Gender: ' + referralRecordInstance.patients?.find{p -> p.isProband}?.gender)
+        mainPart.addParagraphOfText('Ethnicity: ' + referralRecordInstance.patients?.find{p -> p.isProband}?.ethnicity)
+        if (referralRecordInstance.patients?.find{p -> p.isProband}?.otherEthnicity){
+            mainPart.addParagraphOfText('Please specify: ' + referralRecordInstance.patients?.find{p -> p.isProband}?.otherEthnicity)
+        }
+        mainPart.addParagraphOfText('Age (if deceased, age at death): ' + referralRecordInstance.patients?.find{p -> p.isProband}?.age + " " + referralRecordInstance.patients?.find{p -> p.isProband}?.ageUnit)
+
+        mainPart.addStyledParagraphOfText("Heading3", "Clinical details")
+        mainPart.addParagraphOfText('Disorder Name: ' + referralRecordInstance?.disorderName)
+        mainPart.addParagraphOfText('Age of Symptoms : ' + referralRecordInstance?.ageOfSymptoms + " " + referralRecordInstance?.symptomEgeUnit)
+        referralRecordInstance?.clinicalDetails?.each { c ->
+            mainPart.addParagraphOfText('Clinical details: ' + c?.clinicalDetailsName?.toString())
+        }
+        mainPart.addParagraphOfText('Genetic Testing (chromosome analysis, single gene, gene panel, etc.): ' + referralRecordInstance?.geneticTestingOnProband)
+        mainPart.addParagraphOfText('Other testing on proband (metabolic, nerve conduction, muscle/skin biopsy, etc.): ' + referralRecordInstance?.otherTestingOnProband)
+        if (referralRecordInstance?.arrayCGH){
+            mainPart.addParagraphOfText('Has arrayCGH been performed? ' + 'Yes')
+            mainPart.addParagraphOfText('Please provide results: ' + referralRecordInstance?.arrayCGHDetails)
+        }else {
+            mainPart.addParagraphOfText('Has arrayCGH been performed? ' + 'No')
+        }
+
+        mainPart.addStyledParagraphOfText("Heading3", "About The Family")
+        if (referralRecordInstance?.otherFamilyMembersAffected){
+            mainPart.addParagraphOfText('Are any other family members affected with the same or a related condition? ' + 'Yes')
+            mainPart.addParagraphOfText('Please provide details: ' + referralRecordInstance?.otherFamilyMembersAffectedDetails)
+        }else {
+            mainPart.addParagraphOfText('Are any other family members affected with the same or a related condition? ' + 'No')
+        }
+        if (referralRecordInstance?.consanguinityEvidence?.id == Consanguinity.findByConsanguinityEvidence('Yes')?.id){
+            mainPart.addParagraphOfText('Is there evidence of consanguinity? ' + 'Yes')
+            mainPart.addParagraphOfText('Please provide details: ' + referralRecordInstance?.consanguinityEvidenceDetails)
+        }else{
+            mainPart.addParagraphOfText('Is there evidence of consanguinity? ' + referralRecordInstance?.consanguinityEvidence)
+        }
+        if (referralRecordInstance?.penetrance?.id == Penetrance.findByPenetranceName('Yes')?.id){
+            mainPart.addParagraphOfText('Is there evidence of reduced penetrance? ' + 'Yes')
+            mainPart.addParagraphOfText('Please provide details: ' + referralRecordInstance?.penetranceDetails)
+        }else{
+            mainPart.addParagraphOfText('Is there evidence of reduced penetrance? ' + referralRecordInstance?.penetrance)
+        }
+
+        mainPart.addStyledParagraphOfText("Heading3", "Family History")
+        mainPart.addStyledParagraphOfText("Heading4", "Paternal")
+        if (referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer){
+            mainPart.addParagraphOfText('Breast And Or Ovarian Cancer: ' + 'Yes')
+        }else {
+            mainPart.addParagraphOfText('Breast And Or Ovarian Cancer: ' + 'No')
+        }
+        if (referralRecordInstance?.paternal?.first()?.colorectalCancer){
+            mainPart.addParagraphOfText('Colorectal Cancer: ' + 'Yes')
+        }else {
+            mainPart.addParagraphOfText('Colorectal Cancer: ' + 'No')
+        }
+        if (referralRecordInstance?.paternal?.first()?.ischaemicHeartDiseaseOrStroke){
+            mainPart.addParagraphOfText('Ischaemic Heart Disease or Stroke: ' + 'Yes')
+        }else {
+            mainPart.addParagraphOfText('Ischaemic Heart Disease or Stroke: ' + 'No')
+        }
+        if (referralRecordInstance?.paternal?.first()?.endocrineTumours){
+            mainPart.addParagraphOfText('Endocrine Tumours: ' + 'Yes')
+        }else {
+            mainPart.addParagraphOfText('Endocrine Tumours: ' + 'No')
+        }
+
+        mainPart.addStyledParagraphOfText("Heading4", "Maternal")
+        if (referralRecordInstance?.maternal?.first()?.breastAndOrOvarianCancer){
+            mainPart.addParagraphOfText('Breast And Or Ovarian Cancer: ' + 'Yes')
+        }else {
+            mainPart.addParagraphOfText('Breast And Or Ovarian Cancer: ' + 'No')
+        }
+        if (referralRecordInstance?.maternal?.first()?.colorectalCancer){
+            mainPart.addParagraphOfText('Colorectal Cancer: ' + 'Yes')
+        }else {
+            mainPart.addParagraphOfText('Colorectal Cancer: ' + 'No')
+        }
+        if (referralRecordInstance?.maternal?.first()?.ischaemicHeartDiseaseOrStroke){
+            mainPart.addParagraphOfText('Ischaemic Heart Disease or Stroke: ' + 'Yes')
+        }else {
+            mainPart.addParagraphOfText('Ischaemic Heart Disease or Stroke: ' + 'No')
+        }
+        if (referralRecordInstance?.maternal?.first()?.endocrineTumours){
+            mainPart.addParagraphOfText('Endocrine Tumours: ' + 'Yes')
+        }else {
+            mainPart.addParagraphOfText('Endocrine Tumours: ' + 'No')
+        }
+        mainPart.addParagraphOfText('Please add details and/or note any other significant family history: ' + referralRecordInstance?.furtherDetailsOfHistory)
+
+        mainPart.addStyledParagraphOfText("Heading3", "Ethnicity of immediate family")
+        mainPart.addParagraphOfText('Mother: ' + referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.ethnicity)
+        mainPart.addParagraphOfText('Father: ' + referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.ethnicity)
+
+        mainPart.addStyledParagraphOfText("Heading3", "Number and identity of family members proposed for sequencing")
+        mainPart.addParagraphOfText('Number of Samples: ' + referralRecordInstance?.numberOfSamplesForSeq)
+        mainPart.addParagraphOfText('Identity of family members (e.g. proband and both parents): ' + referralRecordInstance?.identityOfFamilyMembersSamplesForSeq)
+        if (referralRecordInstance.isAnySampleFromDeceasedIndividuals){
+            mainPart.addParagraphOfText('Are any of the samples are taken from deceased individuals? ' + 'Yes')
+            mainPart.addParagraphOfText('Please provide details: ' + referralRecordInstance?.isAnySampleFromDeceasedIndividualsDetails)
+        }else{
+            mainPart.addParagraphOfText('Are any of the samples are taken from deceased individuals? ' + 'No')
+        }
+        if (referralRecordInstance.anyIndividualsForSeqOutOfArea){
+            mainPart.addParagraphOfText('Are any individuals proposed for sequencing out of area? ' + 'Yes')
+            mainPart.addParagraphOfText('Please provide details: ' + referralRecordInstance?.anyIndividualsForSeqOutOfAreaDetails)
+        }else{
+            mainPart.addParagraphOfText('Are any individuals proposed for sequencing out of area? ' + 'No')
+        }
+        mainPart.addParagraphOfText('Record any further information about sample availability: ' + referralRecordInstance?.samplesForSeqDetails)
+        mainPart.addStyledParagraphOfText("Heading4", "The default programme for whole genome sequencing is the national 100,000 Genomes Project, but other local providers may be available. Please add any supporting information or comments regarding this, especially if you have a preference. If this case has been discussed through the Clinical Genetics Consultants Meeting, please also indicate here, including the date of the meeting and the selected recruitment category.")
+        mainPart.addParagraphOfText('Program: ' + referralRecordInstance?.program)
+        mainPart.addParagraphOfText('Note: ' + referralRecordInstance?.note)
+        mainPart.addParagraphOfText('Target 100,000 Genomes Project Rare Disease category: ' + referralRecordInstance?.targetCategory)
+        if (referralRecordInstance?.eligibility?.id == EligibilityType.findByEligibilityTypeNameOrEligibilityTypeName('No', 'Unknown')?.id){
+            mainPart.addParagraphOfText('Is this patient/family eligible? ' + referralRecordInstance?.eligibility)
+            mainPart.addParagraphOfText('Please provide details: ' + referralRecordInstance?.penetranceDetails)
+        }else{
+            mainPart.addParagraphOfText('Is this patient/family eligible? ' + referralRecordInstance?.eligibility)
+        }
+
+        mainPart.addStyledParagraphOfText("Heading3", "100,000 Genomes Project Recruitment")
+        mainPart.addStyledParagraphOfText("Heading4", "The Clinical Genetics Department runs dedicated recruitment clinics for the 100,000 Genomes Project.  At your request, this application can stand as a referral for a Genetic Counsellor to consent the patient or family and collect samples through one of these clinics.  Please select from the following options below:")
+        mainPart.addParagraphOfText(referralRecordInstance?.consentPatientOrFamily)
+        mainPart.addParagraphOfText('Assigned To: ' + referralRecordInstance?.assignedTo)
+        mainPart.addParagraphOfText('Add Review: ' + referralRecordInstance?.reviewDetails)
+        mainPart.addParagraphOfText('Meeting Date: ' + referralRecordInstance?.meetingDate)
+        mainPart.addParagraphOfText('Extra tests requested: ' + referralRecordInstance?.extraTests?.getAt(0)?.testName)
+        mainPart.addParagraphOfText('Requested Date: ' + referralRecordInstance?.extraTests?.getAt(0)?.requestedDate)
+
+        if (referralRecordInstance?.referralStatus?.id == ReferralStatus.findByReferralStatusName('Conditional Approval')?.id){
+            mainPart.addParagraphOfText('Application status: ' + 'Conditional Approval')
+            mainPart.addParagraphOfText('Please provide further details: ' + referralRecordInstance?.conditionalApprovalDetails)
+            mainPart.addParagraphOfText('Approved Program: ' + referralRecordInstance?.approvedProgram)
+            mainPart.addParagraphOfText('Approved Target 100,000 Genomes Project Rare Disease category: ' + referralRecordInstance?.approvedTargetCategory)
+        }else if (referralRecordInstance?.referralStatus?.id == ReferralStatus.findByReferralStatusName('Approval')?.id){
+            mainPart.addParagraphOfText('Application status: ' + 'Approval')
+            mainPart.addParagraphOfText('Please provide further details: ' + referralRecordInstance?.approvalDetails)
+            mainPart.addParagraphOfText('Approved Program: ' + referralRecordInstance?.approvedProgram)
+            mainPart.addParagraphOfText('Approved Target 100,000 Genomes Project Rare Disease category: ' + referralRecordInstance?.approvedTargetCategory)
+        }else if (referralRecordInstance?.referralStatus?.id == ReferralStatus.findByReferralStatusName('Not Approved')?.id){
+            mainPart.addParagraphOfText('Application status: ' + 'Not Approved')
+            mainPart.addParagraphOfText('Please provide further details: ' + referralRecordInstance?.notApprovedDetails)
+        }else {
+            mainPart.addParagraphOfText('Application status: ' + referralRecordInstance?.referralStatus)
+        }
+
+        // write out our word doc to disk
+        File file = File.createTempFile("wordexport-", ".docx")
+        wordMLPackage.save file
+
+        // and send it all back to the browser
+        response.setHeader("Content-disposition", "attachment; filename=application.docx");
+        response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        response.outputStream << file.readBytes()
+        file.delete()
     }
 
 //    def list(Integer max) {

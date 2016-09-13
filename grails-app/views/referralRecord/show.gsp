@@ -372,16 +372,16 @@
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.identityOfFamilyMembersSamplesForSeq.label" default="Identity of family members" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.numberOfSamplesForSeq.label" default="Number of samples" /></td>
 
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "identityOfFamilyMembersSamplesForSeq")}</td>
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "numberOfSamplesForSeq")}</td>
 
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.numberOfSamplesForSeq.label" default="Number of samples for seq." /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.identityOfFamilyMembersSamplesForSeq.label" default="Identity of family members" /></td>
 
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "numberOfSamplesForSeq")}</td>
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "identityOfFamilyMembersSamplesForSeq")}</td>
 
 			</tr>
 
@@ -402,13 +402,6 @@
 			</g:if>
 
 			<tr class="prop">
-				<td valign="top" class="name">Further information about sample availability</td>
-
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "samplesForSeqDetails")}</td>
-
-			</tr>
-
-			<tr class="prop">
 				<td valign="top" class="name">Are any individuals proposed for sequencing out of area</td>
 
 				<td valign="top" class="value"><g:formatBoolean false="No" true="Yes" boolean="${referralRecordInstance?.anyIndividualsForSeqOutOfArea}" /></td>
@@ -423,6 +416,13 @@
 
 				</tr>
 			</g:if>
+
+			<tr class="prop">
+				<td valign="top" class="name">Further information about sample availability</td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "samplesForSeqDetails")}</td>
+
+			</tr>
 
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.program.label" default="Program" /></td>
@@ -523,21 +523,19 @@
 				</tr>
 			</g:if>
 
-			<sec:ifAnyGranted roles="ROLE_ADMIN">
-				<tr class="prop">
-					<td valign="top" class="name">Approved Program</td>
+			<tr class="prop">
+				<td valign="top" class="name">Approved Program</td>
 
-					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedTargetCategory")}</td>
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedTargetCategory")}</td>
 
-				</tr>
+			</tr>
 
-				<tr class="prop">
-					<td valign="top" class="name">Approved Target 100,000 Genomes Project Rare Disease category</td>
+			<tr class="prop">
+				<td valign="top" class="name">Approved Target 100,000 Genomes Project Rare Disease category</td>
 
-					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedProgram")}</td>
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedProgram")}</td>
 
-				</tr>
-			</sec:ifAnyGranted>
+			</tr>
 		
 		</tbody>
 	</table>
@@ -566,6 +564,8 @@
 
 	<p class="text-primary">Letters</p>
 
+	<a class='btn btn-primary btn-xs' <g:link action="exportWord" params="['referralRecordId': referralRecordInstance?.id]"><i class="glyphicon glyphicon-download-alt"></i> Download Application in Word format</g:link>
+
 	<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusNameOrReferralStatusName('In Review', 'Review Requested')}">
 		<a class='btn btn-default btn-xs' <g:link  action="renderWednesdayMeetingReviewLetter" id="${referralRecordInstance?.id}"><i class="glyphicon glyphicon-print"></i> Print Wednesday Meeting Review Letter</g:link>
 	</g:if>
@@ -587,6 +587,7 @@
 	</g:if>
 
 	<hr/>
+
 </sec:ifAnyGranted>
 
 </body>
