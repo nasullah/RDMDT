@@ -44,6 +44,8 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo "http://dev.plutext.org/trac/docx4j/browser/trunk/docx4j/m2/org/docx4j/docx4j"
+        mavenRepo "https://webdavclient4j.svn.sourceforge.net/svnroot/webdavclient4j/trunk/m2"
     }
 
     dependencies {
@@ -51,8 +53,7 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.27'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
         runtime 'org.springframework:spring-test:3.2.8.RELEASE'
-        runtime ('org.xhtmlrenderer:core-renderer:R8', 'com.lowagie:itext:2.1.0')
-        runtime 'org.docx4j:docx4j:2.8.1'
+        compile 'org.docx4j:docx4j:2.8.0'
     }
 
     plugins {

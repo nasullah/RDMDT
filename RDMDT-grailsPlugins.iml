@@ -169,21 +169,7 @@
           <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk14/136/bcprov-jdk14-136.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcmail-jdk14/136/bcmail-jdk14-136.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/com/lowagie/itext/2.1.0/itext-2.1.0.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.3/antlr-runtime-3.3.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/apache/poi/poi/3.8/poi-3.8.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/apache/poi/poi-scratchpad/3.8/poi-scratchpad-3.8.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/net/arnx/wmf2svg/0.9.0/wmf2svg-0.9.0.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/xalan/xalan/2.7.1/xalan-2.7.1.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/apache/avalon/framework/avalon-framework-impl/4.3.1/avalon-framework-impl-4.3.1.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/apache/avalon/framework/avalon-framework-api/4.3.1/avalon-framework-api-4.3.1.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/plutext/jaxb-xmldsig-core/1.0.0/jaxb-xmldsig-core-1.0.0.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/plutext/jaxb-xslfo/1.0.1/jaxb-xslfo-1.0.1.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/plutext/jaxb-svg11/1.0.2/jaxb-svg11-1.0.2.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/apache/xmlgraphics/fop/1.0/fop-1.0.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/apache/xmlgraphics/xmlgraphics-commons/1.4/xmlgraphics-commons-1.4.jar!/" />
-          <root url="jar://$MAVEN_REPOSITORY$/org/docx4j/xhtmlrenderer/1.0.0/xhtmlrenderer-1.0.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/docx4j/docx4j/2.8.1/docx4j-2.8.1.jar!/" />
         </CLASSES>
         <JAVADOC />
