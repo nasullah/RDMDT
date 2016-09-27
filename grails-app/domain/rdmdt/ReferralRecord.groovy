@@ -16,7 +16,7 @@ class ReferralRecord {
                       paternal:Paternal, maternal:Maternal, extraTests:ExtraTests, coApplicants:CoApplicant]
     static constraints = {
         clinician()
-        uniqueRef(nullable: true)
+        uniqueRef(unique: true)
         causativeVariantAffect(nullable: true)
         knownGeneVariant(nullable: true)
         geneticTestingOnProband(nullable: true)
@@ -25,6 +25,7 @@ class ReferralRecord {
         furtherDetailsOfHistory(nullable: true)
         numberOfSamplesForSeq(nullable: true)
         identityOfFamilyMembersSamplesForSeq(nullable: true)
+        approvedIdentityOfFamilyMembersSamplesForSeq(nullable: true)
         samplesForSeqDetails(nullable: true)
         consanguinityEvidence(nullable: true)
         consanguinityEvidenceDetails(nullable: true)
@@ -59,6 +60,7 @@ class ReferralRecord {
         approvalDetails(nullable: true)
         notApprovedDetails(nullable: true)
         submittedDate(nullable: true)
+        adminNote(nullable: true)
     }
 
     String uniqueRef
@@ -73,6 +75,7 @@ class ReferralRecord {
     String furtherDetailsOfHistory
     Integer numberOfSamplesForSeq
     String identityOfFamilyMembersSamplesForSeq
+    String approvedIdentityOfFamilyMembersSamplesForSeq
     String samplesForSeqDetails
     Consanguinity consanguinityEvidence
     String consanguinityEvidenceDetails
@@ -104,11 +107,12 @@ class ReferralRecord {
     String eligibilityDetails
     String consentPatientOrFamily
     Date submittedDate
+    String adminNote
     /*
      * Methods of the Domain Class
      */
     @Override	// Override toString for a nicer / more descriptive UI
     public String toString() {
-        return "ReferralRecord- Unique Ref.: ${uniqueRef}";
+        return "Application- Unique Ref.: ${uniqueRef}";
     }
 }

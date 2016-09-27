@@ -16,7 +16,7 @@ class ReferralRecordController {
 
     def filterPaneService
     def springSecurityService
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: ["PUT", "POST"], delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -45,8 +45,6 @@ class ReferralRecordController {
         }
 
         mainPart.addStyledParagraphOfText("Heading3", "About The Proband")
-        mainPart.addParagraphOfText('Name: ' + referralRecordInstance.patients?.find{p -> p.isProband}?.givenName?.toString() + ' ' + referralRecordInstance.patients?.find{p -> p.isProband}?.familyName?.toString())
-        mainPart.addParagraphOfText('NHS Number: ' + referralRecordInstance.patients?.find{p -> p.isProband}?.nhsNumber)
         mainPart.addParagraphOfText('Gender: ' + referralRecordInstance.patients?.find{p -> p.isProband}?.gender)
         mainPart.addParagraphOfText('Ethnicity: ' + referralRecordInstance.patients?.find{p -> p.isProband}?.ethnicity)
         if (referralRecordInstance.patients?.find{p -> p.isProband}?.otherEthnicity){
@@ -175,13 +173,13 @@ class ReferralRecordController {
         mainPart.addParagraphOfText('Extra tests requested: ' + referralRecordInstance?.extraTests?.getAt(0)?.testName)
         mainPart.addParagraphOfText('Requested Date: ' + referralRecordInstance?.extraTests?.getAt(0)?.requestedDate)
 
-        if (referralRecordInstance?.referralStatus?.id == ReferralStatus.findByReferralStatusName('Conditional Approval')?.id){
-            mainPart.addParagraphOfText('Application status: ' + 'Conditional Approval')
+        if (referralRecordInstance?.referralStatus?.id == ReferralStatus.findByReferralStatusName('Conditionally Approved')?.id){
+            mainPart.addParagraphOfText('Application status: ' + 'Conditionally Approved')
             mainPart.addParagraphOfText('Please provide further details: ' + referralRecordInstance?.conditionalApprovalDetails)
             mainPart.addParagraphOfText('Approved Program: ' + referralRecordInstance?.approvedProgram)
             mainPart.addParagraphOfText('Approved Target 100,000 Genomes Project Rare Disease category: ' + referralRecordInstance?.approvedTargetCategory)
-        }else if (referralRecordInstance?.referralStatus?.id == ReferralStatus.findByReferralStatusName('Approval')?.id){
-            mainPart.addParagraphOfText('Application status: ' + 'Approval')
+        }else if (referralRecordInstance?.referralStatus?.id == ReferralStatus.findByReferralStatusName('Approved')?.id){
+            mainPart.addParagraphOfText('Application status: ' + 'Approved')
             mainPart.addParagraphOfText('Please provide further details: ' + referralRecordInstance?.approvalDetails)
             mainPart.addParagraphOfText('Approved Program: ' + referralRecordInstance?.approvedProgram)
             mainPart.addParagraphOfText('Approved Target 100,000 Genomes Project Rare Disease category: ' + referralRecordInstance?.approvedTargetCategory)
@@ -197,7 +195,7 @@ class ReferralRecordController {
         wordMLPackage.save file
 
         // and send it all back to the browser
-        response.setHeader("Content-disposition", "attachment; filename=application.docx");
+        response.setHeader("Content-disposition", "attachment; filename=" + referralRecordInstance.patients?.find{p -> p.isProband}?.familyName + "-" + referralRecordInstance.uniqueRef + ".docx");
         response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         response.outputStream << file.readBytes()
         file.delete()
@@ -379,6 +377,12 @@ class ReferralRecordController {
             return
         }
 
+        if (params.nhsNumberProband && Patient.findByNhsNumber(params.nhsNumberProband)){
+            flash.message = "A patient with NHS number ${params.nhsNumberProband} already exists"
+            respond referralRecordInstance, view: 'create'
+            return
+        }
+
         def proband = new Patient(isProband: true, nhsNumber: params.nhsNumberProband, gender: params.genderProband, ethnicity: params.ethnicityProband,
                                   otherEthnicity: params.otherEthnicityProband, age: params.ageProband, ageUnit: params.egeUnitProband, givenName: params.givenName, familyName: params.familyName)
         if (proband){
@@ -458,13 +462,13 @@ class ReferralRecordController {
 
             if (params.ethnicityFather){
                 def ethnicity = params.ethnicityFather
-                def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: ethnicity).save flush: true
+                def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: ethnicity, otherEthnicity: params.otherEthnicityFather).save flush: true
                 new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Father'), patient: proband, relatedPatient: patient).save flush: true
             }
 
             if (params.ethnicityMother){
                 def ethnicity = params.ethnicityMother
-                def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: ethnicity).save flush: true
+                def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: ethnicity, otherEthnicity: params.otherEthnicityMother).save flush: true
                 new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Mother'), patient: proband, relatedPatient: patient).save flush: true
             }
 
@@ -524,6 +528,112 @@ class ReferralRecordController {
                     }
                 }
             }
+
+            if (params.attachedEvidenceFile1 && params.attachedEvidenceType1){
+                def attachedEvidenceFile = request.getFile('attachedEvidenceFile1')
+                if (!attachedEvidenceFile.originalFilename) {
+                    flash.message = "Please choose a file"
+                    respond referralRecordInstance, view: 'create'
+                }else{
+                    def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType1, addedOn: new Date(), referralRecord: referralRecordInstance)
+                    attachedEvidenceInstance.save flush: true
+                    attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                    def destinationFile = new File(attachedEvidenceInstance.content)
+
+                    try {
+                        attachedEvidenceFile.transferTo(destinationFile)
+                        attachedEvidenceInstance.save flush: true
+                    }
+                    catch (Exception ex) {
+                        log.error(ex)
+                    }
+                }
+            }
+
+            if (params.attachedEvidenceFile2 && params.attachedEvidenceType2){
+                def attachedEvidenceFile = request.getFile('attachedEvidenceFile2')
+                if (!attachedEvidenceFile.originalFilename) {
+                    flash.message = "Please choose a file"
+                    respond referralRecordInstance, view: 'create'
+                }else{
+                    def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType2, addedOn: new Date(), referralRecord: referralRecordInstance)
+                    attachedEvidenceInstance.save flush: true
+                    attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                    def destinationFile = new File(attachedEvidenceInstance.content)
+
+                    try {
+                        attachedEvidenceFile.transferTo(destinationFile)
+                        attachedEvidenceInstance.save flush: true
+                    }
+                    catch (Exception ex) {
+                        log.error(ex)
+                    }
+                }
+            }
+
+            if (params.attachedEvidenceFile3 && params.attachedEvidenceType3){
+                def attachedEvidenceFile = request.getFile('attachedEvidenceFile3')
+                if (!attachedEvidenceFile.originalFilename) {
+                    flash.message = "Please choose a file"
+                    respond referralRecordInstance, view: 'create'
+                }else{
+                    def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType3, addedOn: new Date(), referralRecord: referralRecordInstance)
+                    attachedEvidenceInstance.save flush: true
+                    attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                    def destinationFile = new File(attachedEvidenceInstance.content)
+
+                    try {
+                        attachedEvidenceFile.transferTo(destinationFile)
+                        attachedEvidenceInstance.save flush: true
+                    }
+                    catch (Exception ex) {
+                        log.error(ex)
+                    }
+                }
+            }
+
+            if (params.attachedEvidenceFile4 && params.attachedEvidenceType4){
+                def attachedEvidenceFile = request.getFile('attachedEvidenceFile4')
+                if (!attachedEvidenceFile.originalFilename) {
+                    flash.message = "Please choose a file"
+                    respond referralRecordInstance, view: 'create'
+                }else{
+                    def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType4, addedOn: new Date(), referralRecord: referralRecordInstance)
+                    attachedEvidenceInstance.save flush: true
+                    attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                    def destinationFile = new File(attachedEvidenceInstance.content)
+
+                    try {
+                        attachedEvidenceFile.transferTo(destinationFile)
+                        attachedEvidenceInstance.save flush: true
+                    }
+                    catch (Exception ex) {
+                        log.error(ex)
+                    }
+                }
+            }
+
+            if (params.attachedEvidenceFile5 && params.attachedEvidenceType5){
+                def attachedEvidenceFile = request.getFile('attachedEvidenceFile5')
+                if (!attachedEvidenceFile.originalFilename) {
+                    flash.message = "Please choose a file"
+                    respond referralRecordInstance, view: 'create'
+                }else{
+                    def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType5, addedOn: new Date(), referralRecord: referralRecordInstance)
+                    attachedEvidenceInstance.save flush: true
+                    attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                    def destinationFile = new File(attachedEvidenceInstance.content)
+
+                    try {
+                        attachedEvidenceFile.transferTo(destinationFile)
+                        attachedEvidenceInstance.save flush: true
+                    }
+                    catch (Exception ex) {
+                        log.error(ex)
+                    }
+                }
+            }
+
             flash.message = "Application ${referralRecordInstance.uniqueRef} is created"
             redirect referralRecordInstance
         }
@@ -705,48 +815,132 @@ class ReferralRecordController {
             referralRecordInstance.save flush: true
         }
 
-//        def pedigreeFile = request.getFile('pedigreeFile')
-//        if (pedigreeFile?.originalFilename) {
-//            if (pedigreeFile?.empty) {
-//                flash.message = "File cannot be empty"
-//                respond referralRecordInstance.errors, view: 'create'
-//                return
-//            }
-//            referralRecordInstance.pedigree = grailsApplication.config.uploadFolder + 'Pedigree/' +
-//                    referralRecordInstance.id.toString() + '.' + pedigreeFile.originalFilename
-//            def destinationFile = new File(referralRecordInstance.pedigree)
-//
-//            try {
-//                pedigreeFile.transferTo(destinationFile)
-//                referralRecordInstance.save flush: true
-//            }
-//            catch (Exception ex) {
-//                log.error(ex)
-//                referralRecordInstance.pedigree = null
-//                referralRecordInstance.save flush: true
-//            }
-//        }
-//
-//        if (params.attachedEvidenceFile && params.attachedEvidenceType) {
-//            def attachedEvidenceFile = request.getFile('attachedEvidenceFile')
-//            if (!attachedEvidenceFile.originalFilename) {
-//                flash.message = "Please choose a file"
-//                respond referralRecordInstance, view: 'create'
-//            } else {
-//                def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType, addedOn: new Date(), referralRecord: referralRecordInstance)
-//                attachedEvidenceInstance.save flush: true
-//                attachedEvidenceInstance.content = grailsApplication.config.uploadFolder + 'Attached_Evidence/' + attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
-//                def destinationFile = new File(attachedEvidenceInstance.content)
-//
-//                try {
-//                    attachedEvidenceFile.transferTo(destinationFile)
-//                    attachedEvidenceInstance.save flush: true
-//                }
-//                catch (Exception ex) {
-//                    log.error(ex)
-//                }
-//            }
-//        }
+        def pedigreeFile = request.getFile('pedigreeFile')
+        if (pedigreeFile?.originalFilename) {
+            if (pedigreeFile?.empty) {
+                flash.message = "File cannot be empty"
+                respond referralRecordInstance.errors, view: 'create'
+                return
+            }
+            referralRecordInstance.pedigree = grailsApplication.config.uploadFolder + 'Pedigree/' +
+                    referralRecordInstance.id.toString() + '.' + pedigreeFile.originalFilename
+            def destinationFile = new File(referralRecordInstance.pedigree)
+
+            try {
+                pedigreeFile.transferTo(destinationFile)
+                referralRecordInstance.save flush: true
+            }
+            catch (Exception ex) {
+                log.error(ex)
+                referralRecordInstance.pedigree = null
+                referralRecordInstance.save flush: true
+            }
+        }
+
+        if (params.attachedEvidenceFile1 && params.attachedEvidenceType1){
+            def attachedEvidenceFile = request.getFile('attachedEvidenceFile1')
+            if (!attachedEvidenceFile.originalFilename) {
+                flash.message = "Please choose a file"
+                respond referralRecordInstance, view: 'create'
+            }else{
+                def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType1, addedOn: new Date(), referralRecord: referralRecordInstance)
+                attachedEvidenceInstance.save flush: true
+                attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                def destinationFile = new File(attachedEvidenceInstance.content)
+
+                try {
+                    attachedEvidenceFile.transferTo(destinationFile)
+                    attachedEvidenceInstance.save flush: true
+                }
+                catch (Exception ex) {
+                    log.error(ex)
+                }
+            }
+        }
+
+        if (params.attachedEvidenceFile2 && params.attachedEvidenceType2){
+            def attachedEvidenceFile = request.getFile('attachedEvidenceFile2')
+            if (!attachedEvidenceFile.originalFilename) {
+                flash.message = "Please choose a file"
+                respond referralRecordInstance, view: 'create'
+            }else{
+                def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType2, addedOn: new Date(), referralRecord: referralRecordInstance)
+                attachedEvidenceInstance.save flush: true
+                attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                def destinationFile = new File(attachedEvidenceInstance.content)
+
+                try {
+                    attachedEvidenceFile.transferTo(destinationFile)
+                    attachedEvidenceInstance.save flush: true
+                }
+                catch (Exception ex) {
+                    log.error(ex)
+                }
+            }
+        }
+
+        if (params.attachedEvidenceFile3 && params.attachedEvidenceType3){
+            def attachedEvidenceFile = request.getFile('attachedEvidenceFile3')
+            if (!attachedEvidenceFile.originalFilename) {
+                flash.message = "Please choose a file"
+                respond referralRecordInstance, view: 'create'
+            }else{
+                def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType3, addedOn: new Date(), referralRecord: referralRecordInstance)
+                attachedEvidenceInstance.save flush: true
+                attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                def destinationFile = new File(attachedEvidenceInstance.content)
+
+                try {
+                    attachedEvidenceFile.transferTo(destinationFile)
+                    attachedEvidenceInstance.save flush: true
+                }
+                catch (Exception ex) {
+                    log.error(ex)
+                }
+            }
+        }
+
+        if (params.attachedEvidenceFile4 && params.attachedEvidenceType4){
+            def attachedEvidenceFile = request.getFile('attachedEvidenceFile4')
+            if (!attachedEvidenceFile.originalFilename) {
+                flash.message = "Please choose a file"
+                respond referralRecordInstance, view: 'create'
+            }else{
+                def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType4, addedOn: new Date(), referralRecord: referralRecordInstance)
+                attachedEvidenceInstance.save flush: true
+                attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                def destinationFile = new File(attachedEvidenceInstance.content)
+
+                try {
+                    attachedEvidenceFile.transferTo(destinationFile)
+                    attachedEvidenceInstance.save flush: true
+                }
+                catch (Exception ex) {
+                    log.error(ex)
+                }
+            }
+        }
+
+        if (params.attachedEvidenceFile5 && params.attachedEvidenceType5){
+            def attachedEvidenceFile = request.getFile('attachedEvidenceFile5')
+            if (!attachedEvidenceFile.originalFilename) {
+                flash.message = "Please choose a file"
+                respond referralRecordInstance, view: 'create'
+            }else{
+                def attachedEvidenceInstance = new AttachedEvidence(type: params.attachedEvidenceType5, addedOn: new Date(), referralRecord: referralRecordInstance)
+                attachedEvidenceInstance.save flush: true
+                attachedEvidenceInstance.content = grailsApplication.config.uploadFolder +'Attached_Evidence/'+ attachedEvidenceInstance.id.toString() + '.' + attachedEvidenceFile.originalFilename
+                def destinationFile = new File(attachedEvidenceInstance.content)
+
+                try {
+                    attachedEvidenceFile.transferTo(destinationFile)
+                    attachedEvidenceInstance.save flush: true
+                }
+                catch (Exception ex) {
+                    log.error(ex)
+                }
+            }
+        }
 
         flash.message = "Application updated"
         redirect referralRecordInstance

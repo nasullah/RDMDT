@@ -17,7 +17,7 @@
 		<tbody>
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="attachedEvidence.referralRecord.label" default="Referral Record" /></td>
+				<td valign="top" class="name"><g:message code="attachedEvidence.referralRecord.label" default="Application" /></td>
 				
 				<td valign="top" class="value"><g:link controller="referralRecord" action="show" id="${attachedEvidenceInstance?.referralRecord?.id}">${attachedEvidenceInstance?.referralRecord?.encodeAsHTML()}</g:link></td>
 				

@@ -17,7 +17,7 @@
 		<thead>
 			<tr>
 			
-				<th><g:message code="attachedEvidence.referralRecord.label" default="Referral Record" /></th>
+				<th><g:message code="attachedEvidence.referralRecord.label" default="Application" /></th>
 			
 				<g:sortableColumn property="addedOn" title="${message(code: 'attachedEvidence.addedOn.label', default: 'Added On')}" />
 			

@@ -18,7 +18,7 @@
 		</div>
 		</g:hasErrors>
 
-		<g:form method="post" class="form-horizontal" role="form" >
+		<g:uploadForm method="post" class="form-horizontal" role="form" onkeypress="return event.keyCode != 13;" >
 			<g:hiddenField name="id" value="${referralRecordInstance?.id}" />
 			<g:hiddenField name="version" value="${referralRecordInstance?.version}" />
 			<g:hiddenField name="_method" value="PUT" />
@@ -29,7 +29,7 @@
 				<g:actionSubmit class="btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 	            <button class="btn" type="reset"><g:message code="default.button.reset.label" default="Reset" /></button>
 			</div>
-		</g:form>
+		</g:uploadForm>
 
 	</section>
 

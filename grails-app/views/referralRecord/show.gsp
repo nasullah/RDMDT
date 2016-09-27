@@ -23,7 +23,7 @@
 
 				</tr>
 			</g:if>
-			<g:elseif test="${referralRecordInstance?.referralStatus?.referralStatusName == 'Approval' || referralRecordInstance?.referralStatus?.referralStatusName == 'Conditional Approval'}">
+			<g:elseif test="${referralRecordInstance?.referralStatus?.referralStatusName == 'Approved' || referralRecordInstance?.referralStatus?.referralStatusName == 'Conditionally Approved'}">
 				<tr class="prop" bgcolor="lime">
 					<td valign="top" class="name"><strong>Application Status</strong></td>
 
@@ -48,7 +48,7 @@
 				</tr>
 			</g:else>
 
-			<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Conditional Approval')}">
+			<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Conditionally Approved')}">
 				<tr class="prop">
 					<td valign="top" class="name"><g:message code="referralRecord.conditionalApprovalDetails.label" default="Conditional approval details" /></td>
 
@@ -57,9 +57,16 @@
 				</tr>
 			</g:if>
 
-			<g:elseif test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Approval')}">
+			<g:elseif test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Approved')}">
 				<tr class="prop">
-					<td valign="top" class="name"><g:message code="referralRecord.approvalDetails.label" default="Approval details" /></td>
+					<td valign="top" class="name">Number and identity of family members for sequencing</td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedIdentityOfFamilyMembersSamplesForSeq")}</td>
+
+				</tr>
+
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.approvalDetails.label" default="Further details" /></td>
 
 					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvalDetails")}</td>
 
@@ -143,12 +150,14 @@
 
 			</tr>
 
-			<tr class="prop">
-				<td valign="top" class="name">Other ethnicity of the proband</td>
+			<g:if test="${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.ethnicity?.ethnicityName == 'Other'}">
+				<tr class="prop">
+					<td valign="top" class="name">Other ethnicity of the proband</td>
 
-				<td valign="top" class="value">${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.otherEthnicity}</td>
+					<td valign="top" class="value">${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.otherEthnicity}</td>
 
-			</tr>
+				</tr>
+			</g:if>
 
 			<tr class="prop">
 				<td valign="top" class="name">Age of the proband</td>
@@ -364,7 +373,12 @@
 				<td valign="top" style="text-align: left;" class="value">
 					<g:each in="${referralRecordInstance.patients}" var="p">
 						<g:if test="${!p.isProband}">
-							<p>${p.relatedFrom.relationshipType}: ${p.ethnicity}</p>
+							<g:if test="${p?.ethnicity?.ethnicityName == 'Other'}">
+								<p>${p.relatedFrom.relationshipType}: ${p.ethnicity}, ${p.otherEthnicity}</p>
+							</g:if>
+							<g:else>
+								<p>${p.relatedFrom.relationshipType}: ${p.ethnicity}</p>
+							</g:else>
 						</g:if>
 					</g:each>
 				</td>
@@ -386,7 +400,7 @@
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name">Are any of the samples are taken from deceased individuals</td>
+				<td valign="top" class="name">Do any of the individuals proposed for sequencing live outside the catchment area of the Oxford Genomic Medicine Centre?</td>
 
 				<td valign="top" class="value"><g:formatBoolean false="No" true="Yes" boolean="${referralRecordInstance?.isAnySampleFromDeceasedIndividuals}" /></td>
 
@@ -432,7 +446,7 @@
 			</tr>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.note.label" default="Note" /></td>
+				<td valign="top" class="name"><g:message code="referralRecord.note.label" default="Supporting information" /></td>
 
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "note")}</td>
 
@@ -502,26 +516,26 @@
 				<td valign="top" style="text-align: left;" class="value">
 					<ul>
 					<g:each in="${referralRecordInstance.attachedEvidence}" var="a">
-						<li><g:link controller="attachedEvidence" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
+						<li><g:link controller="attachedEvidence" action="show" id="${a.id}">${a.type}: ${a.toString().subSequence(a.toString().lastIndexOf('/')+3, a.toString().length())}</g:link></li>
 					</g:each>
 					</ul>
 				</td>
 				
 			</tr>
 
-			<g:if test="${!referralRecordInstance?.extraTests?.empty}">
-				<tr class="prop">
-					<td valign="top" class="name">Extra Tests</td>
+			%{--<g:if test="${!referralRecordInstance?.extraTests?.empty}">--}%
+				%{--<tr class="prop">--}%
+					%{--<td valign="top" class="name">Extra Tests</td>--}%
 
-					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "testName")}</td>
-				</tr>
+					%{--<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "testName")}</td>--}%
+				%{--</tr>--}%
 
-				<tr class="prop">
-					<td valign="top" class="name">Extra Tests Date</td>
+				%{--<tr class="prop">--}%
+					%{--<td valign="top" class="name">Extra Tests Date</td>--}%
 
-					<td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${referralRecordInstance?.extraTests?.first()?.requestedDate}"/></td>
-				</tr>
-			</g:if>
+					%{--<td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${referralRecordInstance?.extraTests?.first()?.requestedDate}"/></td>--}%
+				%{--</tr>--}%
+			%{--</g:if>--}%
 
 			<tr class="prop">
 				<td valign="top" class="name">Approved Program</td>
@@ -534,6 +548,13 @@
 				<td valign="top" class="name">Approved Target 100,000 Genomes Project Rare Disease category</td>
 
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedProgram")}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name">Note</td>
+
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "adminNote")}</td>
 
 			</tr>
 		
@@ -574,7 +595,7 @@
 		<a class='btn btn-default btn-xs' <g:link  action="renderHICFLetter" id="${referralRecordInstance?.id}"><i class="glyphicon glyphicon-print"></i> Print HICF Letter</g:link>
 	</g:if>
 
-	<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Conditional Approval')}">
+	<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Conditionally Approved')}">
 		<a class='btn btn-default btn-xs' <g:link  action="renderOtherTestingConditionalLetter" id="${referralRecordInstance?.id}"><i class="glyphicon glyphicon-print"></i> Print Other testing (conditional) Letter</g:link>
 	</g:if>
 
@@ -582,7 +603,7 @@
 		<a class='btn btn-default btn-xs' <g:link  action="renderNotApprovedLetter" id="${referralRecordInstance?.id}"><i class="glyphicon glyphicon-print"></i> Print Not Approved Letter</g:link>
 	</g:if>
 
-	<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Approval')}">
+	<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Approved')}">
 		<a class='btn btn-default btn-xs' <g:link  action="renderStandardApprovalLetter" id="${referralRecordInstance?.id}"><i class="glyphicon glyphicon-print"></i> Print Standard Approval Letter</g:link>
 	</g:if>
 

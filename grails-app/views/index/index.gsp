@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<title>Welcome to The Genomic Medicine Online Referral System</title>
+	<title>Oxford Genomic Medicine MDT Online Referral System</title>
 	<meta name="layout" content="kickstart" />
 	<style>
 	#rcorner1 {

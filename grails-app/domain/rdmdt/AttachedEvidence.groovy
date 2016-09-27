@@ -26,6 +26,6 @@ class AttachedEvidence {
      */
     @Override	// Override toString for a nicer / more descriptive UI
     public String toString() {
-        return "AttachedEvidence- Type: ${type}";
+        return "Type: ${type}, File: ${content}";
     }
 }

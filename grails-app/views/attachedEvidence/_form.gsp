@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="${hasErrors(bean: attachedEvidenceInstance, field: 'referralRecord', 'error')} required">
-						<label for="referralRecord" class="control-label"><g:message code="attachedEvidence.referralRecord.label" default="Referral Record" /><span class="required-indicator">*</span></label>
+						<label for="referralRecord" class="control-label"><g:message code="attachedEvidence.referralRecord.label" default="Application" /><span class="required-indicator">*</span></label>
 						<div>
 							<g:select class="form-control" id="referralRecord" name="referralRecord.id" from="${rdmdt.ReferralRecord.list()}" optionKey="id" required="" value="${attachedEvidenceInstance?.referralRecord?.id}"/>
 							<span class="help-inline">${hasErrors(bean: attachedEvidenceInstance, field: 'referralRecord', 'error')}</span>
