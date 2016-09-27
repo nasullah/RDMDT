@@ -85,7 +85,7 @@
 
     <tr>
         <th width="25%"><span style="font-weight: normal;font-size: 12pt"> Category</span></th>
-        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.approvedTargetCategory?.diseaseSubgroup} : ${form?.approvedTargetCategory?.diseaseGroup}</span></th>
+        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.approvedTargetCategory?.diseaseGroup} : ${form?.approvedTargetCategory?.diseaseName}</span></th>
     </tr>
 
     <tr>
