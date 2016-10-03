@@ -1,19 +1,16 @@
 <html xmlns:margin="http://www.w3.org/1999/xhtml">
 
 <head>
-	<title>Oxford Genomic Medicine MDT Online Referral System</title>
 	<meta name="layout" content="kickstart" />
 </head>
 
 <body>
 
-<div>
-	<a  class="menu-bar" href="${createLink(uri: '/index/index')}">
-		<img class="logo" src="${resource(plugin: 'kickstart', dir:'images', file:'DNA_Helix.jpg')}" alt="${meta(name:'app.name')}" width=1140px height="150px"/>
-	</a>
-</div>
+<br/>
 
-<hr />
+<br/>
+
+<hr/>
 
 <h3>Welcome to the Oxford Genomic Medicine MDT online referral system</h3>
 
@@ -23,11 +20,25 @@
 
 <br/>
 
-<h5><em>All patient-identified information entered onto this form remains within the NHS firewall</em></h5>
+<h4><em>All patient-identified information entered onto this form remains within the NHS firewall</em></h4>
 
 <br/>
 
 <h4><a href="mailto:Oxford.GMC@nhs.net">Contact us</a> for further information or to request an account</h4>
+
+<hr/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
 
 </body>
 

@@ -33,7 +33,7 @@
 		<g:each in="${clinicianInstanceList}" status="i" var="clinicianInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-				<td><g:link action="show" id="${clinicianInstance.id}">${clinicianInstance?.forename} ${clinicianInstance?.surname}</g:link></td>
+				<td><g:link action="show" id="${clinicianInstance.id}" style="color: black">${clinicianInstance?.forename} ${clinicianInstance?.surname}</g:link></td>
 
 				<td>${fieldValue(bean: clinicianInstance, field: "centreName")}</td>
 
@@ -41,7 +41,7 @@
 
 				<td>${fieldValue(bean: clinicianInstance, field: "roleType")}</td>
 
-				<td><a class='btn btn-primary btn-xs' <g:link controller="referralRecord" action="create" params="['clinician.id': clinicianInstance?.id]"><i class="glyphicon glyphicon-plus"></i> Add Application</g:link></td>
+				<td><a class='btn btn-success btn-xs' <g:link action="show" id="${clinicianInstance.id}"><i class="glyphicon glyphicon-open"></i> View Clinician</g:link></td>
 
 			</tr>
 		</g:each>

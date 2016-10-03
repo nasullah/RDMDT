@@ -4,7 +4,6 @@
 <html>
 
 <head>
-	<title>Oxford Genomic Medicine MDT Online Referral System</title>
 	<meta name="layout" content="kickstart" />
 	<style>
 	#rcorner1 {

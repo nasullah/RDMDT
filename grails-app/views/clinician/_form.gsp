@@ -47,7 +47,7 @@
 					<div class="${hasErrors(bean: clinicianInstance, field: 'centreName', 'error')} required">
 						<label for="centreName" class="control-label"><g:message code="clinician.centreName.label" default="Main Centre" /><span class="required-indicator">*</span></label>
 						<div>
-							<g:select class="form-control" id="centreName" name="centreName.id" from="${Centre.list()}" optionKey="id" required="" value="${clinicianInstance?.centreName?.id}" noSelection="['':'- Choose -']"/>
+							<g:select class="form-control" id="centreName" name="centreName.id" from="${Centre.list()?.sort{it?.centreName}}" optionKey="id" required="" value="${clinicianInstance?.centreName?.id}" noSelection="['':'- Choose -']"/>
 							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'centreName', 'error')}</span>
 						</div>
 					</div>

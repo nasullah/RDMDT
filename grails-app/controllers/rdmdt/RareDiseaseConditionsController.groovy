@@ -33,6 +33,19 @@ class RareDiseaseConditionsController {
         respond new RareDiseaseConditions(params)
     }
 
+    def uploadFile = {
+        if (!request.getFile('file').originalFilename) {
+            flash.message = "Please choose a file"
+            redirect(controller:'rareDiseaseConditions',action: 'index')
+        } else{
+            request.getFile('file').inputStream.splitEachLine(',')
+                    { fields ->
+                        new RareDiseaseConditions(diseaseGroup: fields[2].trim(), diseaseName:fields[3].trim(), diseaseSubgroup: fields[4].trim(),originalId: fields[5].trim()).save flush: true
+                   }
+            redirect(controller:'rareDiseaseConditions',action: 'index')
+        }
+    }
+
     @Transactional
     def save(RareDiseaseConditions rareDiseaseConditionsInstance) {
         if (rareDiseaseConditionsInstance == null) {

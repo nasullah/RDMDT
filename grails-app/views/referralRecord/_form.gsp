@@ -337,7 +337,7 @@
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'geneticTestingOnProband', 'error')} ">
 					<label for="geneticTestingOnProband" class="control-label"><g:message code="referralRecord.geneticTestingOnProband.label" default="Genetic Testing (chromosome analysis, single gene, gene panel, etc.)" /></label>
 					<div>
-						<g:textField class="form-control" name="geneticTestingOnProband" value="${referralRecordInstance?.geneticTestingOnProband}"/>
+						<g:textArea class="form-control" name="geneticTestingOnProband" value="${referralRecordInstance?.geneticTestingOnProband}" rows="4" cols="40"/>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'geneticTestingOnProband', 'error')}</span>
 					</div>
 				</div>
@@ -347,7 +347,7 @@
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'otherTestingOnProband', 'error')} ">
 					<label for="otherTestingOnProband" class="control-label">Other testing on proband (metabolic, nerve conduction, muscle/skin biopsy, etc.)</label>
 					<div>
-						<g:textField class="form-control" name="otherTestingOnProband" value="${referralRecordInstance?.otherTestingOnProband}"/>
+						<g:textArea class="form-control" name="otherTestingOnProband" value="${referralRecordInstance?.otherTestingOnProband}" rows="4" cols="40"/>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'otherTestingOnProband', 'error')}</span>
 					</div>
 				</div>

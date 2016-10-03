@@ -26,7 +26,7 @@
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 			
 				<td><g:link action="show" id="${centreInstance.id}">${fieldValue(bean: centreInstance, field: "centreName")}</g:link></td>
-			
+
 			</tr>
 		</g:each>
 		</tbody>
