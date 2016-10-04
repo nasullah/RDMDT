@@ -8,7 +8,7 @@
 </head>
 
 <body>
-
+<div class="container">
 <section id="login" class="first">
 <div class="row">
 	<div class="col-md-3"></div>
@@ -47,7 +47,7 @@
 	<div class="col-md-3"></div>
 </div>
 </section>
-
+</div>
 <script type='text/javascript'>
 	<!--
 	(function() {

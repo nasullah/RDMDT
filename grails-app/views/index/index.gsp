@@ -91,6 +91,7 @@
 <br/>
 
 <sec:ifAnyGranted roles="ROLE_USER">
+	<div class="container">
 	<section id="info">
 		<div>
 
@@ -158,10 +159,11 @@
 
 		</div>
 	</section>
-
+	</div>
 </sec:ifAnyGranted>
 
 <sec:ifAnyGranted roles="ROLE_ADMIN">
+	<div class="container">
 	<section id="info">
 		<div>
 
@@ -217,7 +219,7 @@
 
 		</div>
 	</section>
-
+</div>
 </sec:ifAnyGranted>
 
 </body>

@@ -1,4 +1,4 @@
-<div id="Content" class="container">
+<div id="Content">
 	<!-- Main menu in one row (e.g., controller entry points -->
 	<g:if test="${!layout_nomainmenu}">
 		<g:render template="/_menu/menubar"/>

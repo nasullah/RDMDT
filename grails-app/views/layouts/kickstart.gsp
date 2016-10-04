@@ -18,11 +18,15 @@
 	
 	<%-- Manual switch for the skin can be found in /view/_menu/_config.gsp --%>
 	<r:require modules="jquery"/> <%-- jQuery is required for Bootstrap! --%>
-	<r:require modules="bootstrap"/>
-	<r:require modules="bootstrap_utils"/>
+	%{--<r:require modules="bootstrap"/>--}%
+	%{--<r:require modules="bootstrap_utils"/>--}%
+
 
 	<r:layoutResources />
-	<g:layoutHead />
+	%{--<g:layoutHead />--}%
+	<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
+	<link rel="stylesheet" href="${resource(dir: 'css', file: 'main2.css')}" type="text/css">
+	<g:javascript library="bootstrap3"/>
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 	<!--[if lt IE 9]>
