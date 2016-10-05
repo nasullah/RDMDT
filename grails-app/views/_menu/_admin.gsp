@@ -1,7 +1,7 @@
 <sec:ifAnyGranted roles="ROLE_ADMIN">
 
-	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white">
+	<li class="dropdown" style="padding-top: 3px;">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 			<i class="glyphicon glyphicon-cog white"></i>
 			Administration <b class="caret"></b>
 		</a>
