@@ -305,6 +305,24 @@
 			</g:if>
 
 			<tr class="prop">
+				<td valign="top" class="name">Ethnicity of immediate family</td>
+
+				<td valign="top" style="text-align: left;" class="value">
+					<g:each in="${referralRecordInstance.patients}" var="p">
+						<g:if test="${!p.isProband}">
+							<g:if test="${p?.ethnicity?.ethnicityName == 'Other'}">
+								<p>${p.relatedFrom.relationshipType}: ${p.ethnicity}, ${p.otherEthnicity}</p>
+							</g:if>
+							<g:else>
+								<p>${p.relatedFrom.relationshipType}: ${p.ethnicity}</p>
+							</g:else>
+						</g:if>
+					</g:each>
+				</td>
+
+			</tr>
+
+			<tr class="prop">
 				<td valign="top" class="name">Paternal Breast And Or Ovarian Cancer</td>
 
 				<td valign="top" class="value"><g:formatBoolean false="No" true="Yes" boolean="${referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer}" /></td>
@@ -365,24 +383,6 @@
 				
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "furtherDetailsOfHistory")}</td>
 				
-			</tr>
-
-			<tr class="prop">
-				<td valign="top" class="name">Ethnicity of immediate family</td>
-
-				<td valign="top" style="text-align: left;" class="value">
-					<g:each in="${referralRecordInstance.patients}" var="p">
-						<g:if test="${!p.isProband}">
-							<g:if test="${p?.ethnicity?.ethnicityName == 'Other'}">
-								<p>${p.relatedFrom.relationshipType}: ${p.ethnicity}, ${p.otherEthnicity}</p>
-							</g:if>
-							<g:else>
-								<p>${p.relatedFrom.relationshipType}: ${p.ethnicity}</p>
-							</g:else>
-						</g:if>
-					</g:each>
-				</td>
-
 			</tr>
 
 			<tr class="prop">
@@ -481,14 +481,7 @@
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "consentPatientOrFamily")}</td>
 
 			</tr>
-		
-			%{--<tr class="prop">--}%
-				%{--<td valign="top" class="name"><g:message code="referralRecord.proposedDiagnosis.label" default="Proposed Diagnosis" /></td>--}%
-				%{----}%
-				%{--<td valign="top" class="value"><g:link controller="OMIM" action="show" id="${referralRecordInstance?.proposedDiagnosis?.id}">${referralRecordInstance?.proposedDiagnosis?.encodeAsHTML()}</g:link></td>--}%
-				%{----}%
-			%{--</tr>--}%
-		
+
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.assignedTo.label" default="Assigned To" /></td>
 
@@ -522,20 +515,6 @@
 				</td>
 				
 			</tr>
-
-			%{--<g:if test="${!referralRecordInstance?.extraTests?.empty}">--}%
-				%{--<tr class="prop">--}%
-					%{--<td valign="top" class="name">Extra Tests</td>--}%
-
-					%{--<td valign="top" class="value">${fieldValue(bean: referralRecordInstance?.extraTests?.first(), field: "testName")}</td>--}%
-				%{--</tr>--}%
-
-				%{--<tr class="prop">--}%
-					%{--<td valign="top" class="name">Extra Tests Date</td>--}%
-
-					%{--<td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${referralRecordInstance?.extraTests?.first()?.requestedDate}"/></td>--}%
-				%{--</tr>--}%
-			%{--</g:if>--}%
 
 			<tr class="prop">
 				<td valign="top" class="name">Approved Program</td>

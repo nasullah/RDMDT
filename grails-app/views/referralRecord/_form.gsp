@@ -7,7 +7,7 @@
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'clinician', 'error')} required">
 					<g:if test="${referralRecordInstance?.clinician?.id}">
-						<label for="clinician" class="control-label"><g:message code="referralRecord.clinician.label" default="Applicant" /><span class="required-indicator">*</span></label>
+						<label for="clinician" class="control-label"><g:message code="referralRecord.clinician.label" default="Clinician" /><span class="required-indicator">*</span></label>
 						<div>
 							<g:select class="form-control" id="clinician" name="clinician.id" from="${rdmdt.Clinician.list()}" optionKey="id" required="" value="${referralRecordInstance?.clinician?.id}"/>
 							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'clinician', 'error')}</span>
@@ -15,7 +15,7 @@
 					</g:if>
 					<g:else>
 						<label for="clinician" class="control-label">Clinician (enter name)<span class="required-indicator">*</span></label>
-						<richui:autoComplete class="form-control"  name="clinicianName" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.clinician}" onItemSelect="callClinician(id)"  />
+						<richui:autoComplete class="form-control"  name="clinicianName" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.clinician}" onItemSelect="callClinician(id)" maxResultsDisplayed="20" minQueryLength="2"/>
 						<g:hiddenField id ="clinician" name ="clinician" value="${referralRecordInstance?.clinician?.id}"/>
 					</g:else>
 				</div>
@@ -24,8 +24,8 @@
 			<div class="col-lg-6">
 				<div class="">
 					<label class="control-label">Responsible consultant if different (enter name)</label>
-					<richui:autoComplete class="form-control"  name="consultantName" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.correspondingClinician}" onItemSelect="callCorrespondingClinician(id)"  />
-					<g:hiddenField id ="correspondingClinician" name ="correspondingClinician" value="${referralRecordInstance?.clinician?.id}"/>
+					<richui:autoComplete class="form-control"  name="consultantName" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.correspondingClinician}" onItemSelect="callCorrespondingClinician(id)" maxResultsDisplayed="20" minQueryLength="2" />
+					<g:hiddenField id ="correspondingClinician" name ="correspondingClinician" value="${referralRecordInstance?.correspondingClinician?.id}"/>
 				</div>
 			</div>
 
@@ -39,55 +39,7 @@
 			</div>
 		</div>
 
-		<div class="row" id="coapplicantDetails1">
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Co-applicant (enter name)</label>
-					<richui:autoComplete class="form-control"  name="coapplicantName1" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(0)}" onItemSelect="callCoApplicant1(id)"  />
-					<g:hiddenField id ="coapplicant1" name ="coapplicant1" value="${referralRecordInstance?.coApplicants?.getAt(0)?.id}"/>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" id="coapplicantDetails2">
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Co-applicant (enter name)</label>
-					<richui:autoComplete class="form-control"  name="coapplicantName2" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(1)}" onItemSelect="callCoApplicant2(id)"  />
-					<g:hiddenField id ="coapplicant2" name ="coapplicant2" value="${referralRecordInstance?.coApplicants?.getAt(1)?.id}"/>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" id="coapplicantDetails3">
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Co-applicant (enter name)</label>
-					<richui:autoComplete class="form-control"  name="coapplicantName3" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(3)}" onItemSelect="callCoApplicant3(id)"  />
-					<g:hiddenField id ="coapplicant3" name ="coapplicant3" value="${referralRecordInstance?.coApplicants?.getAt(2)?.id}"/>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" id="coapplicantDetails4">
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Co-applicant (enter name)</label>
-					<richui:autoComplete class="form-control"  name="coapplicantName4" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(3)}" onItemSelect="callCoApplicant4(id)"  />
-					<g:hiddenField id ="coapplicant4" name ="coapplicant4" value="${referralRecordInstance?.coApplicants?.getAt(3)?.id}"/>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" id="coapplicantDetails5">
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Co-applicant (enter name)</label>
-					<richui:autoComplete class="form-control"  name="coapplicantName4" action="${createLinkTo('dir': 'clinician/findClinician')}" value="${referralRecordInstance?.coApplicants?.getAt(4)}" onItemSelect="callCoApplicant5(id)"  />
-					<g:hiddenField id ="coapplicant5" name ="coapplicant5" value="${referralRecordInstance?.coApplicants?.getAt(4)?.id}"/>
-				</div>
-			</div>
-		</div>
+		<g:render template="coapplicant"/>
 
 		<hr/>
 
@@ -98,8 +50,14 @@
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: patientInstance, field: 'givenName', 'error')} ">
 					<label for="givenName" class="control-label"><g:message code="patient.givenName.label" default="Forename" /></label>
+					<g:if test="${referralRecordInstance.patients?.find{p -> p.isProband}?.givenName}">
+						<g:set var="givenName" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.givenName}" />
+					</g:if>
+					<g:else>
+						<g:set var="givenName" value="${params.givenName}" />
+					</g:else>
 					<div>
-						<g:textField class="form-control" name="givenName" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.givenName}"/>
+						<g:textField class="form-control" name="givenName" value="${givenName}"/>
 					</div>
 				</div>
 			</div>
@@ -107,8 +65,14 @@
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: patientInstance, field: 'familyName', 'error')} ">
 					<label for="familyName" class="control-label"><g:message code="patient.familyName.label" default="Surname" /></label>
+					<g:if test="${referralRecordInstance.patients?.find{p -> p.isProband}?.familyName}">
+						<g:set var="familyName" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.familyName}" />
+					</g:if>
+					<g:else>
+						<g:set var="familyName" value="${params.familyName}" />
+					</g:else>
 					<div>
-						<g:textField class="form-control" name="familyName" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.familyName}"/>
+						<g:textField class="form-control" name="familyName" value="${familyName}"/>
 					</div>
 				</div>
 			</div>
@@ -126,8 +90,14 @@
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'nhsNumber', 'error')} ">
 					<label for="nhsNumberProband" class="control-label">NHS number of the proband<span class="required-indicator">*</span></label>
+					<g:if test="${referralRecordInstance.patients?.find{p -> p.isProband}?.nhsNumber}">
+						<g:set var="nhsNumber" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.nhsNumber}" />
+					</g:if>
+					<g:else>
+						<g:set var="nhsNumber" value="${params.nhsNumberProband}" />
+					</g:else>
 					<div>
-						<g:textField class="form-control" id="nhsNumberProband" name="nhsNumberProband" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.nhsNumber}" required=""/>
+						<g:textField class="form-control" id="nhsNumberProband" name="nhsNumberProband" value="${nhsNumber}" required=""/>
 					</div>
 				</div>
 			</div>
@@ -140,12 +110,15 @@
 						<g:if test="${referralRecordInstance.patients?.find{p -> p.isProband}?.gender?.id}">
 							<g:set var="genderProband" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.gender?.id}" />
 						</g:if>
+						<g:elseif test="${params.genderProband}">
+							<g:set var="genderProband" value="${params.genderProband}" />
+						</g:elseif>
 						<g:else>
 							<g:set var="genderProband" value="" />
 						</g:else>
 						<g:radioGroup name="genderProband"
 									  values="[Gender.findByGenderName('Male')?.id, Gender.findByGenderName('Female')?.id, Gender.findByGenderName('Not specified')?.id, Gender.findByGenderName('Not known')?.id, '']"
-									  labels="[Gender.findByGenderName('Male')?.genderName, Gender.findByGenderName('Female')?.genderName, Gender.findByGenderName('Not specified')?.genderName, Gender.findByGenderName('Not known')?.genderName, 'Not entered']"
+									  labels="['Male', 'Female', 'Not specified', 'Not known', 'Not entered']"
 									  value="${genderProband}">
 							${it.radio}  ${it.label} &nbsp;
 						</g:radioGroup>
@@ -153,12 +126,20 @@
 					</div>
 				</div>
 			</div>
+		</div>
 
+		<div class="row">
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: patientInstance, field: 'ethnicity', 'error')} ">
 					<label for="ethnicityProband" class="control-label">Ethnicity</label>
 					<div>
-						<g:select class="form-control" id="ethnicityProband" name="ethnicityProband" from="${Ethnicity.list()}" onchange="otherEthnicityProbandOpt()" optionKey="id" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.ethnicity?.id}" noSelection="['':'- Choose -']" />
+						<g:if test="${referralRecordInstance.patients?.find{p -> p.isProband}?.ethnicity?.id}">
+							<g:set var="ethnicityProband" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.ethnicity?.id}" />
+						</g:if>
+						<g:else>
+							<g:set var="ethnicityProband" value="${params.ethnicityProband}" />
+						</g:else>
+						<g:select class="form-control" id="ethnicityProband" name="ethnicityProband" from="${Ethnicity.list()}" onchange="otherEthnicityProbandOpt()" optionKey="id" value="${ethnicityProband}" noSelection="['':'- Choose -']" />
 						<span class="help-inline">${hasErrors(bean: patientInstance, field: 'ethnicity', 'error')}</span>
 					</div>
 				</div>
@@ -168,7 +149,13 @@
 				<div class="${hasErrors(bean: patientInstance, field: 'otherEthnicity', 'error')} ">
 					<label for="otherEthnicityProband" class="control-label">Please specify</label>
 					<div>
-						<g:textField class="form-control" id="otherEthnicityProband" name="otherEthnicityProband" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.otherEthnicity}"/>
+						<g:if test="${referralRecordInstance.patients?.find{p -> p.isProband}?.otherEthnicity}">
+							<g:set var="otherEthnicityProband" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.otherEthnicity}" />
+						</g:if>
+						<g:else>
+							<g:set var="otherEthnicityProband" value="${params.otherEthnicityProband}" />
+						</g:else>
+						<g:textField class="form-control" id="otherEthnicityProband" name="otherEthnicityProband" value="${otherEthnicityProband}"/>
 						<span class="help-inline">${hasErrors(bean: patientInstance, field: 'otherEthnicity', 'error')}</span>
 					</div>
 				</div>
@@ -179,8 +166,14 @@
 			<div class="col-lg-6">
 				<div>
 					<label for="ageProband" class="control-label">Age (if deceased, age at death)</label>
+					<g:if test="${referralRecordInstance.patients?.find{p -> p.isProband}?.age}">
+						<g:set var="ageProband" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.age}" />
+					</g:if>
+					<g:else>
+						<g:set var="ageProband" value="${params.ageProband}" />
+					</g:else>
 					<div>
-						<g:field class="form-control" name="ageProband" type="number" min="1" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.age}"/>
+						<g:field class="form-control" name="ageProband" type="number" min="1" value="${ageProband}"/>
 					</div>
 				</div>
 			</div>
@@ -193,6 +186,9 @@
 						<g:if test="${referralRecordInstance.patients?.find{p -> p.isProband}?.ageUnit?.id}">
 							<g:set var="egeUnitProband" value="${referralRecordInstance.patients?.find{p -> p.isProband}?.ageUnit?.id}" />
 						</g:if>
+						<g:elseif test="${params.egeUnitProband}">
+							<g:set var="egeUnitProband" value="${params.egeUnitProband}" />
+						</g:elseif>
 						<g:else>
 							<g:set var="egeUnitProband" value="" />
 						</g:else>
@@ -256,81 +252,7 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-lg-6">
-				<div id="clinicalDetails0">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails0" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(0)?.clinicalDetailsName}"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="addClinicalDetailsButton">
-					<label class="control-label">Add More Clinical Details</label>
-					<div>
-						<button type="button" id="addClinicalButton" class="btn btn-primary btn" value="add" onClick= 'addClinicalDetails()'><span class="glyphicon glyphicon-plus"></span> Add</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-6">
-				<div id="clinicalDetails1">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails1" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(1)?.clinicalDetailsName}"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails2">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails2" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(2)?.clinicalDetailsName}"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails3">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails3" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(3)?.clinicalDetailsName}"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails4">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails4" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(4)?.clinicalDetailsName}"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails5">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails5" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(5)?.clinicalDetailsName}"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div id="clinicalDetails6">
-					<label class="control-label">Clinical details</label>
-					<div>
-						<g:field class="form-control" name="cDetails6" type="text" value="${referralRecordInstance?.clinicalDetails?.getAt(6)?.clinicalDetailsName}"/>
-					</div>
-				</div>
-			</div>
-		</div>
+		<g:render template="clinicalDetails"/>
 
 		<div class="row">
 			<div class="col-lg-6">
@@ -388,7 +310,8 @@
 						<label class="control-label">Uploaded Evidence</label>
 						<div>
 							<g:each in="${referralRecordInstance.attachedEvidence}" var="a">
-								<g:link controller="attachedEvidence" action="show" id="${a.id}">${a.type}: ${a.toString().subSequence(a.toString().lastIndexOf('/')+3, a.toString().length())}</g:link>							</g:each>
+								<g:link controller="attachedEvidence" action="show" id="${a.id}">${a.type}: ${a.toString().subSequence(a.toString().lastIndexOf('/')+3, a.toString().length())}</g:link>
+							</g:each>
 						</div>
 					</div>
 				</div>
@@ -424,85 +347,7 @@
 			</div>
 		</div>
 
-		<div class="row" id="attachedEvidenceTypeDetails2">
-			<div class="col-lg-3">
-				<div>
-					<label class="control-label">Type</label>
-					<div>
-						<g:select class="form-control" id="attachedEvidenceType2" name="attachedEvidenceType2" from="${AttachedEvidenceType.list()}" optionKey="id"  noSelection="['':'- Choose -']"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label  class="control-label">File</label>
-					<div>
-						<input type="file" id="attachedEvidenceFile2" name="attachedEvidenceFile2" />
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" id="attachedEvidenceTypeDetails3">
-			<div class="col-lg-3">
-				<div>
-					<label class="control-label">Type</label>
-					<div>
-						<g:select class="form-control" id="attachedEvidenceType3" name="attachedEvidenceType3" from="${AttachedEvidenceType.list()}" optionKey="id"  noSelection="['':'- Choose -']"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label  class="control-label">File</label>
-					<div>
-						<input type="file" id="attachedEvidenceFile3" name="attachedEvidenceFile3" />
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" id="attachedEvidenceTypeDetails4">
-			<div class="col-lg-3">
-				<div>
-					<label class="control-label">Type</label>
-					<div>
-						<g:select class="form-control" id="attachedEvidenceType4" name="attachedEvidenceType4" from="${AttachedEvidenceType.list()}" optionKey="id"  noSelection="['':'- Choose -']"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label  class="control-label">File</label>
-					<div>
-						<input type="file" id="attachedEvidenceFile4" name="attachedEvidenceFile4" />
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" id="attachedEvidenceTypeDetails5">
-			<div class="col-lg-3">
-				<div>
-					<label class="control-label">Type</label>
-					<div>
-						<g:select class="form-control" id="attachedEvidenceType5" name="attachedEvidenceType5" from="${AttachedEvidenceType.list()}" optionKey="id"  noSelection="['':'- Choose -']"/>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="">
-					<label  class="control-label">File</label>
-					<div>
-						<input type="file" id="attachedEvidenceFile5" name="attachedEvidenceFile5" />
-					</div>
-				</div>
-			</div>
-		</div>
+		<g:render template="attachedAvidence"/>
 
 		<hr/>
 
@@ -618,203 +463,20 @@
 
 		<hr/>
 
-		<h3>Family History</h3>
-
-		<br/>
-
-		<h4>Paternal</h4>
-
-		<div class="row">
-
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Breast And Or Ovarian Cancer</label>
-					<div>
-						<g:if test="${referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer}">
-							<g:set var="breastAndOrOvarianCancerPaternal" value="${referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer}" />
-						</g:if>
-						<g:else>
-							<g:set var="breastAndOrOvarianCancerPaternal" value="${false}" />
-						</g:else>
-						<g:radioGroup name="breastAndOrOvarianCancerPaternal"
-									  values="[true, false]"
-									  labels="['Yes', 'No']"
-									  value="${breastAndOrOvarianCancerPaternal}">
-							${it.radio}  ${it.label} &nbsp;
-						</g:radioGroup>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Colorectal Cancer</label>
-					<div>
-						<g:if test="${referralRecordInstance?.paternal?.first()?.colorectalCancer}">
-							<g:set var="colorectalCancerPaternal" value="${referralRecordInstance?.paternal?.first()?.colorectalCancer}" />
-						</g:if>
-						<g:else>
-							<g:set var="colorectalCancerPaternal" value="${false}" />
-						</g:else>
-						<g:radioGroup name="colorectalCancerPaternal"
-									  values="[true, false]"
-									  labels="['Yes', 'No']"
-									  value="${colorectalCancerPaternal}">
-							${it.radio}  ${it.label} &nbsp;
-						</g:radioGroup>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Ischaemic Heart Disease Or Stroke</label>
-					<div>
-						<g:if test="${referralRecordInstance?.paternal?.first()?.ischaemicHeartDiseaseOrStroke}">
-							<g:set var="ischaemicHeartDiseaseOrStrokePaternal" value="${referralRecordInstance?.paternal?.first()?.ischaemicHeartDiseaseOrStroke}" />
-						</g:if>
-						<g:else>
-							<g:set var="ischaemicHeartDiseaseOrStrokePaternal" value="${false}" />
-						</g:else>
-						<g:radioGroup name="ischaemicHeartDiseaseOrStrokePaternal"
-									  values="[true, false]"
-									  labels="['Yes', 'No']"
-									  value="${ischaemicHeartDiseaseOrStrokePaternal}">
-							${it.radio}  ${it.label} &nbsp;
-						</g:radioGroup>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Endocrine Tumours</label>
-					<div>
-						<g:if test="${referralRecordInstance?.paternal?.first()?.endocrineTumours}">
-							<g:set var="endocrineTumoursPaternal" value="${referralRecordInstance?.paternal?.first()?.endocrineTumours}" />
-						</g:if>
-						<g:else>
-							<g:set var="endocrineTumoursPaternal" value="${false}" />
-						</g:else>
-						<g:radioGroup name="endocrineTumoursPaternal"
-									  values="[true, false]"
-									  labels="['Yes', 'No']"
-									  value="${endocrineTumoursPaternal}">
-							${it.radio}  ${it.label} &nbsp;
-						</g:radioGroup>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<br/>
-
-		<h4>Maternal</h4>
-
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Breast And Or Ovarian Cancer</label>
-					<div>
-						<g:if test="${referralRecordInstance?.maternal?.first()?.breastAndOrOvarianCancer}">
-							<g:set var="breastAndOrOvarianCancerMaternal" value="${referralRecordInstance?.maternal?.first()?.breastAndOrOvarianCancer}" />
-						</g:if>
-						<g:else>
-							<g:set var="breastAndOrOvarianCancerMaternal" value="${false}" />
-						</g:else>
-						<g:radioGroup name="breastAndOrOvarianCancerMaternal"
-									  values="[true, false]"
-									  labels="['Yes', 'No']"
-									  value="${breastAndOrOvarianCancerMaternal}">
-							${it.radio}  ${it.label} &nbsp;
-						</g:radioGroup>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Colorectal Cancer</label>
-					<div>
-						<g:if test="${referralRecordInstance?.maternal?.first()?.colorectalCancer}">
-							<g:set var="colorectalCancerMaternal" value="${referralRecordInstance?.maternal?.first()?.colorectalCancer}" />
-						</g:if>
-						<g:else>
-							<g:set var="colorectalCancerMaternal" value="${false}" />
-						</g:else>
-						<g:radioGroup name="colorectalCancerMaternal"
-									  values="[true, false]"
-									  labels="['Yes', 'No']"
-									  value="${colorectalCancerMaternal}">
-							${it.radio}  ${it.label} &nbsp;
-						</g:radioGroup>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Ischaemic Heart Disease Or Stroke</label>
-					<div>
-						<g:if test="${referralRecordInstance?.maternal?.first()?.ischaemicHeartDiseaseOrStroke}">
-							<g:set var="ischaemicHeartDiseaseOrStrokeMaternal" value="${referralRecordInstance?.maternal?.first()?.ischaemicHeartDiseaseOrStroke}" />
-						</g:if>
-						<g:else>
-							<g:set var="ischaemicHeartDiseaseOrStrokeMaternal" value="${false}" />
-						</g:else>
-						<g:radioGroup name="ischaemicHeartDiseaseOrStrokeMaternal"
-									  values="[true, false]"
-									  labels="['Yes', 'No']"
-									  value="${ischaemicHeartDiseaseOrStrokeMaternal}">
-							${it.radio}  ${it.label} &nbsp;
-						</g:radioGroup>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="">
-					<label class="control-label">Endocrine Tumours</label>
-					<div>
-						<g:if test="${referralRecordInstance?.maternal?.first()?.endocrineTumours}">
-							<g:set var="endocrineTumoursMaternal" value="${referralRecordInstance?.maternal?.first()?.endocrineTumours}" />
-						</g:if>
-						<g:else>
-							<g:set var="endocrineTumoursMaternal" value="${false}" />
-						</g:else>
-						<g:radioGroup name="endocrineTumoursMaternal"
-									  values="[true, false]"
-									  labels="['Yes', 'No']"
-									  value="${endocrineTumoursMaternal}">
-							${it.radio}  ${it.label} &nbsp;
-						</g:radioGroup>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'furtherDetailsOfHistory', 'error')} ">
-					<label for="furtherDetailsOfHistory" class="control-label"><g:message code="referralRecord.furtherDetailsOfHistory.label" default="Please add details and/or note any other significant family history" /></label>
-					<div>
-						<g:textArea class="form-control" name="furtherDetailsOfHistory" value="${referralRecordInstance?.furtherDetailsOfHistory}" rows="4" cols="40"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'furtherDetailsOfHistory', 'error')}</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<hr/>
-
-		<h4>Ethnicity of immediate family</h4>
+		<h3>Ethnicity of immediate family</h3>
 
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="">
 					<label class="control-label">Mother</label>
+					<g:if test="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.ethnicity?.id}">
+						<g:set var="ethnicityMother" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.ethnicity?.id}" />
+					</g:if>
+					<g:else>
+						<g:set var="ethnicityMother" value="${params.ethnicityMother}" />
+					</g:else>
 					<div>
-						<g:select class="form-control" id="ethnicityMother" name="ethnicityMother" from="${Ethnicity.list()}" optionKey="id" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.ethnicity?.id}" onchange="otherEthnicityMotherOpt()" noSelection="['':'- Choose -']"/>
+						<g:select class="form-control" id="ethnicityMother" name="ethnicityMother" from="${Ethnicity.list()}" optionKey="id" value="${ethnicityMother}" onchange="otherEthnicityMotherOpt()" noSelection="['':'- Choose -']"/>
 					</div>
 				</div>
 			</div>
@@ -822,8 +484,14 @@
 			<div class="col-lg-6" id="otherEthnicityMotherOption">
 				<div>
 					<label for="otherEthnicityMother" class="control-label">Please specify</label>
+					<g:if test="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.otherEthnicity}">
+						<g:set var="otherEthnicityMother" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.otherEthnicity}" />
+					</g:if>
+					<g:else>
+						<g:set var="otherEthnicityMother" value="${params.otherEthnicityMother}" />
+					</g:else>
 					<div>
-						<g:textField class="form-control" id="otherEthnicityMother" name="otherEthnicityMother" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.otherEthnicity}"/>
+						<g:textField class="form-control" id="otherEthnicityMother" name="otherEthnicityMother" value="${otherEthnicityMother}"/>
 					</div>
 				</div>
 			</div>
@@ -833,8 +501,14 @@
 			<div class="col-lg-6">
 				<div class="">
 					<label class="control-label">Father</label>
+					<g:if test="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.ethnicity?.id}">
+						<g:set var="ethnicityFather" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.ethnicity?.id}" />
+					</g:if>
+					<g:else>
+						<g:set var="ethnicityFather" value="${params.ethnicityFather}" />
+					</g:else>
 					<div>
-						<g:select class="form-control" id="ethnicityFather" name="ethnicityFather" from="${Ethnicity.list()}" optionKey="id" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.ethnicity?.id}" onchange="otherEthnicityFatherOpt()" noSelection="['':'- Choose -']"/>
+						<g:select class="form-control" id="ethnicityFather" name="ethnicityFather" from="${Ethnicity.list()}" optionKey="id" value="${ethnicityFather}" onchange="otherEthnicityFatherOpt()" noSelection="['':'- Choose -']"/>
 					</div>
 				</div>
 			</div>
@@ -842,8 +516,44 @@
 			<div class="col-lg-6" id="otherEthnicityFatherOption">
 				<div>
 					<label for="otherEthnicityFather" class="control-label">Please specify</label>
+					<g:if test="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.otherEthnicity}">
+						<g:set var="otherEthnicityFather" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.otherEthnicity}" />
+					</g:if>
+					<g:else>
+						<g:set var="otherEthnicityFather" value="${params.otherEthnicityFather}" />
+					</g:else>
 					<div>
-						<g:textField class="form-control" id="otherEthnicityFather" name="otherEthnicityFather" value="${referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.otherEthnicity}"/>
+						<g:textField class="form-control" id="otherEthnicityFather" name="otherEthnicityFather" value="${otherEthnicityFather}"/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr/>
+
+		<h3>Family History</h3>
+
+		<br/>
+
+		<h4>Paternal</h4>
+
+		<g:render template="paternal"/>
+
+		<br/>
+
+		<h4>Maternal</h4>
+
+		<g:render template="maternal"/>
+
+		<br/>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="${hasErrors(bean: referralRecordInstance, field: 'furtherDetailsOfHistory', 'error')} ">
+					<label for="furtherDetailsOfHistory" class="control-label"><g:message code="referralRecord.furtherDetailsOfHistory.label" default="Please add details and/or note any other significant family history" /></label>
+					<div>
+						<g:textArea class="form-control" name="furtherDetailsOfHistory" value="${referralRecordInstance?.furtherDetailsOfHistory}" rows="4" cols="40"/>
+						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'furtherDetailsOfHistory', 'error')}</span>
 					</div>
 				</div>
 			</div>
@@ -1087,26 +797,6 @@
 				</div>
 			</div>
 		</div>
-
-		%{--<div class="row">--}%
-			%{--<div class="col-lg-6">--}%
-				%{--<div class="">--}%
-					%{--<label class="control-label">Extra tests requested</label>--}%
-					%{--<div>--}%
-						%{--<g:field class="form-control" name="extraTestsRequested" type="text" value="${referralRecordInstance?.extraTests?.getAt(0)?.testName}"/>--}%
-					%{--</div>--}%
-				%{--</div>--}%
-			%{--</div>--}%
-
-			%{--<div class="col-lg-6">--}%
-				%{--<div class="">--}%
-					%{--<label class="control-label">Requested Date</label>--}%
-					%{--<div>--}%
-						%{--<bs:datePicker name="requestedDate" precision="day"  value="${referralRecordInstance?.extraTests?.getAt(0)?.requestedDate}" default="none" noSelection="['': '']" />--}%
-					%{--</div>--}%
-				%{--</div>--}%
-			%{--</div>--}%
-		%{--</div>--}%
 
 		<sec:ifAnyGranted roles="ROLE_ADMIN">
 			<hr/>
@@ -1468,7 +1158,7 @@
 			$("#reviewDetails").hide();
 			$("#notApprovedDetailsOption").show();
 			$("#approvedIdentityOfFamilyMembersSamplesForSeqOption").hide()
-		} else if (referralStatus == ${ReferralStatus.findByReferralStatusName('In Review')?.id}){
+		} else if (referralStatus == ${ReferralStatus.findByReferralStatusName('In Review')?.id} || referralStatus == ${ReferralStatus.findByReferralStatusName('Review Requested')?.id}){
 			$("#conditionalApprovalDetailsOption").hide();
 			$("#conditionalApprovalDetails").val("");
 			$("#approvalDetailsOption").hide();

@@ -13,7 +13,7 @@ class ReferralRecord {
 	// tells GORM to cascade commands: e.g., delete this object if the "parent" is deleted.
     static belongsTo = [clinician:Clinician]
     static hasMany = [attachedEvidence:AttachedEvidence, patients:Patient, clinicalDetails:ClinicalDetails,
-                      paternal:Paternal, maternal:Maternal, extraTests:ExtraTests, coApplicants:CoApplicant]
+                      paternal:Paternal, maternal:Maternal, coApplicants:CoApplicant]
     static constraints = {
         clinician()
         uniqueRef(unique: true)
@@ -35,7 +35,6 @@ class ReferralRecord {
         note(nullable: true)
         program(nullable: true)
         approvedProgram(nullable: true)
-        proposedDiagnosis(nullable: true)
         assignedTo(nullable: true)
         reviewDetails(nullable: true)
         meetingDate(nullable: true)
@@ -66,7 +65,6 @@ class ReferralRecord {
     String uniqueRef
     Program program
     Program approvedProgram
-    OMIM proposedDiagnosis
     String causativeVariantAffect
     String knownGeneVariant
     String geneticTestingOnProband

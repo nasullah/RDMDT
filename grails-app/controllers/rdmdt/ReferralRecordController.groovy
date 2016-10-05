@@ -30,7 +30,6 @@ class ReferralRecordController {
 
         // create some styled heading...
         mainPart.addStyledParagraphOfText("Title", "Clinical Genomic Sequencing Application")
-        mainPart.addStyledParagraphOfText("Heading1", "Identification of the Genetic Basis of disease by Genomic Sequencing")
         mainPart.addStyledParagraphOfText("Heading2", Calendar.getInstance().format('MMM YYYY'))
 
         mainPart.addStyledParagraphOfText("Heading3", "Applicant Information")
@@ -87,6 +86,10 @@ class ReferralRecordController {
             mainPart.addParagraphOfText('Is there evidence of reduced penetrance? ' + referralRecordInstance?.penetrance)
         }
 
+        mainPart.addStyledParagraphOfText("Heading3", "Ethnicity of immediate family")
+        mainPart.addParagraphOfText('Mother: ' + referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.ethnicity)
+        mainPart.addParagraphOfText('Father: ' + referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.ethnicity)
+
         mainPart.addStyledParagraphOfText("Heading3", "Family History")
         mainPart.addStyledParagraphOfText("Heading4", "Paternal")
         if (referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer){
@@ -132,11 +135,6 @@ class ReferralRecordController {
             mainPart.addParagraphOfText('Endocrine Tumours: ' + 'No')
         }
         mainPart.addParagraphOfText('Please add details and/or note any other significant family history: ' + referralRecordInstance?.furtherDetailsOfHistory)
-
-        mainPart.addStyledParagraphOfText("Heading3", "Ethnicity of immediate family")
-        mainPart.addParagraphOfText('Mother: ' + referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Mother')}?.ethnicity)
-        mainPart.addParagraphOfText('Father: ' + referralRecordInstance?.patients?.find{p -> p?.relatedFrom?.relationshipType == RelationshipType.findByRelationshipTypeName('Father')}?.ethnicity)
-
         mainPart.addStyledParagraphOfText("Heading3", "Number and identity of family members proposed for sequencing")
         mainPart.addParagraphOfText('Number of Samples: ' + referralRecordInstance?.numberOfSamplesForSeq)
         mainPart.addParagraphOfText('Identity of family members (e.g. proband and both parents): ' + referralRecordInstance?.identityOfFamilyMembersSamplesForSeq)
@@ -153,7 +151,7 @@ class ReferralRecordController {
             mainPart.addParagraphOfText('Are any individuals proposed for sequencing out of area? ' + 'No')
         }
         mainPart.addParagraphOfText('Record any further information about sample availability: ' + referralRecordInstance?.samplesForSeqDetails)
-        mainPart.addStyledParagraphOfText("Heading4", "The default programme for whole genome sequencing is the national 100,000 Genomes Project, but other local providers may be available. Please add any supporting information or comments regarding this, especially if you have a preference. If this case has been discussed through the Clinical Genetics Consultants Meeting, please also indicate here, including the date of the meeting and the selected recruitment category.")
+        mainPart.addStyledParagraphOfText("Heading4", "Target sequencing programme")
         mainPart.addParagraphOfText('Program: ' + referralRecordInstance?.program)
         mainPart.addParagraphOfText('Note: ' + referralRecordInstance?.note)
         mainPart.addParagraphOfText('Target 100,000 Genomes Project Rare Disease category: ' + referralRecordInstance?.targetCategory)
@@ -165,13 +163,11 @@ class ReferralRecordController {
         }
 
         mainPart.addStyledParagraphOfText("Heading3", "100,000 Genomes Project Recruitment")
-        mainPart.addStyledParagraphOfText("Heading4", "The Clinical Genetics Department runs dedicated recruitment clinics for the 100,000 Genomes Project.  At your request, this application can stand as a referral for a Genetic Counsellor to consent the patient or family and collect samples through one of these clinics.  Please select from the following options below:")
+        mainPart.addStyledParagraphOfText("Heading4", "Request for consent appointment")
         mainPart.addParagraphOfText(referralRecordInstance?.consentPatientOrFamily)
         mainPart.addParagraphOfText('Assigned To: ' + referralRecordInstance?.assignedTo)
         mainPart.addParagraphOfText('Add Review: ' + referralRecordInstance?.reviewDetails)
         mainPart.addParagraphOfText('Meeting Date: ' + referralRecordInstance?.meetingDate)
-        mainPart.addParagraphOfText('Extra tests requested: ' + referralRecordInstance?.extraTests?.getAt(0)?.testName)
-        mainPart.addParagraphOfText('Requested Date: ' + referralRecordInstance?.extraTests?.getAt(0)?.requestedDate)
 
         if (referralRecordInstance?.referralStatus?.id == ReferralStatus.findByReferralStatusName('Conditionally Approved')?.id){
             mainPart.addParagraphOfText('Application status: ' + 'Conditionally Approved')
@@ -472,11 +468,6 @@ class ReferralRecordController {
                 new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Mother'), patient: proband, relatedPatient: patient).save flush: true
             }
 
-            if (params.extraTestsRequested){
-                def extraTest = new ExtraTests(testName: params.extraTestsRequested, requestedDate: params.requestedDate)
-                referralRecordInstance.addToExtraTests(extraTest).save flush: true
-            }
-
             if (Clinician.findById(params.long('correspondingClinician'))){
                 def correspondingClinician = Clinician.findById(params.long('correspondingClinician'))
                 referralRecordInstance.correspondingClinician = correspondingClinician
@@ -717,10 +708,7 @@ class ReferralRecordController {
 
         def oldCoApplicants = CoApplicant.findAllByReferralRecord(referralRecordInstance)
         if (!oldCoApplicants.empty){
-            for (int i =0; i < oldCoApplicants.size(); i++){
-                referralRecordInstance.removeFromCoApplicants(oldCoApplicants.get(i))
-            }
-            referralRecordInstance.save flush: true
+            oldCoApplicants.each {it.delete flush: true}
         }
         List<CoApplicant> coApplicantList = new ArrayList<CoApplicant>();
         if (Clinician.findById(params.long('coapplicant1'))) {
@@ -787,22 +775,6 @@ class ReferralRecordController {
             }else {
                 def patient = new Patient(isProband: false, referralRecord: referralRecordInstance, ethnicity: params.ethnicityFather).save flush: true
                 new Relationship(relationshipType: RelationshipType.findByRelationshipTypeName('Mother'), patient: proband, relatedPatient: patient).save flush: true
-            }
-        }
-
-        if (params.extraTestsRequested) {
-            def extraTest = ExtraTests.findByReferralRecord(referralRecordInstance)
-            if (extraTest){
-                extraTest.testName = params.extraTestsRequested
-                if (params.requestedDate){
-                    extraTest.requestedDate = new Date().parse("yyyy-MM-dd", params.requestedDate)
-                }else {
-                    extraTest.requestedDate = null
-                }
-                extraTest.save flush: true
-            }else {
-                extraTest = new ExtraTests(testName: params.extraTestsRequested, requestedDate: params.requestedDate)
-                referralRecordInstance.addToExtraTests(extraTest).save flush: true
             }
         }
 

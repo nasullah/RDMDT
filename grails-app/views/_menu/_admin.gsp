@@ -115,13 +115,6 @@
 			</li>
 
 			<li class="">
-				<a href="${createLink(uri: '/OMIM')}">
-					<i class="glyphicon glyphicon-plus-sign"></i>
-					OMIM
-				</a>
-			</li>
-
-			<li class="">
 				<a href="${createLink(uri: '/penetrance')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 					Penetrance
