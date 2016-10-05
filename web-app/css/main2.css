@@ -15,6 +15,10 @@ header, .full-width {
     color: #005eb8;
 }
 
+#Navbar .nav li a:focus {
+    color: #005eb8;
+}
+
 footer {
     position: absolute;
     left: 0;
