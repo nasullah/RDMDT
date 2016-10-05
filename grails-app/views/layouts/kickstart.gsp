@@ -23,7 +23,7 @@
 
 
 	<r:layoutResources />
-	%{--<g:layoutHead />--}%
+	<g:layoutHead />
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'main2.css')}" type="text/css">
 	<g:javascript library="bootstrap3"/>
@@ -43,8 +43,11 @@
 	<g:if test="${ pageProperty(name:'page.header') }">
    		<g:pageProperty name="page.header" />
 	</g:if>
+	<g:elseif test="${controllerName == 'home'}">
+		<g:render template="/layouts/helix"/>
+	</g:elseif>
 	<g:else>
-		<g:render template="/layouts/header"/>														
+		<g:render template="/layouts/header"/>
 	</g:else>
 
 	<g:render template="/layouts/content"/>														

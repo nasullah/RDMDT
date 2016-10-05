@@ -6,9 +6,6 @@
 
 <body>
 
-<header class="wrap">
-	<img class="full-width" src="images/helix_medium4.png" />
-</header>
 <div class="container">
 	<h2>Oxford Genomic Medicine MDT Online Referral System</h2>
 	<hr />
