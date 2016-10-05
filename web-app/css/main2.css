@@ -81,3 +81,7 @@ body {
 #info .equal .panel-body {
     min-height: 200px;
 }
+
+#login .form-group label {
+    margin-top: 20px;
+}
