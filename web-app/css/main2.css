@@ -73,3 +73,11 @@ body {
         float:right;
     }
 }
+
+#info .equal .panel-body ul {
+    padding-left: 10px;
+}
+
+#info .equal .panel-body {
+    min-height: 200px;
+}

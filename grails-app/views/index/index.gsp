@@ -82,144 +82,136 @@
 
 <body>
 
-<br/>
-
-<br/>
-
-<br/>
-
-<br/>
-
 <sec:ifAnyGranted roles="ROLE_USER">
-	<div class="container">
-	<section id="info">
-		<div>
+	<div class="container-fluid">
+		<section id="info">
+			<div class="equal">
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="glyphicon glyphicon-user"></i> Your Profile
+						</div>
+						<div class="panel-body">
+							<g:if test="${clinician}">
+								<ul>
+									<li><g:link controller="clinician" action="show" params="[id:clinician?.id]"> View your profile</g:link></li>
+								</ul>
 
-			<div class="col-md-1" id="rcorner1">
-				<div class="center">
-					<h4><i class="glyphicon glyphicon-user"></i> Your Profile</h4>
+								<ul>
+									<li><g:link controller="clinician" action="edit" params="[id:clinician?.id]"> Edit your profile</g:link></li>
+								</ul>
+							</g:if>
+							<g:else>
+								<ul>
+									<li><g:link controller="clinician" action="create"> Add your profile</g:link></li>
+								</ul>
+							</g:else>
+						</div>
+					</div>
 				</div>
-				<br/>
-
-				<g:if test="${clinician}">
-					<ul>
-						<li><g:link controller="clinician" action="show" params="[id:clinician?.id]"> View your profile</g:link></li>
-					</ul>
-
-					<ul>
-						<li><g:link controller="clinician" action="edit" params="[id:clinician?.id]"> Edit your profile</g:link></li>
-					</ul>
-				</g:if>
-				<g:else>
-					<ul>
-						<li><g:link controller="clinician" action="create"> Add your profile</g:link></li>
-					</ul>
-				</g:else>
-
-			</div>
-
-			<div class="col-md-1" id="rcorner2">
-				<div class="center">
-					<h4><i class="glyphicon glyphicon-list"></i> View  Applications</h4>
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="glyphicon glyphicon-list"></i> View Applications
+						</div>
+						<div class="panel-body">
+							<ul>
+								<li><a href ="${createLink(uri: '/ReferralRecord/filteredReferralList')}"> Your Applications List</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
-
-				<br/>
-
-				<ul>
-					<li><a href ="${createLink(uri: '/ReferralRecord/filteredReferralList')}">  Your Applications List</a></li>
-				</ul>
-
-			</div>
-
-			<div class="col-md-1" id="rcorner3">
-				<div class="center">
-					<h4><i class="glyphicon glyphicon-plus" ></i> New Application</h4>
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="glyphicon glyphicon-plus" ></i> New Application
+						</div>
+						<div class="panel-body">
+							<ul>
+								<li><g:link controller="referralRecord" action="create" params="['clinician.id': clinician?.id]"> Create New Application</g:link></li>
+							</ul>
+						</div>
+					</div>
 				</div>
-
-				<br/>
-
-				<ul>
-					<li><g:link controller="referralRecord" action="create" params="['clinician.id': clinician?.id]"> Create New Application</g:link></li>
-				</ul>
-
-			</div>
-
-			<div class="col-md-1" id="rcorner4">
-				<div class="center">
-					<h4><i class="glyphicon glyphicon-list" ></i> Review Requests</h4>
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="glyphicon glyphicon-list" ></i> Review Requests
+						</div>
+						<div class="panel-body">
+							<ul>
+								<li><g:link controller="referralRecord" action="reviewRequestedReferralList"> View Applications</g:link></li>
+							</ul>
+						</div>
+					</div>
 				</div>
-
-				<br/>
-
-				<ul>
-					<li><g:link controller="referralRecord" action="reviewRequestedReferralList"> View Applications</g:link></li>
-				</ul>
-
 			</div>
-
-		</div>
-	</section>
+		</section>
 	</div>
 </sec:ifAnyGranted>
 
 <sec:ifAnyGranted roles="ROLE_ADMIN">
-	<div class="container">
-	<section id="info">
-		<div>
-
-			<div class="col-md-1" id="rcorner5">
-				<div class="center">
-					<h4><i class="glyphicon glyphicon-list"></i> View Clinicians</h4>
+	<div class="container-fluid">
+		<section id="info">
+			<div class="equal">
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="glyphicon glyphicon-list"></i> View Clinicians
+						</div>
+						<div class="panel-body">
+							<ul>
+								<li class=""><a href="${createLink(uri: '/clinician/list')}"> All Clinicians</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="glyphicon glyphicon-list"></i> View Applications
+						</div>
+						<div class="panel-body">
+							<ul>
+								<li class=""><a href="${createLink(uri: '/referralRecord/list')}"> All Applications</a></li>
+								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('In progress')?.id]"> In Progress </g:link></li>
+								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Submitted')?.id]"> Submitted </g:link></li>
+								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('In Review')?.id]"> In Review </g:link></li>
+								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Approved')?.id]"> Approved </g:link></li>
+								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Conditional Approval')?.id]"> Conditional Approval </g:link></li>
+								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Not Approved')?.id]"> Not Approved </g:link></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="glyphicon glyphicon-plus" ></i> New Application
+						</div>
+						<div class="panel-body">
+							<ul>
+								<li><g:link controller="referralRecord" action="create"> Create New Application</g:link></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 
-				<ul>
-					<li class=""><a href="${createLink(uri: '/clinician/list')}"> All Clinicians</a></li>
-				</ul>
-
-			</div>
-
-			<div class="col-md-1" id="rcorner8">
-				<div class="center">
-					<h4><i class="glyphicon glyphicon-list"></i> View Applications</h4>
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="glyphicon glyphicon-user"></i> User Activity
+						</div>
+						<div class="panel-body">
+							<ul>
+								<li><a href ="${createLink(uri: '/index/listAuditLogData')}">  View User Activity Log</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
-
-				<ul>
-					<li class=""><a href="${createLink(uri: '/referralRecord/list')}"> All Applications</a></li>
-					<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('In progress')?.id]"> In Progress </g:link></li>
-					<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Submitted')?.id]"> Submitted </g:link></li>
-					<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('In Review')?.id]"> In Review </g:link></li>
-					<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Approved')?.id]"> Approved </g:link></li>
-					<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Conditional Approval')?.id]"> Conditional Approval </g:link></li>
-					<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Not Approved')?.id]"> Not Approved </g:link></li>
-				</ul>
-
 			</div>
-
-			<div class="col-md-1" id="rcorner7">
-				<div class="center">
-					<h4><i class="glyphicon glyphicon-plus" ></i> New Application</h4>
-				</div>
-
-				<ul>
-					<li><g:link controller="referralRecord" action="create"> Create New Application</g:link></li>
-				</ul>
-
-			</div>
-
-			<div class="col-md-1" id="rcorner6">
-				<div class="center">
-					<h4><i class="glyphicon glyphicon-user"></i> User Activity</h4>
-				</div>
-
-				<ul>
-					<li><a href ="${createLink(uri: '/index/listAuditLogData')}">  View User Activity Log</a></li>
-				</ul>
-
-			</div>
-
-		</div>
-	</section>
-</div>
+		</section>
+	</div>
 </sec:ifAnyGranted>
 
 </body>
