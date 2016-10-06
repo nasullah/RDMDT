@@ -101,6 +101,7 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/plutext/jaxb-svg11/1.0.2/jaxb-svg11-1.0.2.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/docx4j/xhtmlrenderer/1.0.0/xhtmlrenderer-1.0.0.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/docx4j/docx4j/2.8.0/docx4j-2.8.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -95,7 +95,7 @@ environments {
     }
     production {
 //        grails.logging.jul.usebridge = false
-        grails.serverURL = "https://occams.cs.ox.ac.uk/gel_pm"
+        grails.serverURL = "http://oxnetbrc15:8080/RDMDT"
     }
 }
 grails.databinding.dateFormats = ['yyyy-MM-dd','dd-MM-yyyy','MMddyyyy', 'yyyy-MM-dd HH:mm:ss.S']
@@ -153,6 +153,6 @@ environments {
         uploadFolder = "C:/Users/nasullah.alham/Desktop/upload_folder/"
     }
     production {
-        uploadFolder = "/home/pmadmin/attachedDocument/"
+        uploadFolder = "C:/Users/BRC15Admin/Documents/upload_folder/"
     }
 }
