@@ -48,8 +48,6 @@ class ReferralRecord {
         approvedTargetCategory(nullable: true)
         arrayCGH()
         arrayCGHDetails(nullable: true)
-        otherFamilyMembersAffected()
-        otherFamilyMembersAffectedDetails(nullable: true)
         anyIndividualsForSeqOutOfArea()
         anyIndividualsForSeqOutOfAreaDetails(nullable: true)
         eligibility(nullable: true)
@@ -97,8 +95,6 @@ class ReferralRecord {
     RareDiseaseConditions approvedTargetCategory
     boolean arrayCGH = Boolean.FALSE
     String arrayCGHDetails
-    boolean otherFamilyMembersAffected = Boolean.FALSE
-    String otherFamilyMembersAffectedDetails
     boolean anyIndividualsForSeqOutOfArea = Boolean.FALSE
     String anyIndividualsForSeqOutOfAreaDetails
     EligibilityType eligibility

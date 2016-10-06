@@ -4,7 +4,7 @@ package rdmdt
  * Clinician
  * A domain class describes the data object and it's mapping to the database
  */
-class Clinician extends Person{
+class Clinician{
 
     static auditable = true
     static hasMany = [referralRecords:ReferralRecord]
@@ -13,13 +13,19 @@ class Clinician extends Person{
         surname()
         email(nullable: true)
         telephone(nullable: true)
-        departmentName(nullable: true)
+        departmentName()
         departmentOther(nullable: true)
-        centreName(nullable: true)
-        roleType(nullable: true)
+        centreName()
+        roleType()
         roleTypeOther(nullable: true)
     }
-
+    String forename
+    String surname
+    Department departmentName
+    String departmentOther
+    Centre centreName
+    String email
+    String telephone
     RoleType roleType
     String roleTypeOther
     /*

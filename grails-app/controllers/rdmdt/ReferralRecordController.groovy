@@ -67,12 +67,6 @@ class ReferralRecordController {
         }
 
         mainPart.addStyledParagraphOfText("Heading3", "About The Family")
-        if (referralRecordInstance?.otherFamilyMembersAffected){
-            mainPart.addParagraphOfText('Are any other family members affected with the same or a related condition? ' + 'Yes')
-            mainPart.addParagraphOfText('Please provide details: ' + referralRecordInstance?.otherFamilyMembersAffectedDetails)
-        }else {
-            mainPart.addParagraphOfText('Are any other family members affected with the same or a related condition? ' + 'No')
-        }
         if (referralRecordInstance?.consanguinityEvidence?.id == Consanguinity.findByConsanguinityEvidence('Yes')?.id){
             mainPart.addParagraphOfText('Is there evidence of consanguinity? ' + 'Yes')
             mainPart.addParagraphOfText('Please provide details: ' + referralRecordInstance?.consanguinityEvidenceDetails)

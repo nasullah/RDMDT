@@ -40,7 +40,9 @@ This menu is used to show function that can be triggered on the content (an obje
 			</g:if>
 			<g:else>
 				<sec:ifAnyGranted roles="ROLE_ADMIN">
-					<g:link action="create"><i class="glyphicon glyphicon-plus"></i> <g:message code="default.new.label"  args="[entityName]"/></g:link>
+					<li class="${ params.action == "create" ? 'active' : '' }">
+						<g:link action="create"><i class="glyphicon glyphicon-plus"></i> <g:message code="default.new.label"  args="[entityName]"/></g:link>
+					</li>
 				</sec:ifAnyGranted>
 			</g:else>
 		</g:if>

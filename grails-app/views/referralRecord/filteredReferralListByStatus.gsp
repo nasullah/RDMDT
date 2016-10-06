@@ -28,7 +28,9 @@
 
                 <th>Proband NHS Number</th>
 
-                <g:sortableColumn property="referralDate" title="${message(code: 'referralRecord.referralDate.label', default: 'Application Status')}" />
+                <g:sortableColumn property="referralStatus" title="${message(code: 'referralRecord.referralStatus.label', default: 'Application Status')}" />
+
+                <th>Action</th>
 
 
             </tr>
@@ -37,15 +39,17 @@
             <g:each in="${referralRecordInstanceList}" status="i" var="referralRecordInstance">
                 <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-                <td><g:link action="show" id="${referralRecordInstance.id}">${referralRecordInstance?.clinician?.forename} ${referralRecordInstance?.clinician?.surname}</td>
+                <td ><g:link action="show" id="${referralRecordInstance.id}" style="color: black">${referralRecordInstance?.clinician?.forename} ${referralRecordInstance?.clinician?.surname}</td>
 
                     <td>${fieldValue(bean: referralRecordInstance, field: "uniqueRef")}</td>
 
-                    <td>${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.givenName} ${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.familyName}</g:link></td>
+                    <td>${rdmdt.Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.givenName} ${rdmdt.Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.familyName}</g:link></td>
 
-                    <td>${Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.nhsNumber}</td>
+                    <td>${rdmdt.Patient.findByReferralRecordAndIsProband(referralRecordInstance, true)?.nhsNumber}</td>
 
                     <td>${fieldValue(bean: referralRecordInstance, field: "referralStatus")}</td>
+
+                    <td><a class='btn btn-success btn-xs' <g:link action="show" id="${referralRecordInstance.id}"><i class="glyphicon glyphicon-open"></i> View Application</g:link></td>
 
                 </tr>
             </g:each>

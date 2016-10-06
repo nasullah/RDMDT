@@ -288,7 +288,7 @@
 
 			<div class="col-lg-6" id="arrayCGHDetailsOption">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'arrayCGHDetails', 'error')} ">
-					<label class="control-label">Please provide results</label>
+					<label class="control-label">Please provide results or upload report below</label>
 					<div>
 						<g:textField class="form-control" id="arrayCGHDetails" name="arrayCGHDetails" value="${referralRecordInstance?.arrayCGHDetails}"/>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'arrayCGHDetails', 'error')}</span>
@@ -347,34 +347,11 @@
 			</div>
 		</div>
 
-		<g:render template="attachedAvidence"/>
+		<g:render template="attachedEvidence"/>
 
 		<hr/>
 
 		<h2>About The Family</h2>
-
-		<div class="row">
-			<div class="col-lg-9">
-				<div class="${hasErrors(bean: personInstance, field: 'otherFamilyMembersAffected', 'error')} ">
-					<label class="control-label">Do any of the individuals proposed for sequencing live outside the catchment area of the Oxford Genomic Medicine Centre?</label>
-					<div>
-						<label class="radio-inline"><input type="radio" name="otherFamilyMembersAffected" id="otherFamilyMembersAffectedYes" value="true" ${referralRecordInstance.otherFamilyMembersAffected == true ? 'checked="checked"' : ''} onclick="showOtherFamilyMembersAffectedDetailsOpt()">Yes</label>
-						<label class="radio-inline"><input type="radio" name="otherFamilyMembersAffected" id="otherFamilyMembersAffectedNo" value="false" ${referralRecordInstance.otherFamilyMembersAffected == false ? 'checked="checked"' : ''} onclick="hideOtherFamilyMembersAffectedDetailsOpt()">No</label>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'otherFamilyMembersAffected', 'error')}</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6" id="otherFamilyMembersAffectedDetailsOption">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'otherFamilyMembersAffectedDetails', 'error')} ">
-					<label class="control-label">Please provide details</label>
-					<div>
-						<g:textField class="form-control" id="otherFamilyMembersAffectedDetails" name="otherFamilyMembersAffectedDetails" value="${referralRecordInstance?.otherFamilyMembersAffectedDetails}"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'otherFamilyMembersAffectedDetails', 'error')}</span>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<div class="row">
 			<g:if test="${referralRecordInstance?.pedigree == null}">
@@ -1053,18 +1030,6 @@
 		if ($('input:radio[name=arrayCGH]:checked').val() != 'true'){
 			$("#arrayCGHDetailsOption").hide();
 			$("#arrayCGHDetails").val("");
-		}
-	}
-
-	function showOtherFamilyMembersAffectedDetailsOpt(){
-		$("#otherFamilyMembersAffectedDetailsOption").show();
-	}
-
-	hideOtherFamilyMembersAffectedDetailsOpt();
-	function hideOtherFamilyMembersAffectedDetailsOpt(){
-		if ($('input:radio[name=otherFamilyMembersAffected]:checked').val() != 'true'){
-			$("#otherFamilyMembersAffectedDetailsOption").hide();
-			$("#otherFamilyMembersAffectedDetails").val("");
 		}
 	}
 

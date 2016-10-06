@@ -250,22 +250,6 @@
 			</g:if>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.otherFamilyMembersAffected.label" default="Are any other family members affected with the same or a related condition?" /></td>
-
-				<td valign="top" class="value"><g:formatBoolean boolean="${referralRecordInstance?.otherFamilyMembersAffected}" false="No" true="Yes" /></td>
-
-			</tr>
-
-			<g:if test="${referralRecordInstance.otherFamilyMembersAffectedDetails}">
-				<tr class="prop">
-					<td valign="top" class="name"><g:message code="referralRecord.otherFamilyMembersAffectedDetails.label" default="Other Family Members Affected Details" /></td>
-
-					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "otherFamilyMembersAffectedDetails")}</td>
-
-				</tr>
-			</g:if>
-
-			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.pedigree.label" default="3-generation pedigree diagram" /></td>
 				
 				<td valign="top" class="value"><g:link action="download" id="${referralRecordInstance.id}">${referralRecordInstance.pedigree}</g:link></td>
