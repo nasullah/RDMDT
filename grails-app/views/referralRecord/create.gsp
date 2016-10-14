@@ -18,7 +18,7 @@
 		</div>
 		</g:hasErrors>
 
-		<g:uploadForm action="save" class="form-horizontal" role="form" onkeypress="return event.keyCode != 13;" >
+		<g:uploadForm action="save" class="form-horizontal" role="form" onsubmit="window.onbeforeunload=null;" >
 			<g:render template="form"/>
 
 			<div class="form-actions margin-top-medium">

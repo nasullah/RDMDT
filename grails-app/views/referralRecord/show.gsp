@@ -10,6 +10,31 @@
 
 <body>
 
+<g:if test="${currentClinician == referralRecordInstance.assignedTo}">
+	<hr>
+		<g:form action="updateReviewDetails" class="form-horizontal" role="form" >
+			<div class="row">
+				<div class="col-lg-6">
+					<label for="reviewDetails" class="control-label">Add Your Review</label>
+					<div>
+						<g:textArea class="form-control" id="reviewDetails" name="reviewDetails" value="${referralRecordInstance?.reviewDetails}" rows="4" cols="40"/>
+						<g:hiddenField name="referralRecord" value="${referralRecordInstance?.id}" />
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="form-actions margin-top-medium">
+				<g:submitButton name="saveButton" id="saveButton" class="btn btn-primary" value="Save Review" />
+				<button class="btn btn-primary" id="updateButton">Update Review</button>
+			</div>
+		</g:form>
+
+		<div class="form-actions margin-top-medium">
+			<button type="button" class="btn btn-primary" id="editButton" onclick="hideEditButton()">Edit Review</button>
+		</div>
+	<hr>
+</g:if>
+
 <section id="show-referralRecord" class="first">
 
 	<table class="table">
@@ -48,16 +73,7 @@
 				</tr>
 			</g:else>
 
-			<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Conditionally Approved')}">
-				<tr class="prop">
-					<td valign="top" class="name"><g:message code="referralRecord.conditionalApprovalDetails.label" default="Conditional approval details" /></td>
-
-					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "conditionalApprovalDetails")}</td>
-
-				</tr>
-			</g:if>
-
-			<g:elseif test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Approved')}">
+			<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Approved')}">
 				<tr class="prop">
 					<td valign="top" class="name">Number and identity of family members for sequencing</td>
 
@@ -71,7 +87,7 @@
 					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvalDetails")}</td>
 
 				</tr>
-			</g:elseif>
+			</g:if>
 			<g:elseif test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Not Approved')}">
 				<tr class="prop">
 					<td valign="top" class="name"><g:message code="referralRecord.notApprovedDetails.label" default="Not Approved details" /></td>
@@ -245,6 +261,22 @@
 					<td valign="top" class="name"><g:message code="referralRecord.arrayCGHDetails.label" default="arrayCGH Results" /></td>
 
 					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "arrayCGHDetails")}</td>
+
+				</tr>
+			</g:if>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="referralRecord.otherFamilyMembersAffected.label" default="Are any other family members affected with the same or a related condition?" /></td>
+
+				<td valign="top" class="value"><g:formatBoolean boolean="${referralRecordInstance?.otherFamilyMembersAffected}" false="No" true="Yes" /></td>
+
+			</tr>
+
+			<g:if test="${referralRecordInstance.otherFamilyMembersAffectedDetails}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.otherFamilyMembersAffectedDetails.label" default="Other Family Members Affected Details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "otherFamilyMembersAffectedDetails")}</td>
 
 				</tr>
 			</g:if>
@@ -472,13 +504,15 @@
 				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "assignedTo")}</td>
 
 			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="referralRecord.reviewDetails.label" default="Review Details" /></td>
 
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "reviewDetails")}</td>
-				
-			</tr>
+			<g:if test="${currentClinician != referralRecordInstance.assignedTo}">
+				<tr class="prop">
+					<td valign="top" class="name"><g:message code="referralRecord.reviewDetails.label" default="Review Details" /></td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "reviewDetails")}</td>
+
+				</tr>
+			</g:if>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="referralRecord.meetingDate.label" default="Meeting Date" /></td>
@@ -558,9 +592,9 @@
 		<a class='btn btn-default btn-xs' <g:link  action="renderHICFLetter" id="${referralRecordInstance?.id}"><i class="glyphicon glyphicon-print"></i> Print HICF Letter</g:link>
 	</g:if>
 
-	<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Conditionally Approved')}">
-		<a class='btn btn-default btn-xs' <g:link  action="renderOtherTestingConditionalLetter" id="${referralRecordInstance?.id}"><i class="glyphicon glyphicon-print"></i> Print Other testing (conditional) Letter</g:link>
-	</g:if>
+	%{--<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Conditionally Approved')}">--}%
+		%{--<a class='btn btn-default btn-xs' <g:link  action="renderOtherTestingConditionalLetter" id="${referralRecordInstance?.id}"><i class="glyphicon glyphicon-print"></i> Print Other testing (conditional) Letter</g:link>--}%
+	%{--</g:if>--}%
 
 	<g:if test="${referralRecordInstance.referralStatus == ReferralStatus.findByReferralStatusName('Not Approved')}">
 		<a class='btn btn-default btn-xs' <g:link  action="renderNotApprovedLetter" id="${referralRecordInstance?.id}"><i class="glyphicon glyphicon-print"></i> Print Not Approved Letter</g:link>
@@ -573,6 +607,30 @@
 	<hr/>
 
 </sec:ifAnyGranted>
+
+<g:javascript plugin="jquery" library="jquery" />
+<script>
+	showEditButton();
+	function showEditButton(){
+		if ($("#reviewDetails").val() == ""){
+			$("#saveButton").show();
+			$("#updateButton").hide();
+			$("#editButton").hide();
+		} else{
+			$("#reviewDetails").prop('readonly', true);
+			$("#saveButton").hide();
+			$("#updateButton").hide();
+			$("#editButton").show()
+		}
+	}
+
+	function hideEditButton(){
+		$("#reviewDetails").prop('readonly', false);
+		$("#updateButton").show();
+		$("#editButton").hide();
+	}
+
+</script>
 
 </body>
 

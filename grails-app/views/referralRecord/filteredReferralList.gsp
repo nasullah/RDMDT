@@ -12,7 +12,7 @@
 
 <g:if test="${referralRecordInstanceList?.empty}">
     <br/>
-    <div class="alert alert-danger" role="alert">You have not made any application.</div>
+    <div class="alert alert-danger" role="alert">You have not made any applications.</div>
 </g:if>
 <g:else>
     <section id="index-referralRecord" class="first">

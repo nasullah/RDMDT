@@ -18,7 +18,7 @@
 		</div>
 		</g:hasErrors>
 
-		<g:uploadForm method="post" class="form-horizontal" role="form" onkeypress="return event.keyCode != 13;" >
+		<g:uploadForm method="post" class="form-horizontal" role="form"  onsubmit="window.onbeforeunload=null;">
 			<g:hiddenField name="id" value="${referralRecordInstance?.id}" />
 			<g:hiddenField name="version" value="${referralRecordInstance?.version}" />
 			<g:hiddenField name="_method" value="PUT" />

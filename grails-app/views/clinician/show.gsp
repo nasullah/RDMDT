@@ -81,6 +81,20 @@
 
 				</tr>
 			</g:if>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="clinician.address.label" default="Corresponding address" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "address")}</td>
+
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="clinician.postcode.label" default="Postcode" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "postcode")}</td>
+
+			</tr>
 		
 		</tbody>
 	</table>

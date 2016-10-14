@@ -50,10 +50,11 @@ class ReferralRecord {
         arrayCGHDetails(nullable: true)
         anyIndividualsForSeqOutOfArea()
         anyIndividualsForSeqOutOfAreaDetails(nullable: true)
+        otherFamilyMembersAffected()
+        otherFamilyMembersAffectedDetails(nullable: true)
         eligibility(nullable: true)
         eligibilityDetails(nullable: true)
         consentPatientOrFamily(nullable: true)
-        conditionalApprovalDetails(nullable: true)
         approvalDetails(nullable: true)
         notApprovedDetails(nullable: true)
         submittedDate(nullable: true)
@@ -78,7 +79,6 @@ class ReferralRecord {
     Penetrance penetrance
     String penetranceDetails
     ReferralStatus referralStatus
-    String conditionalApprovalDetails
     String approvalDetails
     String notApprovedDetails
     Clinician assignedTo
@@ -97,6 +97,8 @@ class ReferralRecord {
     String arrayCGHDetails
     boolean anyIndividualsForSeqOutOfArea = Boolean.FALSE
     String anyIndividualsForSeqOutOfAreaDetails
+    boolean otherFamilyMembersAffected = Boolean.FALSE
+    String otherFamilyMembersAffectedDetails
     EligibilityType eligibility
     String eligibilityDetails
     String consentPatientOrFamily

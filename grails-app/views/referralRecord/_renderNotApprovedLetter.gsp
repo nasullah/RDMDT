@@ -53,10 +53,12 @@
     <span style="font-size: 12pt">${coApplicant?.clinician?.departmentName}</span><br/>
 </g:each>
 
-<span style="font-size: 12pt">${form?.clinician?.centreName}</span><br/>
+<span style="font-size: 12pt">${form?.clinician?.address}</span><br/>
+<span style="font-size: 12pt">${form?.clinician?.postcode}</span><br/>
 
 <g:each in="${form.coApplicants}" var="coApplicant">
-    <span style="font-size: 12pt">${coApplicant?.clinician?.centreName}</span><br/>
+    <span style="font-size: 12pt">${form?.clinician?.address}</span><br/>
+    <span style="font-size: 12pt">${form?.clinician?.postcode}</span><br/>
 </g:each>
 
 <p style="font-size: 12pt"> ${new Date().format('dd/MM/yyy')}</p>

@@ -98,6 +98,30 @@
 				</div>
 			</div>
 
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="${hasErrors(bean: clinicianInstance, field: 'address', 'error')} ">
+						<label for="address" class="control-label"><g:message code="clinician.address.label" default="Corresponding address" /></label>
+						<div>
+							<g:textArea class="form-control" name="address" value="${clinicianInstance?.address}" rows="4" cols="40"/>
+							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'address', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="${hasErrors(bean: clinicianInstance, field: 'postcode', 'error')} ">
+						<label for="postcode" class="control-label"><g:message code="clinician.postcode.label" default="Postcode" /></label>
+						<div>
+							<g:textField class="form-control" name="postcode" value="${clinicianInstance?.postcode}"/>
+							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'postcode', 'error')}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
 <g:javascript plugin="jquery" library="jquery" />
 <script>
 

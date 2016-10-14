@@ -18,6 +18,8 @@ class Clinician{
         centreName()
         roleType()
         roleTypeOther(nullable: true)
+        address(nullable: true)
+        postcode(nullable: true)
     }
     String forename
     String surname
@@ -28,6 +30,8 @@ class Clinician{
     String telephone
     RoleType roleType
     String roleTypeOther
+    String address
+    String postcode
     /*
      * Methods of the Domain Class
      */
