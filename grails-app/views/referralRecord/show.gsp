@@ -10,7 +10,7 @@
 
 <body>
 
-<g:if test="${currentClinician == referralRecordInstance.assignedTo}">
+<g:if test="${currentClinician && (currentClinician == referralRecordInstance.assignedTo)}">
 	<hr>
 		<g:form action="updateReviewDetails" class="form-horizontal" role="form" >
 			<div class="row">
