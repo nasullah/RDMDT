@@ -145,7 +145,7 @@
 
 <sec:ifAnyGranted roles="ROLE_ADMIN">
 	<div class="container-fluid">
-		<section id="info">
+		<section id="info1">
 			<div class="equal">
 				<div class="col-md-3">
 					<div class="panel panel-default">
@@ -170,9 +170,8 @@
 								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('In progress')?.id]"> In Progress </g:link></li>
 								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Submitted')?.id]"> Submitted </g:link></li>
 								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Review Requested')?.id]"> Review Requested </g:link></li>
-								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('In Review')?.id]"> In Review </g:link></li>
+								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Review Submitted')?.id]"> Review Submitted </g:link></li>
 								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Approved')?.id]"> Approved </g:link></li>
-								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Conditional Approval')?.id]"> Conditional Approval </g:link></li>
 								<li class=""><g:link controller="referralRecord" action="filteredReferralListByStatus" params="['status': ReferralStatus.findByReferralStatusName('Not Approved')?.id]"> Not Approved </g:link></li>
 							</ul>
 						</div>
