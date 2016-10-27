@@ -513,6 +513,7 @@ class ReferralRecordController {
     def updateReviewDetails(){
         def referralRecordInstance = ReferralRecord.findById(params.long('referralRecord'))
         referralRecordInstance.reviewDetails = params.reviewDetails
+        referralRecordInstance.referralStatus = ReferralStatus.findByReferralStatusName('Review Submitted')
         referralRecordInstance.save flush: true
         flash.message = "Thank you for reviewing the application"
         redirect(action: 'show', params: [id: referralRecordInstance.id])
@@ -615,17 +616,17 @@ class ReferralRecordController {
         }
 
         def paternal = Paternal.findByReferralRecord(referralRecordInstance)
-        paternal.breastAndOrOvarianCancer = params.boolean('breastAndOrOvarianCancerPaternal')
-        paternal.colorectalCancer = params.boolean('colorectalCancerPaternal')
-        paternal.ischaemicHeartDiseaseOrStroke = params.boolean('ischaemicHeartDiseaseOrStrokePaternal')
-        paternal.endocrineTumours = params.boolean('endocrineTumoursPaternal')
+        paternal.breastAndOrOvarianCancer = FamilyHistoryType.findById(params.long('breastAndOrOvarianCancerPaternal'))
+        paternal.colorectalCancer = FamilyHistoryType.findById(params.long('colorectalCancerPaternal'))
+        paternal.ischaemicHeartDiseaseOrStroke = FamilyHistoryType.findById(params.long('ischaemicHeartDiseaseOrStrokePaternal'))
+        paternal.endocrineTumours = FamilyHistoryType.findById(params.long('endocrineTumoursPaternal'))
         paternal.save flush: true
 
         def maternal = Maternal.findByReferralRecord(referralRecordInstance)
-        maternal.breastAndOrOvarianCancer = params.boolean('breastAndOrOvarianCancerMaternal')
-        maternal.colorectalCancer = params.boolean('colorectalCancerMaternal')
-        maternal.ischaemicHeartDiseaseOrStroke = params.boolean('ischaemicHeartDiseaseOrStrokeMaternal')
-        maternal.endocrineTumours = params.boolean('endocrineTumoursMaternal')
+        maternal.breastAndOrOvarianCancer = FamilyHistoryType.findById(params.long('breastAndOrOvarianCancerMaternal'))
+        maternal.colorectalCancer = FamilyHistoryType.findById(params.long('colorectalCancerMaternal'))
+        maternal.ischaemicHeartDiseaseOrStroke = FamilyHistoryType.findById(params.long('ischaemicHeartDiseaseOrStrokeMaternal'))
+        maternal.endocrineTumours = FamilyHistoryType.findById(params.long('endocrineTumoursMaternal'))
         maternal.save flush: true
 
         if (params.ethnicityFather) {
