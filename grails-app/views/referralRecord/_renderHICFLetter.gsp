@@ -77,12 +77,12 @@
 
     <tr>
         <th width="25%"><span style="font-weight: normal;font-size: 12pt"> Number of samples</span></th>
-        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.numberOfSamplesForSeq}: ${form?.identityOfFamilyMembersSamplesForSeq}</span></th>
+        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.approvedIdentityOfFamilyMembersSamplesForSeq}</span></th>
     </tr>
 
     <tr>
         <th width="25%"><span style="font-weight: normal;font-size: 12pt"> Programme</span></th>
-        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.program}</span></th>
+        <th width="75%"><span style="font-weight: normal;font-size: 12pt"> ${form?.approvedProgram}</span></th>
     </tr>
 
     <tr>
