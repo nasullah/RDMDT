@@ -8,16 +8,16 @@ class FamilyHistory {
 
     static auditable = true
     static constraints = {
-        breastAndOrOvarianCancer()
-        colorectalCancer()
-        ischaemicHeartDiseaseOrStroke()
-        endocrineTumours()
+        breastAndOrOvarianCancer(nullable: true)
+        colorectalCancer(nullable: true)
+        ischaemicHeartDiseaseOrStroke(nullable: true)
+        endocrineTumours(nullable: true)
     }
 
-    boolean breastAndOrOvarianCancer = Boolean.FALSE
-    boolean colorectalCancer = Boolean.FALSE
-    boolean ischaemicHeartDiseaseOrStroke = Boolean.FALSE
-    boolean endocrineTumours = Boolean.FALSE
+    FamilyHistoryType breastAndOrOvarianCancer
+    FamilyHistoryType colorectalCancer
+    FamilyHistoryType ischaemicHeartDiseaseOrStroke
+    FamilyHistoryType endocrineTumours
     /*
      * Methods of the Domain Class
      */
