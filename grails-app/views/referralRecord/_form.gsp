@@ -1,4 +1,4 @@
-<%@ page import="rdmdt.EligibilityType; rdmdt.Penetrance; rdmdt.Consanguinity; rdmdt.Ethnicity; rdmdt.Gender; rdmdt.AgeUnit; rdmdt.ReferralStatus; rdmdt.Program; rdmdt.Patient; rdmdt.AttachedEvidenceType; rdmdt.RelationshipType; rdmdt.Clinician; rdmdt.ReferralRecord" %>
+<%@ page import="rdmdt.FamilyMembersAffectedType; rdmdt.EligibilityType; rdmdt.Penetrance; rdmdt.Consanguinity; rdmdt.Ethnicity; rdmdt.Gender; rdmdt.AgeUnit; rdmdt.ReferralStatus; rdmdt.Program; rdmdt.Patient; rdmdt.AttachedEvidenceType; rdmdt.RelationshipType; rdmdt.Clinician; rdmdt.ReferralRecord" %>
 
 
 		<h2>Applicant Information</h2>
@@ -358,8 +358,20 @@
 				<div class="${hasErrors(bean: personInstance, field: 'otherFamilyMembersAffected', 'error')} ">
 					<label class="control-label">Are any other family members affected with the same or related condition?</label>
 					<div>
-						<label class="radio-inline"><input type="radio" name="otherFamilyMembersAffected" id="otherFamilyMembersAffectedYes" value="true" ${referralRecordInstance.otherFamilyMembersAffected == true ? 'checked="checked"' : ''} onclick="showOtherFamilyMembersAffectedDetailsOpt()">Yes</label>
-						<label class="radio-inline"><input type="radio" name="otherFamilyMembersAffected" id="otherFamilyMembersAffectedNo" value="false" ${referralRecordInstance.otherFamilyMembersAffected == false ? 'checked="checked"' : ''} onclick="hideOtherFamilyMembersAffectedDetailsOpt()">No</label>
+						<g:if test="${referralRecordInstance?.otherFamilyMembersAffected?.id}">
+							<g:set var="otherFamilyMembersAffected" value="${referralRecordInstance?.otherFamilyMembersAffected?.id}" />
+						</g:if>
+						<g:else>
+							<g:set var="otherFamilyMembersAffected" value="${FamilyMembersAffectedType.findByFamilyMembersAffectedTypeName('Unknown')?.id}" />
+						</g:else>
+						<g:radioGroup name="otherFamilyMembersAffected.id"
+									  values="[FamilyMembersAffectedType.findByFamilyMembersAffectedTypeName('Yes')?.id, FamilyMembersAffectedType.findByFamilyMembersAffectedTypeName('No')?.id, FamilyMembersAffectedType.findByFamilyMembersAffectedTypeName('Unknown')?.id]"
+									  labels="['Yes', 'No', 'Unknown']"
+									  value="${otherFamilyMembersAffected}"
+									  id="otherFamilyMembersAffected"
+									  onclick="otherFamilyMembersAffectedDetailsOpt()">
+							${it.radio}  ${it.label} &nbsp;
+						</g:radioGroup>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'otherFamilyMembersAffected', 'error')}</span>
 					</div>
 				</div>
@@ -428,7 +440,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'penetrance', 'error')} required">
-					<label class="control-label">Is there evidence of reduced penetrance?</label>
+					<label class="control-label">Is there evidence of incomplete penetrance in this condition?</label>
 					<div>
 						%{--<g:select class="form-control" id="penetrance" name="penetrance.id" from="${rdmdt.Penetrance.list()}" optionKey="id" onchange="penetranceDetailsOpt()" value="${referralRecordInstance?.penetrance?.id}" noSelection="['':'- Choose -']"/>--}%
 						<g:if test="${referralRecordInstance?.penetrance?.id}">
@@ -588,7 +600,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'isAnySampleFromDeceasedIndividuals', 'error')} ">
-					<label class="control-label"><g:message code="referralRecord.isAnySampleFromDeceasedIndividuals.label" default="Are any of the samples are taken from deceased individuals?" /></label>
+					<label class="control-label"><g:message code="referralRecord.isAnySampleFromDeceasedIndividuals.label" default="Are any of the samples taken from deceased individuals?" /></label>
 					<div>
 						<label class="radio-inline"><input type="radio" name="isAnySampleFromDeceasedIndividuals" id="isAnySampleFromDeceasedIndividualsYes" value="true" ${referralRecordInstance.isAnySampleFromDeceasedIndividuals == true ? 'checked="checked"' : ''} onclick="showIsAnySampleFromDeceasedIndividualsDetailsOpt()">Yes</label>
 						<label class="radio-inline"><input type="radio" name="isAnySampleFromDeceasedIndividuals" id="isAnySampleFromDeceasedIndividualsNo" value="false" ${referralRecordInstance.isAnySampleFromDeceasedIndividuals == false ? 'checked="checked"' : ''} onclick="hideIsAnySampleFromDeceasedIndividualsDetailsOpt()">No</label>
@@ -609,9 +621,9 @@
 		</div>
 
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-11">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'anyIndividualsForSeqOutOfArea', 'error')} ">
-					<label class="control-label"><g:message code="referralRecord.anyIndividualsForSeqOutOfArea.label" default="Are any individuals proposed for sequencing out of area?" /></label>
+					<label class="control-label"><g:message code="referralRecord.anyIndividualsForSeqOutOfArea.label" default="Do any of the individuals proposed for sequencing live outside the catchment area of the Oxford Genomic Medicine Centre?" /></label>
 					<div>
 						<label class="radio-inline"><input type="radio" name="anyIndividualsForSeqOutOfArea" id="anyIndividualsForSeqOutOfAreaYes" value="true" ${referralRecordInstance.anyIndividualsForSeqOutOfArea == true ? 'checked="checked"' : ''} onclick="showAnyIndividualsForSeqOutOfAreaDetailsOpt()">Yes</label>
 						<label class="radio-inline"><input type="radio" name="anyIndividualsForSeqOutOfArea" id="anyIndividualsForSeqOutOfAreaNo" value="false" ${referralRecordInstance.anyIndividualsForSeqOutOfArea == false ? 'checked="checked"' : ''} onclick="hideAnyIndividualsForSeqOutOfAreaDetailsOpt()">No</label>
@@ -619,7 +631,9 @@
 					</div>
 				</div>
 			</div>
+		</div>
 
+		<div class="row">
 			<div class="col-lg-6" id="anyIndividualsForSeqOutOfAreaDetailsOption">
 				<div class="${hasErrors(bean: referralRecordInstance, field: 'anyIndividualsForSeqOutOfAreaDetails', 'error')} ">
 					<label class="control-label">Please provide details</label>
@@ -664,7 +678,9 @@
 						<g:radioGroup name="program.id"
 									  values="[Program.findByName('100,000 Genomes Project')?.id, Program.findByName('HICF2 Whole Genome Sequencing Programme')?.id, Program.findByName('Other')?.id]"
 									  labels="['100,000 Genomes Project', 'HICF2 Whole Genome Sequencing Programme', 'Other']"
-									  value="${program}">
+									  value="${program}"
+									  id="program"
+									  onclick="gelProjectOpt()">
 							${it.radio}  ${it.label} &nbsp;
 						</g:radioGroup>
 						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'program', 'error')}</span>
@@ -685,77 +701,85 @@
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="col-lg-6">
-				<label class="control-label">Target 100,000 Genomes Project Rare Disease category (enter key word)</label>
-				<richui:autoComplete class="form-control" name="targetCategoryName" action="${createLinkTo('dir': 'referralRecord/searchRareDiseaseCondition')}" value="${referralRecordInstance?.targetCategory}" onItemSelect="callCategory(id)"  maxResultsDisplayed="20" minQueryLength="2"/>
-				<g:hiddenField id ="targetCategory" name ="targetCategory" value="${referralRecordInstance?.targetCategory?.id}"/>
-			</div>
+		<div id="gelOptions">
+			<div class="row">
+				<div class="col-lg-6">
+					<label class="control-label">100,000 Genomes Project Rare Disease category (enter key word)</label>
+					<richui:autoComplete class="form-control" name="targetCategoryName" action="${createLinkTo('dir': 'referralRecord/searchRareDiseaseCondition')}" value="${referralRecordInstance?.targetCategory}" onItemSelect="callCategory(id)"  maxResultsDisplayed="20" minQueryLength="2"/>
+					<g:hiddenField id ="targetCategory" name ="targetCategory" value="${referralRecordInstance?.targetCategory?.id}"/>
+				</div>
 
-			<div class="col-lg-6">
-				<label class="control-label">Eligibility statements</label>
-				<div>
-					<a href="http://ouh.oxnet.nhs.uk/MolecularGenetics/Document%20Library/Rare%20Disease%20Conditions%20Eligibility%20Criteria%20v1%205%201_updated%2021-07-2016%20(1).pdf" target="_blank">Click here</a>
+				<div class="col-lg-6">
+					<label class="control-label">Eligibility statements</label>
+					<div>
+						<a href="http://ouh.oxnet.nhs.uk/MolecularGenetics/Document%20Library/Rare%20Disease%20Conditions%20Eligibility%20Criteria%20v1%205%201_updated%2021-07-2016%20(1).pdf" target="_blank">Click here</a>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="row">
+			<div class="row">
 
-		</div>
+			</div>
 
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'eligibility', 'error')} required">
-					<label for="eligibility" class="control-label">Is this patient/family eligible?</label>
-					<div>
-						%{--<g:select class="form-control" id="eligibility" name="eligibility.id" from="${EligibilityType.list()}" optionKey="id" onchange="eligibilityDetailsOpt()" value="${referralRecordInstance?.eligibility?.id}" noSelection="['':'- Choose -']"/>--}%
-						<g:if test="${referralRecordInstance?.eligibility?.id}">
-							<g:set var="eligibility" value="${referralRecordInstance?.eligibility?.id}" />
-						</g:if>
-						<g:else>
-							<g:set var="eligibility" value="${EligibilityType.findByEligibilityTypeName('Unknown')?.id}" />
-						</g:else>
-						<g:radioGroup name="eligibility.id"
-									  values="[EligibilityType.findByEligibilityTypeName('Yes')?.id, EligibilityType.findByEligibilityTypeName('No')?.id, EligibilityType.findByEligibilityTypeName('Unknown')?.id]"
-									  labels="['Yes', 'No', 'Unknown']"
-									  value="${eligibility}"
-									  id="eligibility"
-									  onclick="eligibilityDetailsOpt()">
-							${it.radio}  ${it.label} &nbsp;
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="${hasErrors(bean: referralRecordInstance, field: 'eligibility', 'error')} required">
+						<label for="eligibility" class="control-label">Is this patient/family eligible?</label>
+						<div>
+							%{--<g:select class="form-control" id="eligibility" name="eligibility.id" from="${EligibilityType.list()}" optionKey="id" onchange="eligibilityDetailsOpt()" value="${referralRecordInstance?.eligibility?.id}" noSelection="['':'- Choose -']"/>--}%
+							<g:if test="${referralRecordInstance?.eligibility?.id}">
+								<g:set var="eligibility" value="${referralRecordInstance?.eligibility?.id}" />
+							</g:if>
+							<g:else>
+								<g:set var="eligibility" value="${EligibilityType.findByEligibilityTypeName('Unknown')?.id}" />
+							</g:else>
+							<g:radioGroup name="eligibility.id"
+										  values="[EligibilityType.findByEligibilityTypeName('Yes')?.id, EligibilityType.findByEligibilityTypeName('No')?.id, EligibilityType.findByEligibilityTypeName('Unknown')?.id]"
+										  labels="['Yes', 'No', 'Unknown']"
+										  value="${eligibility}"
+										  id="eligibility"
+										  onclick="eligibilityDetailsOpt()">
+								${it.radio}  ${it.label} &nbsp;
+							</g:radioGroup>
+							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'eligibility', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6" id="eligibilityDetailsOption">
+					<div class="${hasErrors(bean: referralRecordInstance, field: 'eligibilityDetails', 'error')} ">
+						<label class="control-label">Please provide details</label>
+						<div>
+							<g:textField class="form-control" id="eligibilityDetails" name="eligibilityDetails" value="${referralRecordInstance?.eligibilityDetails}"/>
+							<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'eligibilityDetails', 'error')}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br/>
+
+			<p>The 100,000 Genomes Project has an expedited results policy (which you can read <a href="${resource(dir:'docs',file:'Rare disease programme Expedited Results Policy -v 0.1 11 Dec 2015.pdf')}" target="_blank">here</a>), if you would like to pursue this please contact <a href="mailto:ed.blair@ouh.nhs.uk" target="_blank">Dr Edward Blair</a>, Rare Diseases Clinical Lead for discussion. </p>
+
+			<hr/>
+
+			<h2>100,000 Genomes Project Recruitment</h2>
+
+			<p>The Clinical Genetics Department runs dedicated recruitment clinics for the 100,000 Genomes Project.  At your request, this application can stand as a referral for a Genetic Counsellor to consent the patient or family and collect samples through one of these clinics.  Please select from the following options below:</p>
+
+			<br/>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="${hasErrors(bean: referralRecordInstance, field: 'consentPatientOrFamily', 'error')} ">
+						<g:radioGroup name="consentPatientOrFamily" values="['YES, I would like this application to stand as a referral to Clinical Genetics for consenting and am happy for this patient/family to be contacted immediately','YES, I would like this application to stand as a referral to Clinical Genetics for consenting but request that the patient/family are not contacted until confirmation that this can proceed is received','NO, I do not wish to refer this patient/family to Clinical Genetics for consenting']"
+									  value="${referralRecordInstance.consentPatientOrFamily}"
+									  labels="['YES, I would like this application to stand as a referral to Clinical Genetics for consenting and am happy for this patient/family to be contacted immediately','YES, I would like this application to stand as a referral to Clinical Genetics for consenting but request that the patient/family are not contacted until confirmation that this can proceed is received','NO, I do not wish to refer this patient/family to Clinical Genetics for consenting']">
+							<p>${it.radio} &nbsp; ${it.label}</p>
 						</g:radioGroup>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'eligibility', 'error')}</span>
 					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6" id="eligibilityDetailsOption">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'eligibilityDetails', 'error')} ">
-					<label class="control-label">Please provide details</label>
-					<div>
-						<g:textField class="form-control" id="eligibilityDetails" name="eligibilityDetails" value="${referralRecordInstance?.eligibilityDetails}"/>
-						<span class="help-inline">${hasErrors(bean: referralRecordInstance, field: 'eligibilityDetails', 'error')}</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<hr/>
-
-		<h2>100,000 Genomes Project Recruitment</h2>
-
-		<p>The Clinical Genetics Department runs dedicated recruitment clinics for the 100,000 Genomes Project.  At your request, this application can stand as a referral for a Genetic Counsellor to consent the patient or family and collect samples through one of these clinics.  Please select from the following options below:</p>
-
-		<br/>
-
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="${hasErrors(bean: referralRecordInstance, field: 'consentPatientOrFamily', 'error')} ">
-					<g:radioGroup name="consentPatientOrFamily" values="['YES, I would like this application to stand as a referral to Clinical Genetics for consenting and am happy for this patient/family to be contacted immediately','YES, I would like this application to stand as a referral to Clinical Genetics for consenting but request that the patient/family are not contacted until confirmation that this can proceed is received','NO, I do not wish to refer this patient/family to Clinical Genetics for consenting']"
-								  value="${referralRecordInstance.consentPatientOrFamily}"
-					              labels="['YES, I would like this application to stand as a referral to Clinical Genetics for consenting and am happy for this patient/family to be contacted immediately','YES, I would like this application to stand as a referral to Clinical Genetics for consenting but request that the patient/family are not contacted until confirmation that this can proceed is received','NO, I do not wish to refer this patient/family to Clinical Genetics for consenting']">
-						<p>${it.radio} &nbsp; ${it.label}</p>
-					</g:radioGroup>
 				</div>
 			</div>
 		</div>
@@ -1046,6 +1070,27 @@
 		}
 	}
 
+	otherFamilyMembersAffectedDetailsOpt();
+	function otherFamilyMembersAffectedDetailsOpt(){
+		var otherFamilyMembersAffected = $('input:radio[id=otherFamilyMembersAffected]:checked').val();
+		if (otherFamilyMembersAffected == ${FamilyMembersAffectedType.findByFamilyMembersAffectedTypeName('Yes')?.id}){
+			$("#otherFamilyMembersAffectedDetailsOption").show();
+		}else{
+			$("#otherFamilyMembersAffectedDetailsOption").hide();
+			$("#otherFamilyMembersAffectedDetails").val("");
+		}
+	}
+
+	gelProjectOpt();
+	function gelProjectOpt(){
+		var program = $('input:radio[id=program]:checked').val();
+		if (program == ${Program.findByName('HICF2 Whole Genome Sequencing Programme')?.id} || program ==  ${Program.findByName('Other')?.id}){
+			$("#gelOptions").hide();
+		}else{
+			$("#gelOptions").show();
+		}
+	}
+
 	consanguinityEvidenceDetailsOpt();
 	function consanguinityEvidenceDetailsOpt(){
 		var consanguinityEvidence = $('input:radio[id=consanguinityEvidence]:checked').val();
@@ -1077,17 +1122,6 @@
 		if ($('input:radio[name=isAnySampleFromDeceasedIndividuals]:checked').val() != 'true'){
 			$("#isAnySampleFromDeceasedIndividualsDetailsOption").hide();
 			$("#isAnySampleFromDeceasedIndividualsDetails").val("");
-		}
-	}
-
-	function showOtherFamilyMembersAffectedDetailsOpt(){
-		$("#otherFamilyMembersAffectedDetailsOption").show();
-	}
-	hideOtherFamilyMembersAffectedDetailsOpt();
-	function hideOtherFamilyMembersAffectedDetailsOpt(){
-		if ($('input:radio[name=otherFamilyMembersAffected]:checked').val() != 'true'){
-			$("#otherFamilyMembersAffectedDetailsOption").hide();
-			$("#otherFamilyMembersAffectedDetails").val("");
 		}
 	}
 
@@ -1134,7 +1168,7 @@
 			$("#reviewDetails").hide();
 			$("#notApprovedDetailsOption").show();
 			$("#approvedIdentityOfFamilyMembersSamplesForSeqOption").hide()
-		} else if (referralStatus == ${ReferralStatus.findByReferralStatusName('In Review')?.id} || referralStatus == ${ReferralStatus.findByReferralStatusName('Review Requested')?.id}){
+		} else if (referralStatus == ${ReferralStatus.findByReferralStatusName('Review Submitted')?.id} || referralStatus == ${ReferralStatus.findByReferralStatusName('Review Requested')?.id}){
 			$("#conditionalApprovalDetailsOption").hide();
 			$("#conditionalApprovalDetails").val("");
 			$("#approvalDetailsOption").hide();
