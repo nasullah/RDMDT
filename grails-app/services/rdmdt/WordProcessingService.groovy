@@ -804,122 +804,122 @@ class WordProcessingService {
                 "                                </w:r>\n" +
                 "                            </w:p>"
         mainPart.addObject(org.docx4j.XmlUtils.unmarshalString(otherFamilyMembersAffected));
-        if (referralRecordInstance?.otherFamilyMembersAffected){
-            def otherFamilyMembersAffectedDetails = "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" >\n" +
-                    "                    <w:tblPr>\n" +
-                    "                        <w:tblW w:w=\"0\" w:type=\"auto\"/>\n" +
-                    "                        <w:tblInd w:w=\"98\" w:type=\"dxa\"/>\n" +
-                    "                        <w:tblBorders>\n" +
-                    "                            <w:top w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:left w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:bottom w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:right w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:insideH w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:insideV w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                        </w:tblBorders>\n" +
-                    "                        <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9D9D9\" w:themeFill=\"background1\" w:themeFillShade=\"D9\"/>\n" +
-                    "                        <w:tblCellMar>\n" +
-                    "                            <w:left w:w=\"10\" w:type=\"dxa\"/>\n" +
-                    "                            <w:right w:w=\"10\" w:type=\"dxa\"/>\n" +
-                    "                        </w:tblCellMar>\n" +
-                    "                        <w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\" w:val=\"04A0\"/>\n" +
-                    "                    </w:tblPr>\n" +
-                    "                    <w:tblGrid>\n" +
-                    "                        <w:gridCol w:w=\"9144\"/>\n" +
-                    "                    </w:tblGrid>\n" +
-                    "                    <w:tr w:rsidTr=\"00C87F4E\">\n" +
-                    "                        <w:trPr>\n" +
-                    "                            <w:trHeight w:val=\"1\"/>\n" +
-                    "                        </w:trPr>\n" +
-                    "                        <w:tc>\n" +
-                    "                            <w:tcPr>\n" +
-                    "                                <w:tcW w:w=\"9144\" w:type=\"dxa\"/>\n" +
-                    "                                <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9D9D9\" w:themeFill=\"background1\" w:themeFillShade=\"D9\"/>\n" +
-                    "                                <w:tcMar>\n" +
-                    "                                    <w:left w:w=\"108\" w:type=\"dxa\"/>\n" +
-                    "                                    <w:right w:w=\"108\" w:type=\"dxa\"/>\n" +
-                    "                                </w:tcMar>\n" +
-                    "                            </w:tcPr>\n" +
-                    "                            <w:p>\n" +
-                    "                                <w:pPr>\n" +
-                    "                                    <w:spacing w:after=\"120\"/>\n" +
-                    "                                    <w:rPr>\n" +
-                    "                                        <w:rFonts w:eastAsia=\"Calibri\" w:cs=\"Calibri\" w:asciiTheme=\"minorHAnsi\" w:hAnsiTheme=\"minorHAnsi\"/>\n" +
-                    "                                        <w:sz w:val=\"20\"/>\n" +
-                    "                                        <w:szCs w:val=\"20\"/>\n" +
-                    "                                    </w:rPr>\n" +
-                    "                                </w:pPr>\n" +
-                    "                                <w:r>\n" +
-                    "                                    <w:rPr>\n" +
-                    "                                        <w:rFonts w:eastAsia=\"Calibri\" w:cs=\"Calibri\" w:asciiTheme=\"minorHAnsi\" w:hAnsiTheme=\"minorHAnsi\"/>\n" +
-                    "                                        <w:sz w:val=\"20\"/>\n" +
-                    "                                        <w:szCs w:val=\"20\"/>\n" +
-                    "                                    </w:rPr>\n" +
-                    "                                    <w:t xml:space=\"preserve\"> Yes, ${referralRecordInstance?.otherFamilyMembersAffectedDetails ?: ''}</w:t>\n" +
-                    "                                </w:r>\n" +
-                    "                            </w:p>\n" +
-                    "                        </w:tc>\n" +
-                    "                    </w:tr>\n" +
-                    "                </w:tbl>"
-            mainPart.addObject(org.docx4j.XmlUtils.unmarshalString(otherFamilyMembersAffectedDetails));
+        if (referralRecordInstance?.otherFamilyMembersAffected?.familyMembersAffectedTypeName == 'Yes'){
+                def otherFamilyMembersAffectedDetails = "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" >\n" +
+                        "                    <w:tblPr>\n" +
+                        "                        <w:tblW w:w=\"0\" w:type=\"auto\"/>\n" +
+                        "                        <w:tblInd w:w=\"98\" w:type=\"dxa\"/>\n" +
+                        "                        <w:tblBorders>\n" +
+                        "                            <w:top w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:left w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:bottom w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:right w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:insideH w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:insideV w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                        </w:tblBorders>\n" +
+                        "                        <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9D9D9\" w:themeFill=\"background1\" w:themeFillShade=\"D9\"/>\n" +
+                        "                        <w:tblCellMar>\n" +
+                        "                            <w:left w:w=\"10\" w:type=\"dxa\"/>\n" +
+                        "                            <w:right w:w=\"10\" w:type=\"dxa\"/>\n" +
+                        "                        </w:tblCellMar>\n" +
+                        "                        <w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\" w:val=\"04A0\"/>\n" +
+                        "                    </w:tblPr>\n" +
+                        "                    <w:tblGrid>\n" +
+                        "                        <w:gridCol w:w=\"9144\"/>\n" +
+                        "                    </w:tblGrid>\n" +
+                        "                    <w:tr w:rsidTr=\"00C87F4E\">\n" +
+                        "                        <w:trPr>\n" +
+                        "                            <w:trHeight w:val=\"1\"/>\n" +
+                        "                        </w:trPr>\n" +
+                        "                        <w:tc>\n" +
+                        "                            <w:tcPr>\n" +
+                        "                                <w:tcW w:w=\"9144\" w:type=\"dxa\"/>\n" +
+                        "                                <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9D9D9\" w:themeFill=\"background1\" w:themeFillShade=\"D9\"/>\n" +
+                        "                                <w:tcMar>\n" +
+                        "                                    <w:left w:w=\"108\" w:type=\"dxa\"/>\n" +
+                        "                                    <w:right w:w=\"108\" w:type=\"dxa\"/>\n" +
+                        "                                </w:tcMar>\n" +
+                        "                            </w:tcPr>\n" +
+                        "                            <w:p>\n" +
+                        "                                <w:pPr>\n" +
+                        "                                    <w:spacing w:after=\"120\"/>\n" +
+                        "                                    <w:rPr>\n" +
+                        "                                        <w:rFonts w:eastAsia=\"Calibri\" w:cs=\"Calibri\" w:asciiTheme=\"minorHAnsi\" w:hAnsiTheme=\"minorHAnsi\"/>\n" +
+                        "                                        <w:sz w:val=\"20\"/>\n" +
+                        "                                        <w:szCs w:val=\"20\"/>\n" +
+                        "                                    </w:rPr>\n" +
+                        "                                </w:pPr>\n" +
+                        "                                <w:r>\n" +
+                        "                                    <w:rPr>\n" +
+                        "                                        <w:rFonts w:eastAsia=\"Calibri\" w:cs=\"Calibri\" w:asciiTheme=\"minorHAnsi\" w:hAnsiTheme=\"minorHAnsi\"/>\n" +
+                        "                                        <w:sz w:val=\"20\"/>\n" +
+                        "                                        <w:szCs w:val=\"20\"/>\n" +
+                        "                                    </w:rPr>\n" +
+                        "                                    <w:t xml:space=\"preserve\"> Yes, ${referralRecordInstance?.otherFamilyMembersAffectedDetails ?: ''}</w:t>\n" +
+                        "                                </w:r>\n" +
+                        "                            </w:p>\n" +
+                        "                        </w:tc>\n" +
+                        "                    </w:tr>\n" +
+                        "                </w:tbl>"
+                mainPart.addObject(org.docx4j.XmlUtils.unmarshalString(otherFamilyMembersAffectedDetails));
         }else {
-            def otherFamilyMembersAffectedDetails = "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" >\n" +
-                    "                    <w:tblPr>\n" +
-                    "                        <w:tblW w:w=\"0\" w:type=\"auto\"/>\n" +
-                    "                        <w:tblInd w:w=\"98\" w:type=\"dxa\"/>\n" +
-                    "                        <w:tblBorders>\n" +
-                    "                            <w:top w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:left w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:bottom w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:right w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:insideH w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                            <w:insideV w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
-                    "                        </w:tblBorders>\n" +
-                    "                        <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9D9D9\" w:themeFill=\"background1\" w:themeFillShade=\"D9\"/>\n" +
-                    "                        <w:tblCellMar>\n" +
-                    "                            <w:left w:w=\"10\" w:type=\"dxa\"/>\n" +
-                    "                            <w:right w:w=\"10\" w:type=\"dxa\"/>\n" +
-                    "                        </w:tblCellMar>\n" +
-                    "                        <w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\" w:val=\"04A0\"/>\n" +
-                    "                    </w:tblPr>\n" +
-                    "                    <w:tblGrid>\n" +
-                    "                        <w:gridCol w:w=\"9144\"/>\n" +
-                    "                    </w:tblGrid>\n" +
-                    "                    <w:tr w:rsidTr=\"00C87F4E\">\n" +
-                    "                        <w:trPr>\n" +
-                    "                            <w:trHeight w:val=\"1\"/>\n" +
-                    "                        </w:trPr>\n" +
-                    "                        <w:tc>\n" +
-                    "                            <w:tcPr>\n" +
-                    "                                <w:tcW w:w=\"9144\" w:type=\"dxa\"/>\n" +
-                    "                                <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9D9D9\" w:themeFill=\"background1\" w:themeFillShade=\"D9\"/>\n" +
-                    "                                <w:tcMar>\n" +
-                    "                                    <w:left w:w=\"108\" w:type=\"dxa\"/>\n" +
-                    "                                    <w:right w:w=\"108\" w:type=\"dxa\"/>\n" +
-                    "                                </w:tcMar>\n" +
-                    "                            </w:tcPr>\n" +
-                    "                            <w:p>\n" +
-                    "                                <w:pPr>\n" +
-                    "                                    <w:spacing w:after=\"120\"/>\n" +
-                    "                                    <w:rPr>\n" +
-                    "                                        <w:rFonts w:eastAsia=\"Calibri\" w:cs=\"Calibri\" w:asciiTheme=\"minorHAnsi\" w:hAnsiTheme=\"minorHAnsi\"/>\n" +
-                    "                                        <w:sz w:val=\"20\"/>\n" +
-                    "                                        <w:szCs w:val=\"20\"/>\n" +
-                    "                                    </w:rPr>\n" +
-                    "                                </w:pPr>\n" +
-                    "                                <w:r>\n" +
-                    "                                    <w:rPr>\n" +
-                    "                                        <w:rFonts w:eastAsia=\"Calibri\" w:cs=\"Calibri\" w:asciiTheme=\"minorHAnsi\" w:hAnsiTheme=\"minorHAnsi\"/>\n" +
-                    "                                        <w:sz w:val=\"20\"/>\n" +
-                    "                                        <w:szCs w:val=\"20\"/>\n" +
-                    "                                    </w:rPr>\n" +
-                    "                                    <w:t xml:space=\"preserve\"> No </w:t>\n" +
-                    "                                </w:r>\n" +
-                    "                            </w:p>\n" +
-                    "                        </w:tc>\n" +
-                    "                    </w:tr>\n" +
-                    "                </w:tbl>"
-            mainPart.addObject(org.docx4j.XmlUtils.unmarshalString(otherFamilyMembersAffectedDetails));
+                def otherFamilyMembersAffectedDetails = "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" >\n" +
+                        "                    <w:tblPr>\n" +
+                        "                        <w:tblW w:w=\"0\" w:type=\"auto\"/>\n" +
+                        "                        <w:tblInd w:w=\"98\" w:type=\"dxa\"/>\n" +
+                        "                        <w:tblBorders>\n" +
+                        "                            <w:top w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:left w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:bottom w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:right w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:insideH w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                            <w:insideV w:val=\"single\" w:color=\"auto\" w:sz=\"4\" w:space=\"0\"/>\n" +
+                        "                        </w:tblBorders>\n" +
+                        "                        <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9D9D9\" w:themeFill=\"background1\" w:themeFillShade=\"D9\"/>\n" +
+                        "                        <w:tblCellMar>\n" +
+                        "                            <w:left w:w=\"10\" w:type=\"dxa\"/>\n" +
+                        "                            <w:right w:w=\"10\" w:type=\"dxa\"/>\n" +
+                        "                        </w:tblCellMar>\n" +
+                        "                        <w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\" w:val=\"04A0\"/>\n" +
+                        "                    </w:tblPr>\n" +
+                        "                    <w:tblGrid>\n" +
+                        "                        <w:gridCol w:w=\"9144\"/>\n" +
+                        "                    </w:tblGrid>\n" +
+                        "                    <w:tr w:rsidTr=\"00C87F4E\">\n" +
+                        "                        <w:trPr>\n" +
+                        "                            <w:trHeight w:val=\"1\"/>\n" +
+                        "                        </w:trPr>\n" +
+                        "                        <w:tc>\n" +
+                        "                            <w:tcPr>\n" +
+                        "                                <w:tcW w:w=\"9144\" w:type=\"dxa\"/>\n" +
+                        "                                <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9D9D9\" w:themeFill=\"background1\" w:themeFillShade=\"D9\"/>\n" +
+                        "                                <w:tcMar>\n" +
+                        "                                    <w:left w:w=\"108\" w:type=\"dxa\"/>\n" +
+                        "                                    <w:right w:w=\"108\" w:type=\"dxa\"/>\n" +
+                        "                                </w:tcMar>\n" +
+                        "                            </w:tcPr>\n" +
+                        "                            <w:p>\n" +
+                        "                                <w:pPr>\n" +
+                        "                                    <w:spacing w:after=\"120\"/>\n" +
+                        "                                    <w:rPr>\n" +
+                        "                                        <w:rFonts w:eastAsia=\"Calibri\" w:cs=\"Calibri\" w:asciiTheme=\"minorHAnsi\" w:hAnsiTheme=\"minorHAnsi\"/>\n" +
+                        "                                        <w:sz w:val=\"20\"/>\n" +
+                        "                                        <w:szCs w:val=\"20\"/>\n" +
+                        "                                    </w:rPr>\n" +
+                        "                                </w:pPr>\n" +
+                        "                                <w:r>\n" +
+                        "                                    <w:rPr>\n" +
+                        "                                        <w:rFonts w:eastAsia=\"Calibri\" w:cs=\"Calibri\" w:asciiTheme=\"minorHAnsi\" w:hAnsiTheme=\"minorHAnsi\"/>\n" +
+                        "                                        <w:sz w:val=\"20\"/>\n" +
+                        "                                        <w:szCs w:val=\"20\"/>\n" +
+                        "                                    </w:rPr>\n" +
+                        "                                    <w:t xml:space=\"preserve\"> ${referralRecordInstance.otherFamilyMembersAffected ?: ''} </w:t>\n" +
+                        "                                </w:r>\n" +
+                        "                            </w:p>\n" +
+                        "                        </w:tc>\n" +
+                        "                    </w:tr>\n" +
+                        "                </w:tbl>"
+                mainPart.addObject(org.docx4j.XmlUtils.unmarshalString(otherFamilyMembersAffectedDetails));
         }
 
         def consanguinityEvidence  = "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" >\n" +
@@ -1074,7 +1074,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\">Is there evidence of reduced penetrance?</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\">Is there evidence of incomplete penetrance in this condition?</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>"
         mainPart.addObject(org.docx4j.XmlUtils.unmarshalString(penetranceEvidence));
@@ -1462,7 +1462,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\"> Breast And Or Ovarian Cancer: ${BooleanUtils.toString(referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer, 'Yes', 'No') }</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\"> Breast And Or Ovarian Cancer: ${referralRecordInstance?.paternal?.first()?.breastAndOrOvarianCancer}</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>\n" +
                 "                        </w:tc>\n" +
@@ -1490,7 +1490,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\">Breast And Or Ovarian Cancer: ${BooleanUtils.toString(referralRecordInstance?.maternal?.first()?.breastAndOrOvarianCancer, 'Yes', 'No')}</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\">Breast And Or Ovarian Cancer: ${referralRecordInstance?.maternal?.first()?.breastAndOrOvarianCancer}</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>\n" +
                 "                        </w:tc>\n" +
@@ -1549,7 +1549,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\"> Colorectal Cancer: ${BooleanUtils.toString(referralRecordInstance?.paternal?.first()?.colorectalCancer, 'Yes', 'No') }</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\"> Colorectal Cancer: ${referralRecordInstance?.paternal?.first()?.colorectalCancer}</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>\n" +
                 "                        </w:tc>\n" +
@@ -1577,7 +1577,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\">Colorectal Cancer: ${BooleanUtils.toString(referralRecordInstance?.maternal?.first()?.colorectalCancer, 'Yes', 'No')}</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\">Colorectal Cancer: ${referralRecordInstance?.maternal?.first()?.colorectalCancer}</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>\n" +
                 "                        </w:tc>\n" +
@@ -1636,7 +1636,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\"> Ischaemic Heart Disease Or Stroke: ${BooleanUtils.toString(referralRecordInstance?.paternal?.first()?.ischaemicHeartDiseaseOrStroke, 'Yes', 'No') }</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\"> Ischaemic Heart Disease Or Stroke: ${referralRecordInstance?.paternal?.first()?.ischaemicHeartDiseaseOrStroke}</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>\n" +
                 "                        </w:tc>\n" +
@@ -1664,7 +1664,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\">Ischaemic Heart Disease Or Stroke: ${BooleanUtils.toString(referralRecordInstance?.maternal?.first()?.ischaemicHeartDiseaseOrStroke, 'Yes', 'No')}</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\">Ischaemic Heart Disease Or Stroke: ${referralRecordInstance?.maternal?.first()?.ischaemicHeartDiseaseOrStroke}</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>\n" +
                 "                        </w:tc>\n" +
@@ -1723,7 +1723,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\"> Endocrine Tumours: ${BooleanUtils.toString(referralRecordInstance?.paternal?.first()?.endocrineTumours, 'Yes', 'No') }</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\"> Endocrine Tumours: ${referralRecordInstance?.paternal?.first()?.endocrineTumours}</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>\n" +
                 "                        </w:tc>\n" +
@@ -1751,7 +1751,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\">Endocrine Tumours: ${BooleanUtils.toString(referralRecordInstance?.maternal?.first()?.endocrineTumours, 'Yes', 'No')}</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\">Endocrine Tumours: ${referralRecordInstance?.maternal?.first()?.endocrineTumours}</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>\n" +
                 "                        </w:tc>\n" +
@@ -2098,7 +2098,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\">Are any individuals proposed for sequencing out of area?</w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\">Do any of the individuals proposed for sequencing live outside the catchment area of the Oxford Genomic Medicine Centre?</w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>"
         mainPart.addObject(org.docx4j.XmlUtils.unmarshalString(anyIndividualsForSeqOutOfArea));
@@ -2472,7 +2472,7 @@ class WordProcessingService {
                 "                                        <w:sz w:val=\"20\"/>\n" +
                 "                                        <w:szCs w:val=\"20\"/>\n" +
                 "                                    </w:rPr>\n" +
-                "                                    <w:t xml:space=\"preserve\">Target 100,000 Genomes Project Rare Disease category </w:t>\n" +
+                "                                    <w:t xml:space=\"preserve\">100,000 Genomes Project Rare Disease category </w:t>\n" +
                 "                                </w:r>\n" +
                 "                            </w:p>"
 
