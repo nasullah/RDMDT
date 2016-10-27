@@ -108,6 +108,20 @@
 			</li>
 
 			<li class="">
+				<a href="${createLink(uri: '/familyHistoryType')}">
+					<i class="glyphicon glyphicon-plus-sign"></i>
+					Family History Type
+				</a>
+			</li>
+
+			<li class="">
+				<a href="${createLink(uri: '/familyMembersAffectedType')}">
+					<i class="glyphicon glyphicon-plus-sign"></i>
+					Family Members Affected Type
+				</a>
+			</li>
+
+			<li class="">
 				<a href="${createLink(uri: '/gender')}">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 					Gender
