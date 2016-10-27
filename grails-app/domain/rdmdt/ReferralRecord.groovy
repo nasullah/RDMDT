@@ -50,7 +50,7 @@ class ReferralRecord {
         arrayCGHDetails(nullable: true)
         anyIndividualsForSeqOutOfArea()
         anyIndividualsForSeqOutOfAreaDetails(nullable: true)
-        otherFamilyMembersAffected()
+        otherFamilyMembersAffected(nullable: true)
         otherFamilyMembersAffectedDetails(nullable: true)
         eligibility(nullable: true)
         eligibilityDetails(nullable: true)
@@ -97,7 +97,7 @@ class ReferralRecord {
     String arrayCGHDetails
     boolean anyIndividualsForSeqOutOfArea = Boolean.FALSE
     String anyIndividualsForSeqOutOfAreaDetails
-    boolean otherFamilyMembersAffected = Boolean.FALSE
+    FamilyMembersAffectedType otherFamilyMembersAffected
     String otherFamilyMembersAffectedDetails
     EligibilityType eligibility
     String eligibilityDetails
