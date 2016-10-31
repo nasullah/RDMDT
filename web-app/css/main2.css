@@ -20,10 +20,16 @@ header, .full-width {
 }
 
 footer {
+    background-color: #ffffff;
+    margin-top: 0;
     position: absolute;
     left: 0;
     bottom: 0;
     right: 0;
+    padding: 10px 0;
+    text-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 html {
