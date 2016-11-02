@@ -95,7 +95,7 @@ environments {
     }
     production {
 //        grails.logging.jul.usebridge = false
-        grails.serverURL = "http://oxnetbrc15:8080/RDMDT"
+        grails.serverURL = "http://oxnetbrc15.oxnet.nhs.uk:8080/RDMDT"
     }
 }
 grails.databinding.dateFormats = ['yyyy-MM-dd','dd-MM-yyyy','MMddyyyy', 'yyyy-MM-dd HH:mm:ss.S']
