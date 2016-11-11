@@ -540,15 +540,15 @@
 			<tr class="prop">
 				<td valign="top" class="name">Approved Program</td>
 
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedTargetCategory")}</td>
+				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedProgram")}</td>
 
 			</tr>
 
 			<g:if test="${referralRecordInstance?.program?.name != 'Other' && referralRecordInstance?.program?.name != 'HICF2 Whole Genome Sequencing Programme'}">
 				<tr class="prop">
-					<td valign="top" class="name">Approved Target 100,000 Genomes Project Rare Disease category</td>
+					<td valign="top" class="name">Approved 100,000 Genomes Project Rare Disease category</td>
 
-					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedProgram")}</td>
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedTargetCategory")}</td>
 
 				</tr>
 			</g:if>
