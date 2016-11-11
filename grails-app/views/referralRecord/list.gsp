@@ -20,10 +20,10 @@
 		<p>
 			<filterpane:filterButton text="Filter This List" />
 			<filterpane:filterPane domain="rdmdt.ReferralRecord"
-								   excludeProperties="assignedOn, meetingDate, submittedDate, "
+								   filterPropertyValues="${[meetingDate: [precision: 'day'], submittedDate: [precision: 'day']]}"
 								   associatedProperties="clinician.name, clinician.telephone, clinician.departmentName, clinician.speciality,
-								   						 patients.nhsNumber, patients.gender.genderName, patients.ethnicity.ethnicityName,
-								   						 patients.ege, patients.egeUnit.egeUnitName, clinicalDetails.clinicalDetailsName,
+								   						 patients.givenName, patients.familyName, patients.nhsNumber, patients.gender.genderName,
+								   						 patients.ethnicity.ethnicityName, patients.ege, patients.egeUnit.egeUnitName, clinicalDetails.clinicalDetailsName,
 								   						 unrelatedClinicalFeatures.unrelatedClinicalFeatures, paternal.breastAndOrOvarianCancer,
 								   						 paternal.colorectalCancer, paternal.ischaemicHeartDiseaseOrStroke, paternal.endocrineTumours,
 								   						 maternal.breastAndOrOvarianCancer, maternal.colorectalCancer, maternal.ischaemicHeartDiseaseOrStroke,
@@ -34,6 +34,9 @@
 </div>
 
 <hr/>
+
+<p>Number of records: ${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}</p>
+
 <section id="list-referralRecord" class="first">
 
 	<table class="table table-bordered margin-top-medium">
@@ -76,8 +79,7 @@
 		</tbody>
 	</table>
 	<div class="pagination">
-		<g:paginate total="${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}" params="${filterParams}" />
-		<a>Number of records: ${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}</a>
+		<bs:paginate total="${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}" params="${filterParams}" />
 	</div>
 </section>
 
