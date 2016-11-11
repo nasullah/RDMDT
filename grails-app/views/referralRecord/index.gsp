@@ -10,6 +10,8 @@
 
 <body>
 
+<p>Number of records: ${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}</p>
+
 <section id="index-referralRecord" class="first">
 
 	<table class="table table-bordered margin-top-medium">
@@ -48,8 +50,7 @@
 		</tbody>
 	</table>
 	<div class="pagination">
-		<g:paginate total="${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}" params="${filterParams}" />
-		<a>Number of records: ${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}</a>
+		<bs:paginate total="${referralRecordInstanceTotal == null ? ReferralRecord.count(): referralRecordInstanceTotal}" params="${filterParams}" />
 	</div>
 </section>
 
