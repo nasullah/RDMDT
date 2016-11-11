@@ -83,7 +83,7 @@
 			</g:if>
 
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="clinician.address.label" default="Corresponding address" /></td>
+				<td valign="top" class="name"><g:message code="clinician.address.label" default="Correspondence address" /></td>
 
 				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "address")}</td>
 

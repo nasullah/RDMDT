@@ -101,7 +101,7 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="${hasErrors(bean: clinicianInstance, field: 'address', 'error')} ">
-						<label for="address" class="control-label"><g:message code="clinician.address.label" default="Corresponding address" /></label>
+						<label for="address" class="control-label"><g:message code="clinician.address.label" default="Correspondence address" /></label>
 						<div>
 							<g:textArea class="form-control" name="address" value="${clinicianInstance?.address}" rows="4" cols="40"/>
 							<span class="help-inline">${hasErrors(bean: clinicianInstance, field: 'address', 'error')}</span>
