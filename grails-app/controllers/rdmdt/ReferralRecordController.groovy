@@ -20,6 +20,7 @@ class ReferralRecordController {
     def wordProcessingService
     static allowedMethods = [save: "POST", update: ["PUT", "POST"], delete: "DELETE"]
 
+    @Secured(['ROLE_ADMIN'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond ReferralRecord.list(params).sort {it?.referralStatus?.referralStatusName}, model: [referralRecordInstanceCount: ReferralRecord.count()]
@@ -30,6 +31,7 @@ class ReferralRecordController {
         wordProcessingService.processingWordDocument(referralRecordInstance)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [referralRecordInstanceList: ReferralRecord.list(params).sort {it?.referralStatus?.referralStatusName}, referralRecordInstanceTotal: ReferralRecord.count()]
