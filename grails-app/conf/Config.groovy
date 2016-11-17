@@ -63,9 +63,9 @@ grails.controllers.defaultScope = 'singleton'
 //    }
 //}
 
-grails.views.default.codec = "none" // none, html, base64 grails.views.gsp.encoding = "UTF-8" grails.converters.encoding = "UTF-8"
+//grails.views.default.codec = "none" // none, html, base64 grails.views.gsp.encoding = "UTF-8" grails.converters.encoding = "UTF-8"
 
-
+grails.views.gsp.encoding = "UTF-8"
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration
 grails.scaffolding.templates.domainSuffix = 'Instance'
