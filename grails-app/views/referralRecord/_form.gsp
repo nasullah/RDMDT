@@ -242,8 +242,8 @@
 							<g:set var="symptomEgeUnit" value="${AgeUnit.findByAgeUnitName('Congenital')?.id}" />
 						</g:else>
 						<g:radioGroup name="symptomEgeUnit.id"
-									  values="[AgeUnit.findByAgeUnitName('Days')?.id, AgeUnit.findByAgeUnitName('Weeks')?.id, AgeUnit.findByAgeUnitName('Months')?.id, AgeUnit.findByAgeUnitName('Years')?.id, AgeUnit.findByAgeUnitName('Prenatal')?.id, AgeUnit.findByAgeUnitName('Congenital')?.id]"
-									  labels="['Days', 'Weeks', 'Months', 'Years','Prenatal', 'Congenital']"
+									  values="[AgeUnit.findByAgeUnitName('Days')?.id, AgeUnit.findByAgeUnitName('Weeks')?.id, AgeUnit.findByAgeUnitName('Months')?.id, AgeUnit.findByAgeUnitName('Years')?.id, AgeUnit.findByAgeUnitName('Prenatal')?.id, AgeUnit.findByAgeUnitName('Asymptomatic')?.id, AgeUnit.findByAgeUnitName('Congenital')?.id]"
+									  labels="['Days', 'Weeks', 'Months', 'Years','Prenatal', 'Asymptomatic', 'Congenital']"
 									  value="${symptomEgeUnit}">
 							${it.radio}  ${it.label} &nbsp;
 						</g:radioGroup>
