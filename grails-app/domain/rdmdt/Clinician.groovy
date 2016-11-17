@@ -9,6 +9,7 @@ class Clinician{
     static auditable = true
     static hasMany = [referralRecords:ReferralRecord]
     static constraints = {
+        professionalTitle(inList:["Dr", "Professor", "Mr", "Ms", "Miss", "Mrs"], nullable: true)
         forename()
         surname()
         email(nullable: true)
@@ -21,6 +22,7 @@ class Clinician{
         address(nullable: true)
         postcode(nullable: true)
     }
+    String professionalTitle
     String forename
     String surname
     Department departmentName

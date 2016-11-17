@@ -14,7 +14,14 @@
 
 	<table class="table">
 		<tbody>
-		
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="clinician.professionalTitle.label" default="Title" /></td>
+
+				<td valign="top" class="value">${fieldValue(bean: clinicianInstance, field: "professionalTitle")}</td>
+
+			</tr>
+
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="clinician.forename.label" default="Forename" /></td>
 				

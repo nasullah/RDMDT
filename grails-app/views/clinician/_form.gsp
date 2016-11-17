@@ -3,7 +3,19 @@
 
 
 			<div class="row">
-				<div class="col-lg-6">
+				<div class="col-lg-2">
+					<div class="${hasErrors(bean: clinicianInstance, field: 'professionalTitle', 'error')} ">
+						<label for="professionalTitle" class="control-label"><g:message code="clinician.professionalTitle.label" default="Title" /></label>
+						<div>
+							<div>
+								<g:select class="form-control" name="professionalTitle" from="${clinicianInstance.constraints.professionalTitle.inList}" value="${clinicianInstance?.professionalTitle}" valueMessagePrefix="clinicianInstance.clinicianInstance" noSelection="['':'- Choose -']"/>
+							</div>
+							<span class="help-inline">${hasErrors(bean: studySubjectInstance, field: 'consentFormVersion', 'error')}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
 					<div class="${hasErrors(bean: clinicianInstance, field: 'forename', 'error')} ">
 						<label for="forename" class="control-label"><g:message code="clinician.forename.label" default="Forename" /><span class="required-indicator">*</span></label>
 						<div>
