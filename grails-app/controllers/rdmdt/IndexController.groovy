@@ -10,8 +10,9 @@ import org.springframework.security.access.annotation.Secured
 class IndexController {
     def springSecurityService
     def index() {
-        def currentUser = springSecurityService?.currentUser?.username
-        if (currentUser?.toString()?.contains('.')){
+        def currentUser = springSecurityService?.principal
+        def currentUserName = springSecurityService?.currentUser?.username
+        if (currentUserName?.toString()?.contains('.')){
             def forename = currentUser?.toString()?.split("\\.")[0]
             def surname = currentUser?.toString()?.split("\\.")[1]
             def clinician = Clinician.createCriteria().get {
@@ -20,7 +21,7 @@ class IndexController {
                     eq("surname", surname, [ignoreCase: true])
                 }
             }
-            [clinician:clinician]
+            [clinician:clinician, currentUser:currentUser]
         }
     }
 
