@@ -58,6 +58,7 @@ class ReferralRecord {
         approvalDetails(nullable: true)
         notApprovedDetails(nullable: true)
         submittedDate(nullable: true)
+        approvedDate(nullable: true)
         adminNote(nullable: true)
     }
 
@@ -103,6 +104,7 @@ class ReferralRecord {
     String eligibilityDetails
     String consentPatientOrFamily
     Date submittedDate
+    Date approvedDate
     String adminNote
     /*
      * Methods of the Domain Class
