@@ -20,7 +20,7 @@
 		<p>
 			<filterpane:filterButton text="Filter This List" />
 			<filterpane:filterPane domain="rdmdt.ReferralRecord"
-								   filterPropertyValues="${[meetingDate: [precision: 'day'], submittedDate: [precision: 'day']]}"
+								   filterPropertyValues="${[meetingDate: [precision: 'day'], submittedDate: [precision: 'day'], approvedDate: [precision: 'day']]}"
 								   associatedProperties="clinician.name, clinician.telephone, clinician.departmentName, clinician.speciality,
 								   						 patients.givenName, patients.familyName, patients.nhsNumber, patients.gender.genderName,
 								   						 patients.ethnicity.ethnicityName, patients.ege, patients.egeUnit.egeUnitName, clinicalDetails.clinicalDetailsName,
