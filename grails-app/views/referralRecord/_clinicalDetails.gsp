@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div id="clinicalDetails0">
-                        <label class="control-label">Clinical details</label>
+                        <label class="control-label">Clinical details (please include any features which are notable by their absence)</label>
                         <g:if test="${referralRecordInstance?.clinicalDetails?.getAt(0)?.clinicalDetailsName}">
                             <g:set var="cDetails0" value="${referralRecordInstance?.clinicalDetails?.getAt(0)?.clinicalDetailsName}" />
                         </g:if>
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div id="clinicalDetails1">
-                        <label class="control-label">Clinical details</label>
+                        <label class="control-label">Clinical details (please include any features which are notable by their absence)</label>
                         <g:if test="${referralRecordInstance?.clinicalDetails?.getAt(1)?.clinicalDetailsName}">
                             <g:set var="cDetails1" value="${referralRecordInstance?.clinicalDetails?.getAt(1)?.clinicalDetailsName}" />
                         </g:if>
@@ -46,7 +46,7 @@
 
                 <div class="col-lg-6">
                     <div id="clinicalDetails2">
-                        <label class="control-label">Clinical details</label>
+                        <label class="control-label">Clinical details (please include any features which are notable by their absence)</label>
                         <g:if test="${referralRecordInstance?.clinicalDetails?.getAt(2)?.clinicalDetailsName}">
                             <g:set var="cDetails2" value="${referralRecordInstance?.clinicalDetails?.getAt(2)?.clinicalDetailsName}" />
                         </g:if>
@@ -61,7 +61,7 @@
 
                 <div class="col-lg-6">
                     <div id="clinicalDetails3">
-                        <label class="control-label">Clinical details</label>
+                        <label class="control-label">Clinical details (please include any features which are notable by their absence)</label>
                         <g:if test="${referralRecordInstance?.clinicalDetails?.getAt(3)?.clinicalDetailsName}">
                             <g:set var="cDetails3" value="${referralRecordInstance?.clinicalDetails?.getAt(3)?.clinicalDetailsName}" />
                         </g:if>
@@ -76,7 +76,7 @@
 
                 <div class="col-lg-6">
                     <div id="clinicalDetails4">
-                        <label class="control-label">Clinical details</label>
+                        <label class="control-label">Clinical details (please include any features which are notable by their absence)</label>
                         <g:if test="${referralRecordInstance?.clinicalDetails?.getAt(4)?.clinicalDetailsName}">
                             <g:set var="cDetails4" value="${referralRecordInstance?.clinicalDetails?.getAt(4)?.clinicalDetailsName}" />
                         </g:if>
@@ -91,7 +91,7 @@
 
                 <div class="col-lg-6">
                     <div id="clinicalDetails5">
-                        <label class="control-label">Clinical details</label>
+                        <label class="control-label">Clinical details (please include any features which are notable by their absence)</label>
                         <g:if test="${referralRecordInstance?.clinicalDetails?.getAt(5)?.clinicalDetailsName}">
                             <g:set var="cDetails5" value="${referralRecordInstance?.clinicalDetails?.getAt(5)?.clinicalDetailsName}" />
                         </g:if>
@@ -106,7 +106,7 @@
 
                 <div class="col-lg-6">
                     <div id="clinicalDetails6">
-                        <label class="control-label">Clinical details</label>
+                        <label class="control-label">Clinical details (please include any features which are notable by their absence)</label>
                         <g:if test="${referralRecordInstance?.clinicalDetails?.getAt(6)?.clinicalDetailsName}">
                             <g:set var="cDetails6" value="${referralRecordInstance?.clinicalDetails?.getAt(6)?.clinicalDetailsName}" />
                         </g:if>
