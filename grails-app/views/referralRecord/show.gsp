@@ -52,7 +52,7 @@
 				<tr class="prop" bgcolor="lime">
 					<td valign="top" class="name"><strong>Application Status</strong></td>
 
-					<td valign="top" class="value"><strong>${referralRecordInstance?.referralStatus}</strong></td>
+					<td valign="top" class="value"><strong>${referralRecordInstance?.referralStatus} ${referralRecordInstance?.approvedDate}</strong></td>
 
 				</tr>
 			</g:elseif>
@@ -80,6 +80,22 @@
 					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedIdentityOfFamilyMembersSamplesForSeq")}</td>
 
 				</tr>
+
+				<tr class="prop">
+					<td valign="top" class="name">Approved Program</td>
+
+					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedProgram")}</td>
+
+				</tr>
+
+				<g:if test="${referralRecordInstance?.program?.name != 'Other' && referralRecordInstance?.program?.name != 'HICF2 Whole Genome Sequencing Programme'}">
+					<tr class="prop">
+						<td valign="top" class="name">Approved 100,000 Genomes Project Rare Disease category</td>
+
+						<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedTargetCategory")}</td>
+
+					</tr>
+				</g:if>
 
 				<tr class="prop">
 					<td valign="top" class="name"><g:message code="referralRecord.approvalDetails.label" default="Further details" /></td>
@@ -536,22 +552,6 @@
 				</td>
 				
 			</tr>
-
-			<tr class="prop">
-				<td valign="top" class="name">Approved Program</td>
-
-				<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedProgram")}</td>
-
-			</tr>
-
-			<g:if test="${referralRecordInstance?.program?.name != 'Other' && referralRecordInstance?.program?.name != 'HICF2 Whole Genome Sequencing Programme'}">
-				<tr class="prop">
-					<td valign="top" class="name">Approved 100,000 Genomes Project Rare Disease category</td>
-
-					<td valign="top" class="value">${fieldValue(bean: referralRecordInstance, field: "approvedTargetCategory")}</td>
-
-				</tr>
-			</g:if>
 
 			<tr class="prop">
 				<td valign="top" class="name">Note</td>
