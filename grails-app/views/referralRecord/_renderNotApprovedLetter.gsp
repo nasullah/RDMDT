@@ -41,10 +41,10 @@
 
 <br/>
 
-<span style="font-size: 12pt">Dr ${form?.clinician?.forename} ${form?.clinician?.surname}</span><br/>
+<span style="font-size: 12pt">${form?.clinician?.professionalTitle} ${form?.clinician?.forename} ${form?.clinician?.surname}</span><br/>
 
 <g:each in="${form.coApplicants}" var="coApplicant">
-    <span style="font-size: 12pt">Dr ${coApplicant?.forename} ${coApplicant?.surname}</span><br/>
+    <span style="font-size: 12pt">${coApplicant?.professionalTitle} ${coApplicant?.forename} ${coApplicant?.surname}</span><br/>
 </g:each>
 
 <span style="font-size: 12pt">${form?.clinician?.departmentName}</span><br/>
@@ -63,9 +63,9 @@
 
 <p style="font-size: 12pt"> ${new Date().format('dd/MM/yyy')}</p>
 
-<p style="font-size: 12pt"> Dear Dr ${form?.clinician?.surname},
+<p style="font-size: 12pt"> Dear ${form?.clinician?.professionalTitle} ${form?.clinician?.surname},
     <g:each in="${form.coApplicants}" var="coApplicant">
-        <span style="font-size: 12pt"> Dr ${coApplicant?.surname},</span>
+        <span style="font-size: 12pt"> ${coApplicant?.professionalTitle} ${coApplicant?.surname},</span>
     </g:each>
 </p>
 
@@ -73,7 +73,7 @@
 
 <p style="font-size: 12pt">I am writing on behalf of the Genomic Medicine MultiDisciplinary Team (GM-MDT) with reference to your above application for genomic sequencing.</p>
 
-<p style="font-size: 12pt">Thank you very much for submitting this application. Your proposal was discussed by the GM-MDT at the meeting held on ${form?.meetingDate} with expert review provided by Dr ${coApplicant?.assignedTo?.forename} ${coApplicant?.assignedTo?.surname}.  The discussion raised some uncertainties over the likelihood of the proband’s condition having a genetic basis in view of the adult onset, lack of family history, and plausible non-genetic causes for the phenotype.  Furthermore, the absence of clear pathways or genes reported in association with this combination of features was concluded to make genomic analysis extremely challenging, and without the support of additional cases with the same phenotype therefore unlikely to be productive.  For these reasons whole genome sequencing through the 100,000 Genomes Project is not offered at this stage.  However, the GM-MDT was sympathetic to the lack of alternative routes for investigation and would be happy to reconsider this application should the case advance in such a way that evidence for a genetic cause becomes more compelling.</p>
+<p style="font-size: 12pt">Thank you very much for submitting this application. Your proposal was discussed by the GM-MDT at the meeting held on ${form?.meetingDate} with expert review provided by ${form?.clinician?.professionalTitle} ${coApplicant?.assignedTo?.forename} ${coApplicant?.assignedTo?.surname}.  The discussion raised some uncertainties over the likelihood of the proband’s condition having a genetic basis in view of the adult onset, lack of family history, and plausible non-genetic causes for the phenotype.  Furthermore, the absence of clear pathways or genes reported in association with this combination of features was concluded to make genomic analysis extremely challenging, and without the support of additional cases with the same phenotype therefore unlikely to be productive.  For these reasons whole genome sequencing through the 100,000 Genomes Project is not offered at this stage.  However, the GM-MDT was sympathetic to the lack of alternative routes for investigation and would be happy to reconsider this application should the case advance in such a way that evidence for a genetic cause becomes more compelling.</p>
 
 <p style="font-size: 12pt">If you would like to discuss this further, please contact the GM-MDT coordinator, Jude Craft (Judith.Craft@ouh.nhs.uk), who will arrange appropriate input and assistance.</p>
 
