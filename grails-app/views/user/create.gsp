@@ -1,3 +1,4 @@
+<sec:ifAnyGranted roles="ROLE_ADMIN">
 <html>
 
 <head>
@@ -94,3 +95,4 @@ $(document).ready(function() {
 
 </body>
 </html>
+</sec:ifAnyGranted>

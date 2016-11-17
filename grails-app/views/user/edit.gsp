@@ -1,3 +1,4 @@
+<sec:ifAnyGranted roles="ROLE_ADMIN">
 <html>
 <%@ page import="org.codehaus.groovy.grails.plugins.PluginManagerHolder" %>
 
@@ -150,3 +151,4 @@ $(document).ready(function() {
 
 </body>
 </html>
+</sec:ifAnyGranted>
