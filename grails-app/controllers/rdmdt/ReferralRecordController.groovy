@@ -506,6 +506,9 @@ class ReferralRecordController {
         if (referralRecordInstance.referralStatus.referralStatusName == 'Submitted'){
             referralRecordInstance.submittedDate = new Date()
         }
+        if (referralRecordInstance.referralStatus.referralStatusName == 'Approved'){
+            referralRecordInstance.approvedDate = new Date()
+        }
         referralRecordInstance.save flush: true
         flash.message = "Application status updated on ${referralRecordInstance?.submittedDate}"
         redirect referralRecordInstance
